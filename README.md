@@ -2,5 +2,5 @@
 hello world
 public static void main
 {
-  print
+  print("hello world")
 }
