@@ -172,6 +172,12 @@ if (isset($_GET['success'])) {
         </section>
         <!--Inner Header End--> 
 
+      <!-- Activity Log Form Start -->
+      
+
+
+      <!-- Activity Log Form End -->
+
 
         
   </div>

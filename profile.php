@@ -85,10 +85,6 @@ if (isset($_GET['first_login']) && $_GET['first_login'] === 'true') {
    <button id="editProfileBtn">Edit Profile</button>
   </div>
 
-   
-  
-  >
-
   <!--Inner Header End--> 
    <!-- Profile Header Section Start -->
    <div class="cover-photo">
