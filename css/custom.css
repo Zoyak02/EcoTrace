@@ -1065,7 +1065,7 @@ img {
 	grid-column: span 2;
 }
 
-.grid-wrapper .wide :hover{
+.grid-wrapper .wide img:hover{
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.784);
   transition: all 0.2s ease-out ;
 }
@@ -1073,7 +1073,7 @@ img {
 .grid-wrapper .tall {
 	grid-row: span 2;
 }
-.grid-wrapper .tall :hover{
+.grid-wrapper .tall img:hover{
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.784) ;
   transition: all 0.2s ease-out ;
 }
@@ -1083,12 +1083,12 @@ img {
 	grid-row: span 2;
 }
 
-.grid-wrapper .big :hover{
+.grid-wrapper .big img:hover{
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.784);
   transition: all 0.2s ease-out ;
 }
 
-.grid-wrapper .none :hover{
+.grid-wrapper .none img:hover{
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.784) ;
   transition: all 0.2s ease-out ;
  }
@@ -1117,7 +1117,6 @@ img {
 	-webkit-filter: grayscale(0%);
 	filter: grayscale(0%);
 }
-
 
 .footer {
     background-color: #1b5e20;
@@ -1274,276 +1273,6 @@ img {
 		margin-top: -35px;
 	}
 	
-	
-  
-
-
-
-
-/*********************************
-Footer Style 2 Start
-*********************************/
-.footer-style-2 {
-	width: 100%;
-	float: left;
-	background: url(../images/fpat.jpg);
-	margin-top: 70px;
-}
-.footer-widget.about-ecova {
-	border-radius: 5px;
-	overflow: hidden;
-	width: 100%;
-	float: left;
-	background: #1b5e20;
-	margin-top: -120px;
-}
-.footer-widget.about-ecova .f2logo {
-	background: #33691e;
-	text-align: center;
-	padding: 18px 0;
-}
-.footer-widget.about-ecova p {
-	padding: 20px;
-	color: #c8e6c9;
-	margin: 0px;
-}
-.footer-widget.about-ecova .more {
-	padding: 0 20px 20px;
-	color: #fff;
-	font-size: 14px;
-	font-family: 'Roboto Slab', serif;
-	display: block;
-	text-transform: uppercase;
-	font-weight: 700;
-}
-.footer-style-2 h5 {
-	font-family: 'Roboto Slab', serif;
-	color: #c8e6c9;
-	position: relative;
-	margin-bottom: 40px;
-}
-.footer-style-2 h5:after {
-	position: absolute;
-	left: 0;
-	bottom: -16px;
-	width: 165px;
-	height: 1px;
-	content: "";
-	background: #c8e6c9;
-}
-.footer-style-2 h5:before {
-	position: absolute;
-	left: 0;
-	bottom: -17px;
-	width: 30px;
-	height: 3px;
-	content: "";
-	background: #c8e6c9;
-}
-.footer-style-2 .footer-top {
-	padding: 50px 0 0 0;
-}
-ul.ftags {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-ul.ftags li {
-	display: inline-block;
-	margin: 0 6px 10px 0;
-}
-ul.ftags a {
-	background: #444444;
-	display: block;
-	line-height: 35px;
-	padding: 0 20px;
-	border-radius: 17px;
-	color: #c8e6c9;
-	font-size: 14px;
-	font-family: 'Roboto', sans-serif;
-}
-ul.ftags a:hover {
-	background: #66bb6a;
-	color: #fff;
-}
-.footer-style-2 ul.quick-links li a:before {
-	color: #c8e6c9;
-}
-.footer-style-2 ul.quick-links li a {
-	color: #c8e6c9;
-	font-size: 18px;
-	font-family: 'Poppins', sans-serif;
-	font-weight: 600;
-}
-.footer-social a {
-	display: inline-block;
-	border: 1px solid #66bb6a;
-	border-radius: 100%;
-	color: #66bb6a;
-	width: 50px;
-	height: 50px;
-	line-height: 45px;
-	text-align: center;
-	display: inline-block;
-	font-size: 18px;
-}
-.footer-social a:hover {
-	background: #66bb6a;
-	color: #fff;
-}
-.newsletter strong, .footer-social strong {
-	display: block;
-	color: #c8e6c9;
-	font-size: 24px;
-	font-weight: 400;
-	margin-bottom: 11px;
-	font-family: 'Roboto Slab', serif;
-}
-.footer-style-2 ul.lastest-products strong a {
-	color: #c8e6c9;
-	font-family: 'Poppins', sans-serif;
-	font-weight: 500;
-}
-.newsletter ul {
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-	width: 100%;
-	float: left;
-}
-.newsletter ul li {
-	margin-right: 10px;
-	float: left;
-}
-.newsletter ul li:last-child {
-	margin: 0px;
-}
-.newsletter input[type=text] {
-	border: 0;
-	background: #fff;
-	border-radius: 5px;
-	height: 50px;
-	line-height: 50px;
-	padding: 0 20px;
-	width: 250px;
-}
-.newsletter input[type=submit] {
-	background: #66bb6a;
-	color: #fff;
-	text-transform: uppercase;
-	font-family: 'Poppins', sans-serif;
-	font-weight: 600;
-	height: 50px;
-	line-height: 50px;
-	border: 0px;
-	border-radius: 5px;
-	padding: 0 20px;
-}
-.footer-newsletter .container {
-	border-top: 1px solid #434943;
-	padding: 30px 15px;
-}
-.footer-style-2 .footer-copyr {
-	background: #191919;
-	padding: 15px 0;
-	border: 0px;
-}
-.footer-style-2 .footer-copyr p {
-	margin: 0px;
-	padding: 0px;
-	color: #666666;
-	text-align: center;
-}
-.footer-social {
-	padding-left: 70px;
-}
-/*********************************
-Footer Style 2 End
-*********************************/
-
-
-
-/***************  Home 3 Footer Start  *****************/
-
-.h3footer {
-	background: url(../images/h3footerbg.jpg) no-repeat;
-	background-size: cover;
-	padding: 60px 0 0;
-}
-.h3footer .footer-widget h3 {
-	color: #fff;
-	margin: 0 0 22px;
-}
-.h3footer ul.quick-links li {
-	line-height: 26px;
-}
-.h3footer ul.quick-links li a {
-	font-size: 14px;
-}
-.h3footer ul.lastest-products img {
-	border-radius: 0px;
-	width: 83px;
-	height: 83px;
-}
-.h3footer ul.lastest-products strong {
-	font-size: 18px;
-	margin-bottom: 10px;
-}
-.h3footer .newsletter ul li {
-	width: 100%;
-	margin: 0px 0 10px;
-}
-.h3footer .newsletter input[type=text] {
-	width: 100%;
-	border: 1px solid #dddddd;
-	border-radius: 0px;
-	background: none;
-	color: #dddddd;
-}
-.h3footer .newsletter input[type=submit] {
-	width: 100%;
-	border-radius: 0px;
-	color: #fff;
-	background: #20b1aa;
-	cursor: pointer;
-}
-.h3footer .newsletter input[type=submit]:hover {
-	background: #027371;
-	color: #fff;
-}
-.h3footer .footer-social {
-	margin-top: 20px;
-	width: 100%;
-	float: left;
-}
-.h3footer .footer-social a {
-	border: 1px solid #ffffff;
-	color: #ffffff;
-	width: 44px;
-	height: 44px;
-	line-height: 42px;
-}
-.h3footer .footer-social a:hover {
-	background: #ffffff;
-	color: #20b1aa;
-}
-.h3footer ul.lastest-products strong, .h3footer ul.quick-links li a {
-	font-family: 'droidSans';
-	font-weight: 400;
-}
-.h3footer ul.quick-links li a {
-	color: #dddddd;
-	font-size: 16px;
-}
-.h3footer span.pdate i {
-	color: #cccccc;
-}
-.h3footer .footer-widget p {
-	margin: 0 0 10px;
-}
-/*********************************
-Home Page 3 Style 3 End
-*********************************/
 
 
 

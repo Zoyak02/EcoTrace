@@ -948,20 +948,24 @@ ini_set('display_errors', 1);
 
        <!--==================== GALLERY ====================-->
 
-       <section class="agallery gallery wf100 p100">
+       <section class="gallery wf100 p100">
             <div class="container">
+               
                <div class="section-title-3">
                   <h5><b>Our Latest</b></h5>
                   <h2>Activity Gallery</h2>
                </div>
 
              <div class="grid-wrapper">
+                
                  <div class="none">
                   <img src="https://images.unsplash.com/photo-1552799446-159ba9523315?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
                  </div>
+
                  <div class="none">
                      <img src="https://247wallst.com/wp-content/uploads/2019/03/gettyimages-1016706864.jpg" alt="" />
                  </div>
+
                  <div class="tall">
                     <img src="https://images.unsplash.com/photo-1616680213669-92c78de95f38?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHJlY3ljbGluZyUyMHZvbHVudGVlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
                  </div>
