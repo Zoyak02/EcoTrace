@@ -173,7 +173,121 @@ if (isset($_GET['success'])) {
         <!--Inner Header End--> 
 
       <!-- Activity Log Form Start -->
-      
+      <form id="activity-log-form">
+
+      <!-- TRANSPORTATION METHOD -->
+
+         <div id="car_owner_questions" class="form-group">
+            <!-- Car owner questions -->
+            <label>How many kilometers did you drive your car this week?</label>
+            <input type="number" name="car_kilometers" min="0" step="1" class="form-control">
+            <label>Were there any carpooling instances this week? If yes, how many times?</label>
+            <input type="number" name="carpool_instances" min="0" step="1" class="form-control">
+         </div>
+
+         <div id="public_transportation_questions" class="form-group">
+            <!-- Public transportation questions -->
+            <label>How many times did you use public transportation this week?</label>
+            <input type="number" name="public_transportation_times" min="0" step="1" class="form-control">
+         </div>
+
+         <div id="active_commuter_questions" class="form-group">
+            <!-- Active commuter questions -->
+            <label>How many days did you walk or cycle as your primary mode of transportation this week?</label>
+            <input type="number" name="active_commuter_days" min="0" step="1" class="form-control">
+         </div>
+
+         <!-- DIETARY PREFERENCES -->
+
+         <div id="meat_lover_questions" class="form-group">
+            <!-- Meat lover questions -->
+            <label>How many servings of red meat (beef, lamb, pork) did you consume this week?</label>
+            <input type="number" name="red_meat_servings" min="0" step="1" class="form-control">
+            <label>How many servings of poultry (chicken, turkey) did you consume this week?</label>
+            <input type="number" name="poultry_servings" min="0" step="1" class="form-control">
+            <label>How many servings of fish did you consume this week?</label>
+            <input type="number" name="fish_servings" min="0" step="1" class="form-control">
+         </div>
+
+         <div id="vegetarian_questions" class="form-group">
+            <!-- Vegetarian questions -->
+            <label>How many plant-based meals did you have this week?</label>
+            <input type="number" name="plant_based_meals" min="0" step="1" class="form-control">
+            <label>How many servings of tofu or other plant-based protein did you consume?</label>
+            <input type="number" name="plant_protein_servings" min="0" step="1" class="form-control">
+         </div>
+
+         <div id="mixed_diet_questions" class="form-group">
+            <!-- Mixed diet questions -->
+            <label>Specify the number of meat-based and plant-based meals you had this week.</label>
+            <input type="text" name="mixed_diet_meals" class="form-control">
+         </div>
+
+         <!-- ENERGY CONSUMPTION -->
+
+         <div id="heating_cooling_questions" class="form-group">
+            <!-- Heating and Cooling questions -->
+            <label>On average, how many hours per day did you use heating this week?</label>
+            <input type="number" name="heating_hours" min="0" step="1" class="form-control">
+            <label>On average, how many hours per day did you use air conditioning this week?</label>
+            <input type="number" name="ac_hours" min="0" step="1" class="form-control">
+         </div>
+
+         <div id="appliances_questions" class="form-group">
+            <!-- Energy-Intensive Appliances questions -->
+            <label>How many loads of laundry did you do using a washing machine this week?</label>
+            <input type="number" name="laundry_loads" min="0" step="1" class="form-control">
+            <label>How many hours did you use a dryer this week?</label>
+            <input type="number" name="dryer_hours" min="0" step="1" class="form-control">
+            <label>How many loads did you run in the dishwasher this week?</label>
+            <input type="number" name="dishwasher_loads" min="0" step="1" class="form-control">
+         </div>
+
+         <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+
+      <!-- JAVASCRIPT -->
+
+      <script>
+         // Function to show/hide questions based on user's transportation method
+         function showHideQuestions() {
+            var transportation = "<?php echo $user_transportation; ?>";
+            var diet = "<?php echo $user_diet; ?>";
+
+            // Hide all question sections first
+            document.getElementById('car_owner_questions').style.display = 'none';
+            document.getElementById('public_transportation_questions').style.display = 'none';
+            document.getElementById('active_commuter_questions').style.display = 'none';
+
+            document.getElementById('meat_lover_questions').style.display = 'none';
+            document.getElementById('vegetarian_questions').style.display = 'none';
+            document.getElementById('mixed_diet_questions').style.display = 'none';
+
+            // Show relevant question section based on user's transportation method
+            if (transportation === 'car_owner') {
+                  document.getElementById('car_owner_questions').style.display = 'block';
+            } else if (transportation === 'public_transportation') {
+                  document.getElementById('public_transportation_questions').style.display = 'block';
+            } else if (transportation === 'active_commuter') {
+                  document.getElementById('active_commuter_questions').style.display = 'block';
+            }
+
+            // Show relevant question section based on user's diet
+            if (diet === 'meat_lover') {
+                  document.getElementById('meat_lover_questions').style.display = 'block';
+            } else if (diet === 'vegetarian') {
+                  document.getElementById('vegetarian_questions').style.display = 'block';
+            } else if (diet === 'mixed_diet') {
+                  document.getElementById('mixed_diet_questions').style.display = 'block';
+            }
+         }
+
+         // Call the function initially to set the initial state of the form
+         showHideQuestions();
+      </script>
+
+
 
 
       <!-- Activity Log Form End -->

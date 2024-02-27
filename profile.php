@@ -614,6 +614,7 @@ if (isset($_GET['first_login']) && $_GET['first_login'] === 'true') {
 
    <!-- FIRST-TIME LOGIN FORM -->
    <div id="first-login-modal" class="modal">
+      <h1>Let us know you better!</h1>
       <div class="modal-content">
          <span class="close">&times;</span>
          <h2>First Login Questionnaire</h2>
