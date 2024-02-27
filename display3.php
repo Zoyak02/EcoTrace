@@ -38,7 +38,6 @@ $totalPages = ceil($rowCount / $itemsPerPage);
     <meta name="author" content="">
     <link rel="icon" href="images/favicon.png">
     <script src="https://kit.fontawesome.com/877d2cecdc.js" crossorigin="anonymous"></script>
-    <title>Educational Content</title>
     <!-- CSS FILES START -->
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/color.css" rel="stylesheet">
@@ -113,17 +112,17 @@ $totalPages = ceil($rowCount / $itemsPerPage);
                                                   data-image="' . htmlspecialchars($fetch_src . $row['content']) . '" 
                                                   data-description="' . htmlspecialchars($row['description']) . '"><i class="fas fa-link"></i></a>';
               echo '<div class="image-container" style="width: 100%; height: 200px; overflow: hidden;">';
-              echo '<img src="' . $fetch_src . $row['image'] . '" alt="" style="width: 100%; height: 100%; object-fit: cover;">';
+              echo '<img src="' . $fetch_src . $row['content'] . '" alt="" style="width: 100%; height: 100%; object-fit: cover;">';
               echo '</div>';
               echo '</div>';
               echo '<div class="campaign-txt" style="padding-top:15px;">';
               echo '<h6 style="height:40px;">' . $row['title'] . '</a></h6>';
-              echo '<p style="margin-bottom:0px;">' . truncateText($row['description'], 120) . '</p>'; //style="height:40px; padding-top:3px;"truncateText($row['description'], 120)
+              echo '<p style="margin-bottom:0px;">' . truncateText($row['description'], 120) . '</p>'; //style="height:40px; padding-top:3px;"
               echo '<br>';
               // Add data attributes to the "View More" link for modal
               echo '<a href="#" class="dbutton" data-toggle="modal" data-target="#contentModal" 
                       data-title="' . htmlspecialchars($row['title']) . '" 
-                      data-image="' . htmlspecialchars($fetch_src . $row['image']) . '" 
+                      data-image="' . htmlspecialchars($fetch_src . $row['content']) . '" 
                       data-description="' . htmlspecialchars($row['description']) . '">View More</a>';
               echo '</div>';
               echo '</div>';
@@ -296,7 +295,7 @@ $totalPages = ceil($rowCount / $itemsPerPage);
             $('#contentModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var title = button.data('title');
-                var image = button.data('image');
+                var image = button.data('content');
                 var description = button.data('description');
 
                 var modal = $(this);
