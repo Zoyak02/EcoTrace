@@ -26,7 +26,7 @@ if (isset($_GET['success'])) {
     <div class="d-flex align-items-center justify-content-between px-3">
       <h2>
         <a href="index_merchant.php" class="text-black text-decoration-none">
-          <img src="img/EcoTrace.png" style="width:100px;"></img> Welcome back, Admin
+          <img src="images/EcoTrace Logo.png" style="width:100px;"></img> Welcome back, Admin
         </a>
       </h2>
       <div class="d-flex align-items-center">
@@ -155,25 +155,25 @@ else if(isset($_GET['success']))
 
       <tbody class=bg-white>
       <?php
-        $query = "SELECT * FROM content";
+        $query = "SELECT * FROM eduContent";
         $result=mysqli_query($con,$query);
         $i=1;
         $fetch_src = FETCH_SRC;
 
         while($fetch=mysqli_fetch_assoc($result))
         {
-          echo<<<content
+          echo<<<eduContent
             <tr class="align-middle">
               <th scope="row">$i</th>
-              <td><img src="$fetch_src$fetch[image]" width="150px"></td>
-              <td>$fetch[category]</td>
+              <td><img src="$fetch_src$fetch[content]" width="150px"></td>
+              <td>$fetch[categoryOfContent]</td>
               <td>$fetch[title]</td>
               <td>$fetch[description]</td>
               <td>
-                <button onclick="confirm_rem($fetch[id])" class="btn btn-danger me-2"><i class="bi bi-trash"></i></button>
+                <button onclick="confirm_rem($fetch[contentID])" class="btn btn-danger me-2"><i class="bi bi-trash"></i></button>
               </td>
             </tr>
-          content;
+            eduContent;
           $i++;
         }
         ?>

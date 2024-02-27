@@ -1,6 +1,6 @@
 <?php 
 
-  $con = mysqli_connect("localhost", "root", "", "test");
+  $con = mysqli_connect("localhost", "root", "", "EcoTrace");
 
   if(mysqli_connect_errno()){
     die("Cannot Connect to the database".mysqli_connect_error());

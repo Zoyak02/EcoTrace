@@ -44,7 +44,7 @@ if (isset($_POST['addcontent'])) {
       exit;
   }
 
-  $query = "INSERT INTO `content`(`type`, `category`, `title`, `description`, `image`) 
+  $query = "INSERT INTO `eduContent`(`typeOfContent`, `categoryOfContent`, `title`, `description`, `content`) 
             VALUES ('$_POST[content]','$_POST[category]','$_POST[title]','$_POST[desc]','$imgpath')";
 
   if (mysqli_query($con, $query)) {
@@ -69,14 +69,14 @@ if (isset($_POST['addcontent'])) {
   if (isset($_GET['rem']) && $_GET['rem'] > 0) {
     $remId = mysqli_real_escape_string($con, $_GET['rem']);
 
-    $query = "SELECT * FROM `content` WHERE `id` = '$remId'";
+    $query = "SELECT * FROM `eduContent` WHERE `contentID` = '$remId'";
     $result = mysqli_query($con, $query);
     $fetch = mysqli_fetch_assoc($result);
 
-    image_remove($fetch['image']);
+    image_remove($fetch['content']);
 
     // Corrected table name in the deletion query
-    $deleteQuery = "DELETE FROM `content` WHERE `id` = '$remId'";
+    $deleteQuery = "DELETE FROM `eduContent` WHERE `contentID` = '$remId'";
     
     if (mysqli_query($con, $deleteQuery)) {
         header("location: index_admin.php?success=removed");
