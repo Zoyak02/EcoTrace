@@ -8,8 +8,8 @@ if (isset($_SESSION['success_message'])) {
    $success_message = $_SESSION['success_message'];
    // Unset the session variable to clear the message after displaying it once
    unset($_SESSION['success_message']);
-}
 
+}
 
 ?>
 
@@ -272,6 +272,14 @@ if (isset($_SESSION['success_message'])) {
     <script src="js/isotope.min.js"></script> 
     <script src="js/custom.js"></script>
     <script src="js/signup.js"></script>
+
+    <script>
+         // Function to display the pop-up message
+         function showSuccessMessage() {
+            $('#popupMessage').modal('show');
+         }
+      </script>
+
 </body>
 </html>
 
