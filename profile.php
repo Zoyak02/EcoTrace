@@ -5,6 +5,11 @@ require("connection.php");
 if (isset($_GET['success'])) {
   $success_message = $_GET['success'];
 }
+
+// Check if it's the user's first login
+if (isset($_GET['first_login']) && $_GET['first_login'] === 'true') {
+   echo '<script>openFirstLoginForm();</script>';
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +32,48 @@ if (isset($_GET['success'])) {
   <link href="css/slick.css" rel="stylesheet">
   <link href="css/profile.css" rel="stylesheet">
   <!-- CSS FILES End -->
+
+   <style>
+      /* Style the modal */
+      .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.4);
+      }
+
+      /* Modal content */
+      .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      }
+
+      /* Close button */
+      .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+      }
+
+   </style>
+
 </head>
 <body>
   <!--Inner Header Start-->
@@ -38,22 +85,9 @@ if (isset($_GET['success'])) {
    <button id="editProfileBtn">Edit Profile</button>
   </div>
 
-  <!-- Modal -->
-   <div id="editProfileModal" class="modal">
-      <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Edit Profile</h2>
-      <form id="editProfileForm">
-         <!-- Input fields for editing profile details -->
-         <label for="name">Name:</label>
-         <input type="text" id="name" name="name" value="John Doe">
-         
-         <!-- Add more input fields for other profile details -->
-         
-         <button type="submit">Save Changes</button>
-      </form>
-      </div>
-   </div>
+   
+  
+  >
 
   <!--Inner Header End--> 
    <!-- Profile Header Section Start -->
@@ -581,6 +615,142 @@ if (isset($_GET['success'])) {
          </div>
       </div>
    </div>
+
+   <!-- FIRST-TIME LOGIN FORM -->
+   <div id="first-login-modal" class="modal">
+      <div class="modal-content">
+         <span class="close">&times;</span>
+         <h2>First Login Questionnaire</h2>
+         <form id="first-login-form">
+            <label for="transportation">What is your primary mode of transportation?</label><br>
+            <select id="transportation" name="transportation">
+               <option value="car_owner">Car owner</option>
+               <option value="public_transportation">Public transportation user</option>
+               <option value="active_commuter">Active commuter (walk, cycle)</option>
+               <option value="other_transport">Other</option>
+            </select>
+            <input type="text" id="other_transport_text" name="other_transport" style="display: none;" placeholder="Please specify"><br>
+
+            <label for="dietary_preferences">How would you describe your dietary preferences?</label><br>
+            <select id="dietary_preferences" name="dietary_preferences">
+               <option value="meat_lover">Meat lover</option>
+               <option value="vegetarian">Vegetarian</option>
+               <option value="vegan">Vegan</option>
+               <option value="mixed_diet">Mixed diet</option>
+               <option value="other_diet">Other</option>
+            </select>
+            <input type="text" id="other_diet_text" name="other_diet" style="display: none;" placeholder="Please specify"><br>
+
+            <label for="housing">Do you live in a house or an apartment?</label><br>
+            <input type="radio" id="house" name="housing" value="house">
+            <label for="house">House</label><br>
+            <input type="radio" id="apartment" name="housing" value="apartment">
+            <label for="apartment">Apartment</label><br>
+
+            <label for="air_conditioning">Do you have air conditioning?</label><br>
+            <input type="radio" id="ac_yes" name="air_conditioning" value="yes">
+            <label for="ac_yes">Yes</label><br>
+            <input type="radio" id="ac_no" name="air_conditioning" value="no">
+            <label for="ac_no">No</label><br>
+
+            <label for="household_size">How many people are there in your household?</label><br>
+            <select id="household_size" name="household_size">
+               <option value="1">1</option>
+               <option value="2">2</option>
+               <option value="3">3</option>
+               <option value="4">4</option>
+               <option value="5+">5+</option>
+            </select><br>
+
+            <button type="submit">Submit</button>
+         </form>
+         <script>
+            // JavaScript to toggle the visibility of the text input fields based on the selected options
+            document.getElementById('transportation').addEventListener('change', function() {
+               var otherTransportInput = document.getElementById('other_transport_text');
+               otherTransportInput.style.display = this.value === 'other_transport' ? 'block' : 'none';
+            });
+
+            document.getElementById('dietary_preferences').addEventListener('change', function() {
+               var otherDietInput = document.getElementById('other_diet_text');
+               otherDietInput.style.display = this.value === 'other_diet' ? 'block' : 'none';
+            });
+         </script>
+      </div>
+   </div>
+
+   <!-- EDIT PROFILE -->
+   <!-- Modal -->
+   <div id="editProfileModal" class="modal">
+      <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Edit Profile</h2>
+      <form id="editProfileForm">
+         <!-- Input fields for editing profile details -->
+         <label for="name">Name:</label>
+         <input type="text" id="name" name="name" value="John Doe">
+         
+         <!-- Add more input fields for other profile details -->
+         
+         <button type="submit">Save Changes</button>
+      </form>
+      </div>
+   </div>
+   
+   <script>
+      // Function to open the first-login form modal
+      function openFirstLoginForm() {
+         var firstLoginModal = document.getElementById("first-login-modal");
+         firstLoginModal.style.display = "block";
+      }
+
+      // Get the modal
+      var firstLoginModal = document.getElementById("first-login-modal");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // When the user clicks on the button, open the modal
+      function openModal() {
+         firstLoginModal.style.display = "block";
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+         firstLoginModal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+      if (event.target == modal) {
+         firstLoginModal.style.display = "none";
+      }
+      }
+
+      // Get the Edit Profile modal
+      var editProfileModal = document.getElementById("editProfileModal");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[1]; // Assuming it's the second element with class "close"
+
+      // When the user clicks on the button, open the modal
+      function openEditProfileModal() {
+         editProfileModal.style.display = "block";
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+         editProfileModal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+         if (event.target == editProfileModal) {
+            editProfileModal.style.display = "none";
+         }
+      }
+   </script>
+
   </div>
   <!-- Badges Section End -->
   <!--   JS Files Start  --> 

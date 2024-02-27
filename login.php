@@ -9,6 +9,8 @@ if (isset($_SESSION['success_message'])) {
    // Unset the session variable to clear the message after displaying it once
    unset($_SESSION['success_message']);
 }
+
+
 ?>
 
 <!DOCTYPE html>
