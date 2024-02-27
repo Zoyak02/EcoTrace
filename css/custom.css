@@ -306,47 +306,6 @@ Inner Header Start
 /*********************************
 Inner Header End
 *********************************/
-
-
-
-/*=============== VIDEO ===============*/
-
-.button {
-	display: inline-block;
-	background-color: #66bb6a;
-	color:white;
-	padding: 1rem 2rem;
-	font-weight: 50;
-	transition: .3s;
-	border: none;
-  }
-
-  .button--flex {
-	display: flex;
-	align-items: center;
-	column-gap: .25rem;
-  }
- 
-  .video__content {
-	position: relative;
-  }
-  
-  .video__button {
-	position: absolute;
-	right: 1rem;
-	bottom: 1rem;
-	padding: 1rem 1.5rem;
-	border-radius: 10px;
-  }
-  
-  .video__button:hover {
-	background-color: #1b5e20;
-  }
-  
-  .video__button-icon {
-	font-size: 1.2rem;
-  }
-
  
 
 /*********************************
@@ -659,44 +618,6 @@ section.services-area ul li.active:after {
 .pt80 {
 	padding-top: 80px;
 }
-.counter-box {
-	position: relative;
-	padding: 35px 0 0 22px;
-}
-.counter-box:after {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 95px;
-	height: 124px;
-	background: #fff;
-	border: 2px solid #e6e6e6;
-	content: "";
-}
-.counter-box p.counter-count {
-	position: relative;
-	z-index: 99;
-	background: none;
-	color: #66bb6a;
-	line-height: 40px;
-	margin: 0 0 5px;
-}
-.counter-box p.counter-count:after {
-	display: none;
-}
-.counter-box p.ctxt {
-	position: relative;
-	z-index: 99;
-	color: #888888;
-	font-weight: 400;
-	font-size: 18px;
-}
-.video-img {
-	width: 100%;
-	float: left;
-	overflow: hidden;
-	position: relative;
-}
 
 .h2-about-txt h3 {
 	color: #66bb6a;
@@ -716,6 +637,54 @@ section.services-area ul li.active:after {
 	line-height: 28px;
 	margin: 0 0 30px;
 }
+
+/*=============== VIDEO ===============*/
+
+.button {
+	display: inline-block;
+	background-color: #66bb6a;
+	color:white;
+	padding: 1rem 2rem;
+	font-weight: 50;
+	transition: .3s;
+	border: none;
+  }
+
+  .button--flex {
+	display: flex;
+	align-items: center;
+	column-gap: .25rem;
+  }
+ 
+  .video__content {
+	position: relative;
+
+  }
+  
+  .video__button {
+	position: absolute;
+	right: 1rem;
+	bottom: 1rem;
+	padding: 1rem 1.5rem;
+	border-radius: 10px;
+  }
+  
+  .video__button:hover {
+	background-color: #1b5e20;
+  }
+  
+  .video__button-icon {
+	font-size: 1.2rem;
+  }
+
+  .video-img {
+	width: 100%;
+	float: left;
+	overflow: hidden;
+	position: relative;
+}
+
+
 /***************  Urgent Causes  *****************/
 
 ul.funds {

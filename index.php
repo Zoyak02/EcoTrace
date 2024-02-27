@@ -1,3 +1,7 @@
+<?php 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ ?>
 
 <html>
 <meta charset="utf-8">
@@ -355,7 +359,7 @@
          <div class="container">
             <div class="row">
                <div class="col-6">
-                  <div class="video-img">
+                  <div class="video-img"  style="margin-bottom:-70%;">
                      <div class="video__content">
                          <video id="video-file">
                              <source src="video/Video.mp4" type="video/mp4">
