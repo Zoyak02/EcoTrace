@@ -152,7 +152,7 @@ if (isset($_SESSION['success_message'])) {
                              <a href="#" class="fp">Forgot Password</a> 
                           </div>
                           <div class="input-group">
-                             <button class="login-btn mx-auto d-block">Login</button>
+                             <button class="login-acc-btn">Login</button>
                           </div>
                        </form>
                     </div>
@@ -271,7 +271,6 @@ if (isset($_SESSION['success_message'])) {
     <script src="js/jquery.prettyPhoto.js"></script> 
     <script src="js/isotope.min.js"></script> 
     <script src="js/custom.js"></script>
-    <script src="js/signup.js"></script>
 
     <script>
          // Function to display the pop-up message

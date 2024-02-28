@@ -2387,6 +2387,7 @@ My Account Page Start
 .login-box .input-group, .myaccount-form .input-group {
 	margin-bottom: 30px;
 }
+
 .myaccount-form input.form-control {
 	height: 53px;
 	line-height: 51px;
@@ -2463,6 +2464,24 @@ My Account Page Start
 	font-family: 'Poppins', sans-serif;
 	cursor: pointer;
 }
+
+.login-acc-btn {
+	display: inline-block;
+	color: #000000;
+	border-radius: 3px;
+	line-height: 44px;
+	padding: 0 25px;
+	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.login-acc-btn:hover {
+	background: #1b5e20;
+	color: #fff;
+}
+
 /*********************************
 My Account Page End
 *********************************/
