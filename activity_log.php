@@ -17,7 +17,7 @@ if (isset($_GET['success'])) {
     <link rel="icon" href="images/favicon.png">
     <title>Activity Tracking</title>
     <!-- CSS FILES START -->
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/custom3.css" rel="stylesheet">
     <link href="css/color.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/owl.carousel.min.css" rel="stylesheet">
@@ -30,49 +30,53 @@ if (isset($_GET['success'])) {
   <div class="wrapper">
     <!--Header Start-->
     <header class="header-style-2">
-            <nav class="navbar navbar-expand-lg">
-               <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px"></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                   <ul class="navbar-nav mr-auto">
-                       <li class="nav-item">
-                           <a class="nav-link" href="index-2.html">Home</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="about.html">About</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="events-grid.html">Events</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="causes.html">Causes</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="blog.html">Blogs</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="#">Pages</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="contact.html">Contact</a>
-                       </li>
-                   </ul>
+        <nav class="navbar navbar-expand-lg">
+            <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events-grid.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="causes.html">Causes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blogs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
 
-                   <li class="nav-item" style="list-style: none;">
-                     <a class="login-btn" href="login-page" role="button"> Login </a>
-                 </li>
-               </div>
-         
-            </nav>
-            
-         </header>
+                <li class="nav-item" style="list-style: none;">
+                    <a class="login-btn" href="login-page" role="button"> Login </a>
+                </li>
+            </div>
+        
+        </nav>
+        
+    </header>
+    <!-- Header End -->
 
-     
-         <div id="index_hype_container" style="margin:auto;position:relative;overflow:hidden;">
-            <script type="text/javascript" charset="utf-8" src="index.hyperesources/index_hype_generated_script.js?71159"> </script>
+    <!--Inner Header Start-->
+    <section class="wf100 inner-header">
+        <div class="container">
+            <h1>Activity Tracking </h1>
         </div>
+        </section>
+    <!--Inner Header End--> 
 
-      <!-- Activity Log Form Start -->
+    <!-- Activity Log Form Start -->
       <div class="container">
          <div class="row justify-content-center">
             <div class="col-md-7">
@@ -268,6 +272,7 @@ if (isset($_GET['success'])) {
                    </div>
                </div>
            </footer>
+        </div>
   </div>
   <!--   JS Files Start  --> 
   <script src="js/jquery-3.3.1.min.js"></script> 

@@ -18,8 +18,7 @@ ini_set('display_errors', 1);
       <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-oS3vJDOi7W1ZLfIR3hjOMaL8NZ2Imw8qCD9T/ME5SXNtE1QhSUpc6auRvRSaG8lN" crossorigin="anonymous">
 
-      
-
+   
       <!-- CSS FILES START -->
       <link href="css/custom3.css" rel="stylesheet">
       <link href="css/color.css" rel="stylesheet">
