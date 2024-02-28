@@ -106,7 +106,7 @@ $totalPages = ceil($rowCount / $itemsPerPage);
             while ($row = mysqli_fetch_assoc($result)) {
               echo '<div class="col-md-4 col-sm-6">';
               echo '<!-- campaign box start -->';
-              echo '<div class="campaign-box" style="height:450px; overflow:hidden;">';
+              echo '<div class="campaign-box" style="box-shadow: 0 10px 40px rgba(156,204,101,.35);height:440px; overflow:hidden;">';
               echo '<div class="campaign-thumb"> <a href="#" data-toggle="modal" data-target="#contentModal" 
                                                   data-title="' . htmlspecialchars($row['title']) . '" 
                                                   data-image="' . htmlspecialchars($fetch_src . $row['content']) . '" 
@@ -133,7 +133,8 @@ $totalPages = ceil($rowCount / $itemsPerPage);
             echo '</div>';
             echo '</div>';
             echo '</section>';
-        } else {
+        } 
+        else {
             echo "Error retrieving data: " . mysqli_error($con);
         }
          
@@ -146,10 +147,10 @@ $totalPages = ceil($rowCount / $itemsPerPage);
       }
 
       // Pagination navigation
-      echo '<div class="row" style="margin-bottom: 60px;">'; // Adjust the margin as needed
+      echo '<div class="pagination-container">'; 
       echo '<div class="col-md-12">';
       echo '<div class="gt-pagination mt20">';
-      echo '<nav>';
+      echo '<nav style="margin-bottom: 30px;">';
       echo '<ul class="pagination">';
 
       if ($totalPages > 1) {
@@ -176,32 +177,35 @@ $totalPages = ceil($rowCount / $itemsPerPage);
       echo '</div>';
       echo '</div>';
       ?>
-
-        <!-- OnClick Modal Start -->
-        <div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="contentModalLabel"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <!-- Modal Start -->
+    <div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contentModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Move image to the top -->
+                            <img src="" class="img-fluid" id="contentModalImage">
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <img src="" alt="" class="img-fluid" id="contentModalImage">
-                            </div>
-                            <div class="col-md-6">
-                                <p id="contentModalDescription"></p>
-                            </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Move description to the bottom -->
+                            <p id="contentModalDescription"></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- OnClick Modal End -->
+    </div>
+    <!-- Modal Start -->
     </div>
 
     <div class="ftco-section wf100">
@@ -295,12 +299,12 @@ $totalPages = ceil($rowCount / $itemsPerPage);
             $('#contentModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var title = button.data('title');
-                var image = button.data('content');
+                var content = button.data('image');
                 var description = button.data('description');
 
                 var modal = $(this);
                 modal.find('.modal-title').text(title);
-                modal.find('#contentModalImage').attr('src', image);
+                modal.find('#contentModalImage').attr('src', content);
                 modal.find('#contentModalDescription').text(description);
             });
         });
