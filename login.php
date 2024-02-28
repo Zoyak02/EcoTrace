@@ -87,16 +87,16 @@ if (isset($_SESSION['success_message'])) {
                  <div class="col-lg-8">
                     <div class="myaccount-form">
                        <h3>Create Account</h3>
-                       <form method="post" action="signup.php">
+                       <form method="post" action="userdb.php">
                            <ul class="row">
                               <li class="col-md-6">
                                     <div class="input-group">
-                                       <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
+                                       <input type="text" name="firstName" class="form-control" placeholder="First Name" required>
                                     </div>
                               </li>
                               <li class="col-md-6">
                                     <div class="input-group">
-                                       <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
+                                       <input type="text" name="lastName" class="form-control" placeholder="Last Name" required>
                                     </div>
                               </li>
                               <li class="col-md-6">
@@ -106,7 +106,7 @@ if (isset($_SESSION['success_message'])) {
                               </li>
                               <li class="col-md-6">
                                     <div class="input-group">
-                                       <input type="text" name="contact_number" class="form-control" placeholder="Contact Number">
+                                       <input type="text" name="contactNumber" class="form-control" placeholder="Contact Number">
                                     </div>
                               </li>
                               <li class="col-md-6">
@@ -125,10 +125,6 @@ if (isset($_SESSION['success_message'])) {
                               </li>
                            </ul>
                         </form>
-
-                        <?php if (isset($error_message)): ?>
-                           <div class="alert alert-danger"><?php echo $error_message; ?></div>
-                        <?php endif; ?>
 
                     </div>
                  </div>
@@ -158,28 +154,28 @@ if (isset($_SESSION['success_message'])) {
         </section>
         <!-- Content End--> 
 
-         <!-- Popup message -->
-    <div id="popupMessage" class="modal" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Registration Successful!</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
+        <!-- Create Account Popup message -->
+        <div id="popupMessage" class="modal" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Registration Successful!</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
 
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <p>A default password has been sent to your email. Please check your inbox and login using the provided password.</p>
-                </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p>A default password has been sent to your email. Please check your inbox and login using the provided password.</p>
+                    </div>
 
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
    </div>
    <div>
@@ -268,12 +264,19 @@ if (isset($_SESSION['success_message'])) {
     <script src="js/isotope.min.js"></script> 
     <script src="js/custom.js"></script>
 
+    <!-- Add this script at the end of your HTML body -->
     <script>
-         // Function to display the pop-up message
-         function showSuccessMessage() {
-            $('#popupMessage').modal('show');
-         }
-      </script>
+        // Check if the success message session variable is set
+        <?php if (isset($_SESSION['success_message'])): ?>
+            // Call the function to display the popup message
+            showSuccessMessage();
+        <?php endif; ?>
+
+        // Function to display the pop-up message
+        function showSuccessMessage() {
+            $('#popupMessage').modal('show'); // Assuming you are using Bootstrap modal
+        }
+    </script>
 
 </body>
 </html>
