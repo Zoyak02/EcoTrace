@@ -437,7 +437,7 @@ a.cart-icon, a.search-icon {
     color: #fff;
 	font-family: 'Poppins';
 	font-weight: 600;
-    padding: 10px 15px;
+    padding: 10px 32px 10px 32px;
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
@@ -445,7 +445,6 @@ a.cart-icon, a.search-icon {
     background-color: #66bb6a;
     transition: background-color 0.3s;
 	border-radius: 5px;
-	width: 80%;
 	list-style: none;
 }
 
