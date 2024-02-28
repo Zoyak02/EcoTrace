@@ -39,7 +39,7 @@ $totalPages = ceil($rowCount / $itemsPerPage);
     <link rel="icon" href="images/favicon.png">
     <script src="https://kit.fontawesome.com/877d2cecdc.js" crossorigin="anonymous"></script>
     <!-- CSS FILES START -->
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/custom1.css" rel="stylesheet">
     <link href="css/color.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/owl.carousel.min.css" rel="stylesheet">
