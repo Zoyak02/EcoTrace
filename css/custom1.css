@@ -306,7 +306,7 @@ Inner Header Start
 /*********************************
 Inner Header End
 *********************************/
- 
+
 
 /*********************************
 Home Page 2 Start
@@ -1069,6 +1069,7 @@ img {
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.784);
   transition: all 0.2s ease-out ;
 }
+
 
 .grid-wrapper .tall {
 	grid-row: span 2;
@@ -4316,7 +4317,7 @@ section.wf100.p80.fcampaigns {
 	overflow: hidden;
 	background: #fff;
 	border-radius: 5px;
-	box-shadow: 0 10px 40px rgba(156,204,101,.60);
+	box-shadow: 0 10px 40px rgba(156,204,101,.20);
 }
 .campaign-txt {
 	padding: 30px;
@@ -4378,4 +4379,516 @@ ul.participants, .campaign-txt h5 {
 	color: #8bc34a;
 }
 
+.campaign-thumb {
+	position: relative;
+	overflow: hidden;
+}
+.volbox h5, .newsletter input[type=submit], #home-slider.owl-theme .owl-nav [class*=owl-], .add-2-cart input[type="submit"], a.view, .side-search button, #search .btn, .aboutus, .header-style-2 .dropdown-menu a, .header-style-1 .dropdown-menu a, .cus, .c-info, .post-thumb a, .blog-post-large .post-thumb:after, .h3footer .newsletter input[type=submit], .fsubmit, .side-widget.archives ul li a, .rp-box h6 a, .blog-single-content .rp-box .post-meta li a i, .blog-single-content .rp-box .post-meta li a, .project-list-widget ul li a, .side-widget .lastest-products strong a, .eco-box .econ-icon, .eco-box h5, .single-post-tags a, .about-text a, .about-video-img a, .slider-caption a, .donator-details input[type="submit"], p.stars a:before, a.contact-team, .single-counter-box a, .share-post a, .post-tags a, button.post-btn, .testimonials-section.bg-white .owl-theme .owl-dots .owl-dot span, .login-box button.login-btn, .login-box a.fp, .myaccount-form button.register, .myaccount-form a, .page-404-txt a, .gallery-img a, .gallery-img:before, .gallery-img:after, .cform .fsubmit, .bav, .vol-box, .vol-txt strong, .team-box .team-info, .team-box .team-info ul, .event-txt h4 a, .event-list-box .event-txt .attbtn, .event-list .pro-list-box .pro-txt h4 a, a.partibtn, .event-txt h5 a, .pro-txt h3 a, .ser-box .ser-thumb:after, .ser-thumb a, .projects-grid .ser-txt h5 a, .projects-grid .ser-box, .causes-grid .campaign-box, .causes-listing .campaign-box, .causes-listing .campaign-txt h4 a, .dn-btn, .blog-large .blog-post .blog-thumb:before, .post-txt h5 a, ul.post-meta li a, .blog-small-post, .gt-pagination .page-link, .blog-slider .owl-theme .owl-nav [class*=owl-], .blog-small-post .post-thumb:after, .event-thumb:after, .blog-thumb:after, .blog-txt ul.post-meta li a, a.read-post, .blog-txt h3 a, .team-box .team-info ul li a, .news-txt h4 a, .news-thumb a, .news-thumb:after, .ocp-box h5 a, .volbox a, .donation-wrap .radio-boxes input[type=radio].css-radio+label.css-label, button.sbtn, a.con-btn, .navrow .dropdown-menu li a, .navrow .navbar-expand-lg .navbar-nav .nav-link, .social-links a, .acclink, .h3-events .owl-theme .owl-nav button.owl-prev:after, .h3-events .owl-theme .owl-nav button.owl-next:after, .h3-events .owl-theme .owl-nav [class*=owl-], #h3-events .event-box .event-txt h4 a, .footer-social a, ul.ftags a, .instagram img, .instagram li a, .product-box .pro-txt h6 a, .pro-thumb:after, .pro-thumb a, .rm, a.view-more, .blog-small-post .post-thumb:after, .blog-small-post .post-thumb a, .blog-small-post .post-txt h5 a, .blog-post-large .post-txt h5 a, .current-projects .nav-link, .current-projects .owl-theme .owl-nav [class*=owl-], .pro-box h5, li.form-submit button, .video-img a, .services-area img, .services-area h6, .services-area p, .services-area ul li:after, .services-area ul li, .navbar-expand-lg .navbar-nav .nav-link, .mdonate span, .login-reg a, .mdonate:after, a.cart-icon, a.search-icon, .mdonate, .footer-widget a, ul.quick-links li a, .partner-logos .owl-carousel .owl-item img, .f-cat span:before, .f-cat span a, .f-cat span:after, ul.flinks li a, .volunteer-form input.fsubmit, .campaign-txt h5 a, a.dbutton, .campaign-thumb a, .campaign-thumb:after, a.dbutton, .event-thumb a, .event-thumb:after, .blog-txt h5 a, .blog-thumb a, .blog-list .blog-post .blog-thumb:after, .pic1, .pic2, span.aicon, .ser-txt h4 a, a.lm, .header-style-1 .nav-link, .dropdown-menu .dropdown-menu, .header-style-1 .dropdown-menu a, .topside-menu a{
+	-webkit-transition: all ease-in-out 0.3s;
+}
+
 /***************  Education display End  *****************/
+
+
+/***************  Post News Start  *****************/
+
+.section-title {
+	width: 100%;
+	float: left;
+	margin-bottom: 21px;
+}
+.section-title strong {
+	color: #689f38;
+	text-transform: uppercase;
+	font-family: 'droidSans';
+	font-size: 14px;
+	position: relative;
+}
+.section-title strong:before {
+	position: absolute;
+	right: -54px;
+	bottom: 0;
+	background: url(../images/line.png) no-repeat;
+	content: "";
+	height: 3px;
+	width: 44px;
+}
+.blog-list .blog-post {
+	border-bottom: 1px solid #dddddd;
+	padding-bottom: 35px;
+	margin-bottom: 35px;
+}
+.blog-list .blog-post:last-child {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+.blog-list .blog-post .blog-thumb {
+	width: 263px;
+	float: left;
+	border-radius: 5px;
+}
+.pro-thumb, .blog-thumb {
+	position: relative;
+	overflow: hidden;
+}
+.blog-small-post .post-thumb:after, .event-thumb:after, .blog-thumb:after {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	content: "";
+	opacity: 0;
+	background: -moz-linear-gradient(45deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.9) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(45deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.9) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(45deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.9) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2000000', endColorstr='#e6000000', GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.blog-small-post:hover .post-thumb:after, .blog-list .blog-post:hover .blog-thumb:after {
+	opacity: 1;
+}
+.blog-list .blog-post:hover .blog-txt h5 a {
+	color: #689f38;
+}
+.blog-small-post:hover .post-thumb a, .blog-list .blog-post:hover .blog-thumb a {
+	opacity: 1;
+	top: 0px;
+}
+.campaign-thumb img {
+	width: 100%;
+	height: auto;
+}
+.post-thumb a, .f-cat span a, .campaign-thumb a, .event-thumb a, .blog-thumb a {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	left: 0;
+	right: 0;
+	top: -100px;
+	bottom: 0;
+	margin: auto;
+	background: none;
+	text-align: center;
+	line-height: 48px;
+	font-size: 16px;
+	border-radius: 100%;
+	box-shadow: 0 2px 5px rgba(0,0,0,.2);
+	z-index: 99;
+	color: #fff;
+	opacity: 0;
+	border: 2px solid #fff;
+}
+.pro-thumb a:hover, .f-cat span a:hover, .campaign-thumb a:hover, .event-thumb a:hover, .blog-thumb a:hover {
+	background: #689f38;
+	color: #fff;
+	border-color: #689f38;
+}
+.blog-list .blog-post .blog-txt {
+	width: 486px;
+	float: left;
+	padding-left: 30px;
+}
+.blog-txt h5 {
+	margin-bottom: 9px;
+}
+.blog-txt h5 a {
+	color: #222222;
+}
+ul.post-meta {
+	margin: 0 0 12px;
+	padding: 0;
+	list-style: none;
+}
+ul.post-meta li {
+	display: inline-block;
+	margin-right: 10px;
+	font-size: 16px;
+	font-weight: 700;
+	color: #999999;
+}
+ul.post-meta li span {
+	color: #689f38;
+}
+.blog-list .blog-post .blog-txt p {
+	margin: 0px;
+}
+
+
+
+/***************  Fundraising Campaign  Start  *****************/
+
+.fcampaigns {
+	background: url(../images/pat2.jpg);
+}
+.campaign-box {
+	width: 100%;
+	float: left;
+	overflow: hidden;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: 0 10px 40px rgba(156,204,101,.20);
+}
+.campaign-txt {
+	padding: 30px;
+	clear: both;
+}
+a.dbutton {
+	background: red;
+	display: block;
+	text-align: center;
+	line-height: 50px;
+	color: #fff;
+	background: rgb(104,159,56); /* Old browsers */
+	background: -moz-linear-gradient(left, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	font-family: 'Poppins', sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	text-transform: uppercase;
+}
+ul.participants {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: 100%;
+	float: left;
+}
+ul.participants li {
+	float: left;
+	line-height: 30px;
+}
+ul.participants img {
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+	margin-left: -5px;
+}
+ul.participants li span {
+	width: 30px;
+	height: 30px;
+	display: block;
+	color: #fff;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 100%;
+	font-size: 12px;
+	background: rgb(104,159,56); /* Old browsers */
+	background: -moz-linear-gradient(left, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+ul.funds {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+ul.funds li {
+	width: 32%;
+	display: inline-block;
+	text-align: center;
+	font-size: 14px;
+	color: #999999;
+}
+ul.funds li:first-child {
+	text-align: left;
+}
+ul.funds li:last-child {
+	text-align: right;
+}
+.home1 .newsletter input[type=submit], .home1 a.dbutton, .home1 ul.funds li strong {
+	font-family: 'Roboto Slab', serif;
+	font-weight: 600;
+}
+ul.funds li strong {
+	display: block;
+	font-size: 18px;
+	color: #222;
+}
+ul.participants li strong {
+	margin-left: 20px;
+	color: #999999;
+	font-size: 14px;
+	display: inline-block;
+}
+ul.participants li strong i {
+	font-style: normal;
+	color: #8bc34a;
+}
+.campaign-txt .progress {
+	width: 100%;
+	margin-bottom: 20px;
+	height: 10px;
+	background: #e6e6e6;
+}
+.campaign-txt .progress .progress-bar {
+	background: #8bc34a;
+	border-radius: 10px;
+}
+ul.participants, .campaign-txt h5 {
+	margin-bottom: 25px;
+}
+.campaign-txt h6 a, .campaign-txt h5 a {
+	color: #222;
+}
+.campaign-thumb {
+	position: relative;
+	overflow: hidden;
+}
+.campaign-thumb:after {
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: rgba(0,0,0,.5);
+	content: "";
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+.campaign-box:hover .campaign-thumb:after {
+	opacity: 1;
+}
+.campaign-box:hover .campaign-thumb a {
+	opacity: 1;
+	top: 0;
+}
+.campaign-box:hover h6 a, .campaign-box:hover h5 a {
+	color: #8bc34a;
+}
+.volunteer-form input.fsubmit:hover, .campaign-box:hover a.dbutton {
+	color: #fff;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#8bc34a+0,689f38+100 */
+	background: rgb(139,195,74); /* Old browsers */
+	background: -moz-linear-gradient(left, rgba(139,195,74,1) 0%, rgba(104,159,56,1) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, rgba(139,195,74,1) 0%, rgba(104,159,56,1) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, rgba(139,195,74,1) 0%, rgba(104,159,56,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8bc34a', endColorstr='#689f38', GradientType=1 ); /* IE6-9 */
+}
+/***************  Fundraising Campaign  End  *****************/
+
+
+/***************  Promises  Start  *****************/
+.promises {
+	background: url(../images/factsbg.jpg) no-repeat;
+	background-size: cover;
+}
+.pro-title {
+	background: url(../images/border.png) no-repeat left top;
+	padding: 67px 0 67px 50px;
+	margin-bottom: 100px;
+}
+.pro-title h2 {
+	color: #fff;
+}
+.pro-title h3 {
+	color: #fff;
+	font-weight: 400;
+}
+.counter {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	width: 100%;
+	float: left;
+}
+.counter li {
+	width: 33%;
+	float: left;
+	text-align: left;
+	color: #fff;
+}
+p.counter-count:after {
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: url(../images/line2.png) no-repeat;
+	content: "";
+	width: 54px;
+	height: 2px;
+}
+.promises p.ctxt, .promises p.counter-count {
+	color: #fff;
+}
+p.counter-count {
+	font-size: 48px;
+	font-weight: 700;
+	margin: 0;
+	position: relative;
+}
+p.ctxt {
+	font-size: 18px;
+	font-weight: 500;
+	margin: 0;
+}
+.volunteer-form {
+	background: #fff;
+	padding: 45px;
+	border-radius: 10px;
+}
+.volunteer-form ul {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+.volunteer-form ul li {
+	margin-bottom: 20px;
+}
+.volunteer-form ul li:last-child {
+	margin: 0px;
+}
+.volunteer-form .form-control {
+	border: 2px solid #dddddd;
+	height: 60px;
+	line-height: 56px;
+	border-radius: 30px;
+	padding: 0 30px;
+	color: #999999;
+	font-size: 16px;
+}
+.volunteer-form input.fsubmit {
+	border-radius: 30px;
+	width: 100%;
+	background: rgb(104,159,56); /* Old browsers */
+	background: -moz-linear-gradient(left, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	line-height: 55px;
+	font-size: 18px;
+	color: #fff;
+	font-family: 'Roboto Slab', serif;
+	font-weight: 700;
+	border: 0px;
+	cursor: pointer;
+}
+body :focus {
+	outline: -webkit-focus-ring-color auto 0px;
+}
+/***************  Promises  End  *****************/
+
+
+***************  Post News Start  *****************/
+
+.section-title {
+	width: 100%;
+	float: left;
+	margin-bottom: 21px;
+}
+.section-title strong {
+	color: #689f38;
+	text-transform: uppercase;
+	font-family: 'droidSans';
+	font-size: 14px;
+	position: relative;
+}
+.section-title strong:before {
+	position: absolute;
+	right: -54px;
+	bottom: 0;
+	background: url(../images/line.png) no-repeat;
+	content: "";
+	height: 3px;
+	width: 44px;
+}
+.blog-list .blog-post {
+	border-bottom: 1px solid #dddddd;
+	padding-bottom: 35px;
+	margin-bottom: 35px;
+}
+.blog-list .blog-post:last-child {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+.blog-list .blog-post .blog-thumb {
+	width: 263px;
+	float: left;
+	border-radius: 5px;
+}
+.pro-thumb, .blog-thumb {
+	position: relative;
+	overflow: hidden;
+}
+.blog-small-post .post-thumb:after, .event-thumb:after, .blog-thumb:after {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	content: "";
+	opacity: 0;
+	background: -moz-linear-gradient(45deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.9) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(45deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.9) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(45deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.9) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2000000', endColorstr='#e6000000', GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.blog-small-post:hover .post-thumb:after, .blog-list .blog-post:hover .blog-thumb:after {
+	opacity: 1;
+}
+.blog-list .blog-post:hover .blog-txt h5 a {
+	color: #689f38;
+}
+.blog-small-post:hover .post-thumb a, .blog-list .blog-post:hover .blog-thumb a {
+	opacity: 1;
+	top: 0px;
+}
+.campaign-thumb img {
+	width: 100%;
+	height: auto;
+}
+.post-thumb a, .f-cat span a, .campaign-thumb a, .event-thumb a, .blog-thumb a {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	left: 0;
+	right: 0;
+	top: -100px;
+	bottom: 0;
+	margin: auto;
+	background: none;
+	text-align: center;
+	line-height: 48px;
+	font-size: 16px;
+	border-radius: 100%;
+	box-shadow: 0 2px 5px rgba(0,0,0,.2);
+	z-index: 99;
+	color: #fff;
+	opacity: 0;
+	border: 2px solid #fff;
+}
+.pro-thumb a:hover, .f-cat span a:hover, .campaign-thumb a:hover, .event-thumb a:hover, .blog-thumb a:hover {
+	background: #689f38;
+	color: #fff;
+	border-color: #689f38;
+}
+.blog-list .blog-post .blog-txt {
+	width: 486px;
+	float: left;
+	padding-left: 30px;
+}
+.blog-txt h5 {
+	margin-bottom: 9px;
+}
+.blog-txt h5 a {
+	color: #222222;
+}
+ul.post-meta {
+	margin: 0 0 12px;
+	padding: 0;
+	list-style: none;
+}
+ul.post-meta li {
+	display: inline-block;
+	margin-right: 10px;
+	font-size: 16px;
+	font-weight: 700;
+	color: #999999;
+}
+ul.post-meta li span {
+	color: #689f38;
+}
+.blog-list .blog-post .blog-txt p {
+	margin: 0px;
+}
+
+
