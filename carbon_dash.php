@@ -16,7 +16,7 @@
       
 
       <!-- CSS FILES START -->
-      <link href="css/custom.css" rel="stylesheet">
+      <link href="css/custom3.css" rel="stylesheet">
       <link href="css/color.css" rel="stylesheet">
       <link href="css/responsive.css" rel="stylesheet">
       <link href="css/owl.carousel.min.css" rel="stylesheet">

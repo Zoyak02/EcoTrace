@@ -23,7 +23,7 @@ if (isset($_SESSION['success_message'])) {
     <link rel="icon" href="images/favicon.png">
     <title>Login/Sign Up</title>
     <!-- CSS FILES START -->
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/custom3.css" rel="stylesheet">
     <link href="css/color.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/owl.carousel.min.css" rel="stylesheet">
@@ -74,16 +74,12 @@ if (isset($_SESSION['success_message'])) {
          </header>
          <!-- Header End -->
         <!--Inner Header Start-->
-        <section class="wf100 p100 inner-header">
-           <div class="container">
-              <h1>My Account</h1>
-              <ul>
-                 <li><a href="#">Home</a></li>
-                 <li><a href="#"> My Account </a></li>
-              </ul>
-           </div>
-        </section>
-        <!--Inner Header End--> 
+        <section class="wf100 inner-header">
+            <div class="container">
+               <h1>Account </h1>
+            </div>
+         </section>
+         <!--Inner Header End--> 
         <!--Content Start-->
         <section class="wf100 p80">
            <div class="container">
@@ -152,7 +148,7 @@ if (isset($_SESSION['success_message'])) {
                              <a href="#" class="fp">Forgot Password</a> 
                           </div>
                           <div class="input-group">
-                             <button class="login-acc-btn">Login</button>
+                             <button class="login-btn">Login</button>
                           </div>
                        </form>
                     </div>
