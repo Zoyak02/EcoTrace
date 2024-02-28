@@ -51,6 +51,7 @@ Basic Styles
 *********************************/
 html {
 	height:100%;
+	width:100%
 }
 body {
 	background-color:#FFFFFF;
@@ -4772,7 +4773,7 @@ body :focus {
 /***************  Promises  End  *****************/
 
 
-***************  Post News Start  *****************/
+/***************  Post News Start  *****************/
 
 .section-title {
 	width: 100%;
