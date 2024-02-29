@@ -60,7 +60,7 @@ if(isset($_GET['alert']))
   {
     echo<<<alert
     <div class="container alert alert-danger alert-dismissible text-center" id="alert-msg" role="alert">
-      <strong>Image Removal Failed! Server Down!</strong>
+      <strong>Image size must below 5MB!</strong>
     </div>
     alert;
   }
