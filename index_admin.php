@@ -90,11 +90,11 @@ if(isset($_GET['alert']))
     </div>
     alert;
   }
-  if($_GET['alert']=='update_failed')
+  if($_GET['alert']=='upload_failed')
   {
     echo<<<alert
     <div class="container alert alert-danger alert-dismissible text-center" id="alert-msg" role="alert">
-      <strong>Cannot Update Product! Server Down!</strong>
+      <strong>FAILED TO UPLOAD THE CONTENT!</strong>
     </div>
     alert;
   }
