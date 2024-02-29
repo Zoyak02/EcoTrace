@@ -56,8 +56,6 @@ if (isset($_POST['addcontent'])) {
 
 
 
-
-
   function image_remove($img){
     if(!unlink(UPLOAD_SRC.$img)){
       header("location: index_admin?alert=img_rem_fail");
