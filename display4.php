@@ -44,7 +44,6 @@ $totalPages = ceil($rowCount / $itemsPerPage);
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/all.min.css" rel="stylesheet">
     <!-- CSS FILES End -->
 </head>
@@ -291,7 +290,7 @@ $totalPages = ceil($rowCount / $itemsPerPage);
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/isotope.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="js/main.js"></script>
 
     <!-- Add the new script for the modal -->
     <script>

@@ -1104,24 +1104,7 @@ ini_set('display_errors', 1);
            </footer>
 </footer>
 </div>           
-      
-           
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-         
+ 
             <script src="js/jquery-3.3.1.min.js"></script> 
             <script src="js/jquery-migrate-1.4.1.min.js"></script> 
             <script src="js/popper.min.js"></script> 

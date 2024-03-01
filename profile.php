@@ -27,7 +27,6 @@ if (isset($_GET['first_login']) && $_GET['first_login'] === 'true') {
   <link href="css/responsive.css" rel="stylesheet">
   <link href="css/owl.carousel.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/prettyPhoto.css" rel="stylesheet">
   <link href="css/all.min.css" rel="stylesheet">
   <link href="css/slick.css" rel="stylesheet">
   <!-- CSS FILES End -->
@@ -461,7 +460,7 @@ if (isset($_GET['first_login']) && $_GET['first_login'] === 'true') {
   <script src="js/owl.carousel.min.js"></script> 
   <script src="js/jquery.prettyPhoto.js"></script> 
   <script src="js/isotope.min.js"></script> 
-  <script src="js/custom.js"></script>
+  <script src="js/main.js"></script>
   <script src="js/profile.js"></script>
 </body>
 </html>

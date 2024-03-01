@@ -7,8 +7,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />   
 	   <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
       <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, width=320" />
-      <title>EcoTrace</title>
-      
+      <title>CarbonFootprint Dashboard</title> 
       <link href='https://fonts.googleapis.com/css?family=Anton&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
       <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-oS3vJDOi7W1ZLfIR3hjOMaL8NZ2Imw8qCD9T/ME5SXNtE1QhSUpc6auRvRSaG8lN" crossorigin="anonymous">
@@ -98,7 +97,7 @@
           <!--Inner Header Start-->
           <section class="wf100 inner-header">
             <div class="container">
-               <h1>CarbonFootprint Dashboards Zoya </h1>
+               <h1>CarbonFootprint Dashboard</h1>
             </div>
          </section>
          <!--Inner Header End--> 
