@@ -16,7 +16,7 @@ if (isset($_GET['success'])) {
     <meta name="author" content="">
     <link rel="icon" href="images/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-KFMC6XQRgC7h2uEe29jvSjtH8/XVcBMFG/xYOCSjok9/ZF6lqU8rA9jaqHMw8elRSRcAkuVHwtR9Dqd1yCUSSA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-yshd5LFC3hG/jYSpn6Sy2J/6t6rNfkJN4p1WQv3o7eE1LII1ay4Vh5c5u94w9AsN" crossorigin="anonymous"></script>
     <title>Activity Tracking</title>
     <!-- CSS FILES START -->
@@ -283,6 +283,7 @@ if (isset($_GET['success'])) {
                         $('#activity-log-form').find('.step').slice(1).hide();
 
                         $(".next-step").click(function () {
+                            console.log("Next button clicked");
                             if (currentStep < 3) {
                                 $(".step-" + currentStep).addClass("animate__fadeOutLeft");
                                 currentStep++;
@@ -295,6 +296,7 @@ if (isset($_GET['success'])) {
                         });
 
                         $(".prev-step").click(function () {
+                            console.log("previous button clicked");
                             if (currentStep > 1) {
                                 $(".step-" + currentStep).addClass("animate__fadeOutRight");
                                 currentStep--;
