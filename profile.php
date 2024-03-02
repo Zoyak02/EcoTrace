@@ -29,6 +29,8 @@ if(isset($_SESSION['userID'])) {
 */
 
 // Retrieve user data from the database
+$_SESSION['userID'] = 5;
+
 $userID = $_SESSION['userID'];
 $sql = "SELECT * FROM user WHERE id = :userID"; // Replace 'users' with your actual table name
 $stmt = $pdo->prepare($sql);
