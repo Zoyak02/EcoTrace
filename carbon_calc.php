@@ -58,10 +58,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $weekNumber = ceil(($daysDiff + 1) / 7);
 
-    $insertQuery = "INSERT INTO weeklylog (userID, date, weekNo, carbonFootprintTransport, carbonFootprintFood, carbonFootprintEnergy, totalCarbonFootprint)
-                    VALUES ('$userID', '" . $date->format('Y-m-d H:i:s') . "','$weekNumber', '$carbonFootprintTransport','$carbonFootprintFood', '$carbonFootprintEnergy', '$totalCarbonFootprint')";
+    // Get the month name
+    $month = $date->format('F');  
 
-   echo "Query: " . $insertQuery;  
+
+    $insertQuery = "INSERT INTO weeklylog (userID, date, weekNo, month, carbonFootprintTransport, carbonFootprintFood, carbonFootprintEnergy, totalCarbonFootprint)
+                    VALUES ('$userID', '" . $date->format('Y-m-d H:i:s') . "','$weekNumber','$month','$carbonFootprintTransport','$carbonFootprintFood', '$carbonFootprintEnergy', '$totalCarbonFootprint')";
 
     // Execute the query
     $result = mysqli_query($con, $insertQuery);
@@ -69,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result) {
             echo "Your weekly log has been sucessfully updated!";
         } else {
-            echo "Error Data seem to be insuffiecent try again " . mysqli_error($dbConnection);
+            echo "Error Data seem to be insuffiecent try again " . mysqli_error($conn);
         }
         header("Location: dashboard.php");
         exit();
