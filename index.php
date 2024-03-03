@@ -98,7 +98,6 @@ ini_set('display_errors', 1);
                            <a class="nav-link" href="contact.html">Contact</a>
                        </li>
                    </ul>
-
                    <?php if (isLoggedIn()): ?>
                      <!-- If user is logged in, show profile circle -->
                      <li class="nav-item profile-dropdown">
@@ -119,12 +118,14 @@ ini_set('display_errors', 1);
                            </li>
                         </ul>
                      </li>
+
                <?php else: ?>
                      <!-- If user is not logged in, show login button -->
                      <li class="nav-item" style="list-style: none;">
                         <a class="login-btn" href="login.php" role="button"> Login </a>
                      </li>
                <?php endif; ?>
+               
             </div>
          
             </nav>
