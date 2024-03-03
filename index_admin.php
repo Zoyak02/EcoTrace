@@ -145,7 +145,7 @@ else if(isset($_GET['success']))
       <thead class="thead-light" >
       <tr>
         <th width="5%" scope="col" class="rounded-start">Sr. No</th>    
-        <th width="20%" scope="col">Image/Video</th>
+        <th width="20%" scope="col">Image/Infographic/Video</th>
         <th width="15%" scope="col">Category</th>
         <th width="15%" scope="col">Title</th>
         <th width="35%" scope="col">Description</th>
@@ -242,7 +242,7 @@ else if(isset($_GET['success']))
 
 <script>
   function confirm_rem(id){
-    if(confirm("Are you sure, you want to delete this item?")){
+    if(confirm("Are you sure, you want to delete this content?")){
       window.location.href="crud2.php?rem="+id;
     }
   }
