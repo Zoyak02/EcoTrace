@@ -385,7 +385,7 @@ ini_set('display_errors', 1);
                                 text: ' Week ' + week,
                                 color:'#66bb6a',
                                 font: {
-                                    size: 15, 
+                                    size: 18, 
                                     
                                 }
                             }
