@@ -65,11 +65,11 @@ if (isset($_POST['signup-btn'])) {
     $hashed_password = password_hash($default_password, PASSWORD_DEFAULT);
 
     // Prepare SQL statement to insert user data into the database
-    $sql = "INSERT INTO user (username, password, first_login, email, contactNumber, firstName, lastName) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO user (username, password, first_login, email, contactNumber, firstName, lastName) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($con, $sql);
 
     // Bind parameters and execute the statement
-    mysqli_stmt_bind_param($stmt, "ssssss", $username, $hashed_password, $first_login, $email, $contactNumber, $firstName, $lastName);
+    mysqli_stmt_bind_param($stmt, "ssissss", $username, $hashed_password, $first_login, $email, $contactNumber, $firstName, $lastName);
     $success = mysqli_stmt_execute($stmt);
 
     if ($success) {
