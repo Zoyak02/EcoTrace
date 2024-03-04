@@ -27,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $laundryLoads = floatval($_POST["laundry_loads"]) ?? 0;
     $dryerHours = floatval( $_POST["dryer_hours"]) ?? 0;
     $dishwasherLoads = floatval($_POST["dishwasher_loads"]) ?? 0;
+    $errors = array();
    
     //External data to store
     $userID = 1 ;//$_SESSION['userID'] ;
@@ -60,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Get the month name
     $month = $date->format('F');  
+    $_SESSION['month']= $month;
 
 
     $insertQuery = "INSERT INTO weeklylog (userID, date, weekNo, month, carbonFootprintTransport, carbonFootprintFood, carbonFootprintEnergy, totalCarbonFootprint)
@@ -69,12 +71,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($con, $insertQuery);
 
         if ($result) {
-            echo "Your weekly log has been sucessfully updated!";
+            $errors[] = "Your weekly log has been sucessfully updated!";;
         } else {
-            echo "Error Data seem to be insuffiecent try again " . mysqli_error($conn);
+            $errors[] = "Error Data seem to be insuffiecent try again " ;
         }
         header("Location: dashboard.php");
         exit();
+
  }
  
  

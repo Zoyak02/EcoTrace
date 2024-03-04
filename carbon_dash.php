@@ -1,6 +1,8 @@
 <?php
 include("carbon_calc.php");
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 ?>
 
 <html>
@@ -68,8 +70,6 @@ include("carbon_calc.php");
         margin-bottom: -8px;
         color: #38a169; /* Change to your desired color */
         opacity: 0.5;
-
-
         }
 
 
@@ -153,25 +153,52 @@ include("carbon_calc.php");
                             "food" => $row['carbonFootprintFood'],
                             "energy" => $row['carbonFootprintEnergy']
                         ];
+                       
+                        $latestWeekNumber = $row['weekNo'];
+                        $currentMonth = $row['month'];
+
                     } else {
-                        // Handle the case where no data is found for the latest week
-                        $carbonFootprintData = [
-                            "total" => 0,
-                            "transport" => 0,
-                            "food" => 0,
-                            "energy" => 0
-                        ];
+                         // Display Bootstrap error message with a link to activity_log.php
+                        echo '<div class="alert alert-danger" role="alert">';
+                        echo 'No data found for the latest week. Please ';
+                        echo '<a href="activity_log.php" class="alert-link">update your activity log for this week</a>.';
+                        echo '</div>';
                     }
                 } else {
                     // Handle the case where $con is not defined or is not a valid mysqli connection
                     echo "Database connection is not established or is invalid.";
                 }
 
-                // Close the database connection (if open)
-                if (isset($con)) {
-                    mysqli_close($con);
-                }
+                    // Retrieve historical carbon footprint data for the logged-in user for the current month
+                    $historicalDataQuery = "SELECT weekNo, totalCarbonFootprint FROM weeklylog WHERE userID = '$userID' AND month = '$currentMonth' ORDER BY weekNo";
+                    $historicalResult = mysqli_query($con, $historicalDataQuery);
+
+                    $weeklyLabels = [];
+                    $totalFootprintData = [];
+
+                    if ($historicalResult && mysqli_num_rows($historicalResult) > 0) {
+                        while ($row = mysqli_fetch_assoc($historicalResult)) {
+                            $weeklyLabels[] = "Week " . $row['weekNo'];
+                            $totalFootprintData[] = $row['totalCarbonFootprint'];
+                        }
+                    } else {
+                        // If no data found for the current month, you might want to reset or display a message
+                        $weeklyLabels[] = "Week 1";
+                        $totalFootprintData[] = 0;
+                        $errors[] = "No data found for the current month, PLease update activiy log " ;
+                    }
                 ?>
+
+                  <?php
+                        if (!empty($errors)) {
+                              echo '<div class="alert alert-danger" role="alert">';
+                              foreach ($errors as $error) {
+                                 echo $error . '<br>';
+                              }
+                              echo '</div>';
+                        }
+
+                    ?>
 
 
             <!--Dashboard card start--> 
@@ -209,7 +236,7 @@ include("carbon_calc.php");
                 </div>
                 
                 <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md overflow-hidden">
-                <div class=" mb-2 text-white text-4xl leading-none font-semibold">
+                <div class="relative z-10 mb-2 text-white text-4xl leading-none font-semibold">
                     <?php echo $carbonFootprintData['total']; ?> 
                      <span class="text-sm">kgCO2e</span>
                 </div>
@@ -224,48 +251,191 @@ include("carbon_calc.php");
        </div>
        <!--Dashboard card end--> 
 
-            <div class="container mt-5">
-            <div class="card">
-                <div class="card-header">
-                    Carbon Footprint Doughnut Chart
+        <div class="container mt-9">
+            <div class="row">
+                <!-- Donut Chart Card -->
+                <div class="col-md-12 col-lg-4 mb-3 mb-md-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="donutChart"></canvas>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <canvas id="donutChart"></canvas>
-                </div>
-                <div class="card-footer text-muted">
-                    Legend goes here
+
+                <!-- Line Chart Card -->
+                <div class="col-md-12 col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
+         <!--Footer Section Start--> 
+         <div class="ftco-section wf100 pt80">
+            <footer class="footer">
+              <svg class="footer-wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">
+                <path class="footer-wave-path" d="M851.8,100c125,0,288.3-45,348.2-64V0H0v44c3.7-1,7.3-1.9,11-2.9C80.7,22,151.7,10.8,223.5,6.3C276.7,2.9,330,4,383,9.8 c52.2,5.7,103.3,16.2,153.4,32.8C623.9,71.3,726.8,100,851.8,100z"></path>
+              </svg>
+            </section>
+            <footer class="footer-03">
+               <div class="container">
+                   <div class="row">
+                       <div class="col-md-6">
+                           <div class="d-flex align-items-center justify-content-between mb-4">
+                               
+                              <div class="logo-space">
+                                  <img src="images/EcoTrace Logo.png" alt="Eco Trace Logo" class="logo-img">
+                              </div>
+                          </div>
+              
+                           <div class="row">
+                               <div class="col-md-6 mb-md-0 mb-4">
+                                   <h2 class="footer-heading">Carbon Calculator</h2>
+                                   <ul class="list-unstyled">
+                                       <li><a href="#" class="py-1 d-block">How it Works</a></li>
+                                       <li><a href="#" class="py-1 d-block">Log Your Activities</a></li>
+                                       <li><a href="#" class="py-1 d-block">Reduce Your Footprint</a></li>
+                                   </ul>
+                               </div>
+                               <div class="col-md-4 mb-md-0 mb-4">
+                                   <h2 class="footer-heading">Resources</h2>
+                                   <ul class="list-unstyled">
+                                       <li><a href="#" class="py-1 d-block">Blog</a></li>
+                                       <li><a href="#" class="py-1 d-block">Educational Materials</a></li>
+                                       <li><a href="#" class="py-1 d-block">FAQs</a></li>
+                                   </ul>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-md-6">
+                           <div class="row justify-content-end">
+                               <div class="col-md-12 col-lg-11 mb-md-0 mb-4">
+                                   
+                                   <h2 class="footer-heading mt-5">Connect With Us</h2>
+                                   <ul class="ftco-footer-social p-0">
+                                       <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                       <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                                       <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                                       <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+                                   </ul>
+                                   <h2 class="footer-heading mt-5">Subscribe to Our Newsletter</h2>
+                                   <form action="#" class="subscribe-form">
+                                       <div class="form-group d-flex">
+                                           <input type="text" class="form-control rounded-left" placeholder="Enter your email address">
+                                           <input type="submit" value="Subscribe" class="form-control submit px-3 rounded-right">
+                                       </div>
+                                   </form>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="row mt-5 pt-4 border-top">
+                       <div class="col-md-6 col-lg-8">
+                           <p class="copyright">© <script>document.write(new Date().getFullYear());</script> All rights reserved | EcoTrace - Track and Reduce Your Carbon Footprint</p>
+                       </div>
+                       <div class="col-md-6 col-lg-4 text-md-right">
+                           <p class="mb-0 list-unstyled">
+                               <a class="mr-md-3" href="#">Terms &amp; Conditions</a>
+                               <a class="mr-md-3" href="#">Privacy Policy</a>
+                           </p>
+                       </div>
+                   </div>
+               </div>
+           </footer>
+      </div>      
+      <!--Footer Section End-->  
 
-       <script>
-            // Get the carbon footprint data from PHP
-            var transportationData = <?php echo $carbonFootprintData['transport']; ?>;
-            var foodData = <?php echo $carbonFootprintData['food']; ?>;
-            var energyData = <?php echo $carbonFootprintData['energy']; ?>;
 
-            // Create a donut chart
-            var ctx = document.getElementById('donutChart').getContext('2d');
-            var donutChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Transportation', 'Food', 'Energy'],
-                    datasets: [{
-                        data: [transportationData, foodData, energyData],
-                        backgroundColor: ['#4CAF50', '#2196F3', '#FFC107']
-                    }]
-                },
-                options: {
-                    legend: {
-                        display: true,
-                        position: 'bottom'
+
+            <script>
+                // Get the carbon footprint data from PHP
+                var transportationData = <?php echo $carbonFootprintData['transport']; ?>;
+                var foodData = <?php echo $carbonFootprintData['food']; ?>;
+                var energyData = <?php echo $carbonFootprintData['energy']; ?>;
+                var week = <?php echo $latestWeekNumber; ?>;
+                var weekLabels = <?php echo json_encode($weeklyLabels); ?>;
+                var totalFootprintData = <?php echo json_encode($totalFootprintData); ?>;
+                var month = <?php echo json_encode($currentMonth); ?>;
+
+                // Create a donut chart
+                var donutCtx = document.getElementById('donutChart').getContext('2d');
+                var donutChart = new Chart(donutCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Transportation', 'Food', 'Energy'],
+                        datasets: [{
+                            data: [transportationData, foodData, energyData],
+                            backgroundColor: ['#4CAF50', '#FF4F4B', '#2196F3']
+                        }]
                     },
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-      </script>
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: ' Week ' + week,
+                                color:'#66bb6a',
+                                font: {
+                                    size: 15, 
+                                    
+                                }
+                            }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                    }
+                });
+
+                // Create a line chart
+                var lineCtx = document.getElementById('lineChart').getContext('2d');
+                var lineChart = new Chart(lineCtx, {
+                    type: 'line',
+                    data: {
+                        labels: weekLabels,
+                        datasets: [{
+                            label: 'Total Carbon Footprint',
+                            borderColor: '#FF5733',
+                            data: totalFootprintData
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                stepSize: 70,  // Adjust the step size as needed
+                                suggestedMin: 10,    // Set the minimum value on the Y-axis
+                                suggestedMax: 100,        // Set the minimum value on the Y-axis
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Carbon Footprint Trend for ' + month,
+                                color:'#66bb6a',
+                                font: {
+                                    size: 15, 
+                                   
+                                },
+                            }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                    }
+                });
+            </script>
+
+
+
 
 
 

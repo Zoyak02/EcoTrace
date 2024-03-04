@@ -1111,6 +1111,7 @@ ini_set('display_errors', 1);
          <!--Partner Logos Section End--> 
 
 
+          <!--Footer Section Start--> 
          <div class="ftco-section wf100">
             <footer class="footer">
               <svg class="footer-wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">
@@ -1182,8 +1183,8 @@ ini_set('display_errors', 1);
                    </div>
                </div>
            </footer>
-</footer>
-</div>        
+      </div>      
+      <!--Footer Section End-->   
 
             <script>
             // Check if the first_login condition is met
