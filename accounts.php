@@ -1,6 +1,4 @@
 <?php
-session_start();// Start the session
-
 require("connection.php");
 
 error_reporting(E_ALL);
