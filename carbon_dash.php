@@ -79,6 +79,12 @@ ini_set('display_errors', 1);
         margin:auto;
     }
 
+    #lineChart{
+        min-width: 400px;  /* Set the maximum width as needed */
+        min-height: 300px; /* Set the maximum height as needed */
+        margin:auto;
+    }
+
     </style>
 
       
@@ -359,6 +365,7 @@ ini_set('display_errors', 1);
                 var weekLabels = <?php echo json_encode($weeklyLabels); ?>;
                 var totalFootprintData = <?php echo json_encode($totalFootprintData); ?>;
                 var month = <?php echo json_encode($currentMonth); ?>;
+            
 
                 // Create a donut chart
                 var donutCtx = document.getElementById('donutChart').getContext('2d');
@@ -406,12 +413,14 @@ ini_set('display_errors', 1);
                     },
                     options: {
                         scales: {
-                            y: {
-                                beginAtZero: true,
-                                stepSize: 70,  // Adjust the step size as needed
-                                suggestedMin: 10,    // Set the minimum value on the Y-axis
-                                suggestedMax: 100,        // Set the minimum value on the Y-axis
-                            }
+
+                                y: {
+                                    beginAtZero: true,
+                                    stepSize: 10,
+                                    suggestedMin: 0,
+                                    suggestedMax: 200,
+                                    maxTicksLimit: 5
+                                }
                         },
                         plugins: {
                             title: {
