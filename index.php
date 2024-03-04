@@ -159,7 +159,7 @@ ini_set('display_errors', 1);
                         }
 
                         // Display success message within the modal
-                        if (!empty($success_message)) {
+                        if (isset($success_message)) {
                            echo '<div class="alert alert-success" role="alert">';
                            echo $success_message;
                            echo '</div>';

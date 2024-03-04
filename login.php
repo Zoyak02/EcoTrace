@@ -264,7 +264,6 @@ if (isset($_SESSION['success_message'])) {
     <script src="js/isotope.min.js"></script> 
     <script src="js/main.js"></script>
 
-    <!-- Add this script at the end of your HTML body -->
     <script>
         // Check if the success message session variable is set
         <?php if (isset($_SESSION['success_message'])): ?>

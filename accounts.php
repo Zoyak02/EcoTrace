@@ -188,24 +188,20 @@ if (isset($_POST['newPass'])) {
             
         $success = mysqli_stmt_execute($stmt);
 
-            if ($success) {
-                $_SESSION['first_login'] = 0;
-                $success_message = "Password updated successfully!";
-                header("location:index.php");
-                exit;
-            } else {
-                // statement execution fails
-                $errors[] = "Failed to update the password.";
-            }
+        if ($success) {
+            $_SESSION['first_login'] = 0;
+            $success_message = "Password updated successfully!";
+            // Redirect to index.php after successful update
+            header("location:index.php");
+            exit;
+        } else {
+            // statement execution fails
+            $errors[] = "Failed to update the password.";
+        }
 
-            // Close the statement
-            mysqli_stmt_close($stmt);
+        // Close the statement
+        mysqli_stmt_close($stmt);
     }
-
-} else {
-    $errors = array();
-    $errors[] = "Failed to create new password, Try Again.";
-    
 }
 
 // Close the database connection
