@@ -2,47 +2,44 @@
 session_start();
 require("connection.php");
 
-// Check if the 'success' parameter is set in the URL
-if (isset($_GET['success'])) {
-   $success_message = $_GET['success'];
+// Check if the database connection is established
+if (!$con) {
+    // Handle error if database connection fails
+    echo "Failed to connect to the database.";
+    exit();
 }
 
-echo '<script>openFirstLoginForm();</script>';
-
-/*
-if(isset($_SESSION['userID'])) {
-
-   // Check if it's the user's first login
-   if (isset($_GET['first_login']) && $_GET['first_login'] === 'true') {
-      echo '<script>openFirstLoginForm();</script>';
-   } else {
-      // User is logged in, retrieve user ID or other session data
-      $userID = $_SESSION['userID'];
-   }
-   
-   // Retrieve other user data as needed
-} else {
-   // Redirect to login page or handle unauthorized access
-   // header("Location: login.php");
-   // exit();
+// Retrieve user ID from the session after successful login
+if (!isset($_SESSION['userID'])) {
+    // Redirect to login page if user is not logged in
+    header("Location: login.php");
+    exit();
 }
-*/
-
-// Retrieve user data from the database
-$_SESSION['userID'] = 5;
 
 $userID = $_SESSION['userID'];
-$sql = "SELECT * FROM user WHERE id = :userID"; // Replace 'users' with your actual table name
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Fetch user data from the database
+$sql = "SELECT * FROM user WHERE userID = ?";
+$stmt = mysqli_prepare($con, $sql);
+mysqli_stmt_bind_param($stmt, "i", $userID);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+// Check if execute() was successful
+if (!$result) {
+    // Handle error if execute() fails
+    echo "Failed to execute the SQL statement.";
+    exit();
+}
+
+// Fetch user data as an associative array
+$user = mysqli_fetch_assoc($result);
 
 // Check if user data was found
 if (!$user) {
-   // Handle error if user data is not found
-   echo "User data not found!";
-   exit();
+    // Handle error if user data is not found
+    echo "User data not found!";
+    exit();
 }
 
 // Extract user data
@@ -52,9 +49,13 @@ $lastName = $user['lastName'];
 $email = $user['email'];
 $contactNumber = $user['contactNumber'];
 $commutingMethod = $user['commutingMethod'];
-$dietaryPreferences = $user['dietaryPreferences'];
+$dietPreferences = $user['dietPreferences'];
 $energySource = $user['energySource'];
 
+// Free the result set
+mysqli_free_result($result);
+// Close the prepared statement
+mysqli_stmt_close($stmt);
 
 ?>
 
@@ -273,7 +274,7 @@ $energySource = $user['energySource'];
                            <h6 class="mb-0">Dietary Preferences</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                           <?php echo $dietaryPreferences; ?>
+                           <?php echo $dietPreferences; ?>
                         </div>
                         </div>
                         <hr>
@@ -511,7 +512,6 @@ $energySource = $user['energySource'];
   <script src="js/jquery.prettyPhoto.js"></script> 
   <script src="js/isotope.min.js"></script> 
   <script src="js/main.js"></script>
-  <script src="js/profile.js"></script>
 </body>
 </html>
 

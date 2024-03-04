@@ -65,7 +65,7 @@ if (isset($_SESSION['success_message'])) {
                    </ul>
 
                    <li class="nav-item" style="list-style: none;">
-                     <a class="login-btn" href="login-page" role="button"> Login </a>
+                     <a class="login-btn" href="login.php" role="button"> Login </a>
                  </li>
                </div>
          
