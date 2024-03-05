@@ -2,9 +2,6 @@
 session_start();
 require("connection.php");
 
-//Hardcode user (remove when done)
-$_SESSION['userID'] = 8;
-
 // Check if the database connection is established
 if (!$con) {
     // Handle error if database connection fails
