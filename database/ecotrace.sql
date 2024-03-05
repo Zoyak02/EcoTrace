@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2024 at 02:33 PM
+-- Generation Time: Mar 05, 2024 at 03:48 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -86,8 +86,10 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`userID`, `username`, `password`, `first_login`, `email`, `contactNumber`, `firstName`, `lastName`, `commutingMethod`, `energySource`, `dietPreferences`) VALUES
 (1, 'zoyak', '$2y$10$5nipLUb/BIo2w/qx/imOWeDKcGga39PC4Qql/uFhKKsz8AyIcTUbS', 1, 'zoya@gmail.com', '12345', 'Zoya', 'Khan', '', '', ''),
 (6, 'emr', '$2y$10$2GbQnyV5Z/VN5CU6yXgCUuZPJBUGk55/PiH97CNBFTv7mCMRhKJkm', 0, 'erm@gmail.com', '1234567', 'erm', 'erm', NULL, NULL, NULL),
-(7, 'zoyaaa', '$2y$10$UPgQ8YeYO1xIP5bbTWcxeekGQud7o8W7jqsmnF4zH5VXYXwMMd8Ye', 0, 'zoyak1220@gmail.com', '12345678', 'zoya ', 'zoya', NULL, NULL, NULL),
-(8, 'ermmyna', '$2y$10$5l7i0eIU3Bj3fAdNRnT5re6GWoOcJKZtosOhXoSNwgPitVD.xIBBa', 1, 'ermmyna@gmail.com', '+60192644588', 'Ermmyna', 'Roselee Shah', NULL, NULL, NULL);
+(7, 'zoyaaa', '$2y$10$Axad8u8pcWEYQ./1C0fcs.2PHiIFhGnEPNz33iDQMgGdmvgX8v6xq', 0, 'zoyak1220@gmail.com', '12345678', 'zoya ', 'zoya', NULL, NULL, NULL),
+(8, 'ermmyna', '$2y$10$CaWKKr6vtO9HxDenv7cNwOQigbHDB5R42CZ4HKIfMlrotmX2mTyF.', 0, 'ermmyna@gmail.com', '+60192644588', 'Ermmyna', 'Roselee Shah', NULL, NULL, NULL),
+(9, 'zoyakhan', '$2y$10$Ar5ib.LZU3awc2iUMHQrFetD3b183e6U4F3PAPT9bTOCvv5GTlLuG', 1, 'zoyak1220@gmail.com', '1234567', 'Zoya', 'Khan', NULL, NULL, NULL),
+(11, 'jimmy', '$2y$10$SaKHd8Cm1Vy336I9ZUjgl.RAe8xAmWKxdgl3ZUc2BxUCIdtpLJ0x6', 0, 'tanjimhern@gmail.com', '123424234', 'Jim Hern', 'Tan', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -98,11 +100,24 @@ INSERT INTO `user` (`userID`, `username`, `password`, `first_login`, `email`, `c
 CREATE TABLE `weeklylog` (
   `LogID` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
-  `Date` date NOT NULL,
-  `Transportation` varchar(255) NOT NULL,
-  `energyUsage` varchar(255) NOT NULL,
-  `meals` varchar(255) NOT NULL
+  `date` datetime NOT NULL,
+  `weekNo` int(11) NOT NULL,
+  `month` varchar(20) NOT NULL,
+  `carbonFootprintTransport` float NOT NULL,
+  `carbonFootprintFood` float NOT NULL,
+  `carbonFootprintEnergy` float NOT NULL,
+  `totalCarbonFootprint` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `weeklylog`
+--
+
+INSERT INTO `weeklylog` (`LogID`, `userID`, `date`, `weekNo`, `month`, `carbonFootprintTransport`, `carbonFootprintFood`, `carbonFootprintEnergy`, `totalCarbonFootprint`) VALUES
+(5, 1, '2024-03-01 22:59:51', 3, 'March', 12.3, 46.5, 2.85, 61.65),
+(6, 1, '2024-03-02 23:38:47', 2, 'March', 12.3, 77.5, 5.9, 95.7),
+(7, 1, '2024-03-03 00:11:26', 1, 'March', 18.5, 77.5, 2.85, 98.85),
+(8, 1, '2024-03-04 20:53:26', 4, 'March', 10.1, 82, 4.5, 96.6);
 
 --
 -- Indexes for dumped tables
@@ -121,6 +136,13 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`userID`);
 
 --
+-- Indexes for table `weeklylog`
+--
+ALTER TABLE `weeklylog`
+  ADD PRIMARY KEY (`LogID`),
+  ADD KEY `user_fk` (`userID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -134,7 +156,23 @@ ALTER TABLE `educontent`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `weeklylog`
+--
+ALTER TABLE `weeklylog`
+  MODIFY `LogID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `weeklylog`
+--
+ALTER TABLE `weeklylog`
+  ADD CONSTRAINT `user_fk` FOREIGN KEY (`userID`) REFERENCES `ecotrace2`.`user` (`userID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
