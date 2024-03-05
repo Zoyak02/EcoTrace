@@ -145,7 +145,7 @@ else if(isset($_GET['success']))
       <thead class="thead-light" >
       <tr>
         <th width="5%" scope="col" class="rounded-start">Sr. No</th>    
-        <th width="20%" scope="col">Image/Infographic/Video</th>
+        <th width="20%" scope="col">Article/Infographic/Video</th>
         <th width="15%" scope="col">Category</th>
         <th width="15%" scope="col">Title</th>
         <th width="35%" scope="col">Description</th>
@@ -197,7 +197,7 @@ else if(isset($_GET['success']))
               <div class="input-group mb-3">
                 <select class="form-select" aria-label="Default select example" name="content" id="content"required>
                   <option value="" disabled selected>Select Type Of Content</option>
-                  <option value="Image">Image</option>
+                  <option value="Image">Article</option>
                   <option value="Infographic">Infographic</option>
                   <option value="Video">Video</option>
                 </select>
@@ -262,12 +262,12 @@ function validateForm() {
 
     // Determine the allowed formats and max size based on the selected content type
     switch (contentType) {
-        case "Image": // Image
-        case "Infographic": // Infographic
+        case "Image": 
+        case "Infographic": 
             allowedFormats = [".jpg", ".jpeg", ".png", ".webp"];
             maxSize = 5242880; // 5 MB in bytes
             break;
-        case "Video": // Video
+        case "Video": 
             allowedFormats = [".mp4"];
             maxSize = 20971520; // 20 MB in bytes
             break;
