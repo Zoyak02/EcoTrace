@@ -204,7 +204,7 @@ $totalPages = ceil($rowCount / $itemsPerPage);
             </div>
         </div>
     </div>
-    <!-- Modal Start -->
+    <!-- Modal End -->
     </div>
 
     <div class="ftco-section wf100">
