@@ -132,7 +132,7 @@ if (isset($_SESSION['success_message'])) {
                        <h3>Login Account</h3>
                        <form method="post" action="accounts.php">
                           <div class="input-group">
-                             <input type="text" class="form-control"  name="username"placeholder="Username/Email" required>
+                             <input type="text" class="form-control"  name="username"placeholder="Username" required>
                           </div>
                           <div class="input-group">
                              <input type="password" class="form-control"  name="password" placeholder="Password" required>
