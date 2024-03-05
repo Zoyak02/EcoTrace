@@ -86,20 +86,22 @@ ini_set('display_errors', 1);
                            <a class="nav-link" href="about.html">About</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="events-grid.html">Events</a>
+                           <a class="nav-link" href="activity_log.php">Activity Log</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="causes.html">Causes</a>
+                           <a class="nav-link" href="carbon_dash.php">Dashboard</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="blog.html">Blogs</a>
+                           <a class="nav-link" href="display4.php">Learn</a>
                        </li>
+                       <!--
                        <li class="nav-item">
                            <a class="nav-link" href="#">Pages</a>
                        </li>
                        <li class="nav-item">
                            <a class="nav-link" href="contact.html">Contact</a>
                        </li>
+                       --->
                    </ul>
                    <?php if (isLoggedIn()): ?>
                      <!-- If user is logged in, show profile circle -->
