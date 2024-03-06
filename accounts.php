@@ -211,16 +211,17 @@ if (isset($_POST['newPass'])) {
 
 // Check if the form is submitted for profile update
 if (isset($_POST['save-btn'])) {
+
     // Sanitize and retrieve form data
     $userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : null;
-    $username = isset($_POST["username"]) ? mysqli_real_escape_string($con, $_POST["username"]) : null;
-    $firstName = isset($_POST["firstName"]) ? mysqli_real_escape_string($con, $_POST["firstName"]) : null;
-    $lastName = isset($_POST["lastName"]) ? mysqli_real_escape_string($con, $_POST["lastName"]) : null;
-    $email = isset($_POST["email"]) ? mysqli_real_escape_string($con, $_POST["email"]) : null;
-    $contactNumber = isset($_POST["contactNumber"]) ? mysqli_real_escape_string($con, $_POST["contactNumber"]) : null;
-    $commutingMethod = isset($_POST["commutingMethod"]) ? mysqli_real_escape_string($con, $_POST["commutingMethod"]) : null;
-    $dietPreferences = isset($_POST["dietPreferences"]) ? mysqli_real_escape_string($con, $_POST["dietPreferences"]) : null;
-    $energySource = isset($_POST["energySource"]) ? mysqli_real_escape_string($con, $_POST["energySource"]) : null;
+    $username = isset($_POST["usernameModal"]) ? mysqli_real_escape_string($con, $_POST["usernameModal"]) : null;
+    $firstName = isset($_POST["firstNameModal"]) ? mysqli_real_escape_string($con, $_POST["firstNameModal"]) : null;
+    $lastName = isset($_POST["lastNameModal"]) ? mysqli_real_escape_string($con, $_POST["lastNameModal"]) : null;
+    $email = isset($_POST["emailModal"]) ? mysqli_real_escape_string($con, $_POST["emailModal"]) : null;
+    $contactNumber = isset($_POST["contactNumberModal"]) ? mysqli_real_escape_string($con, $_POST["contactNumberModal"]) : null;
+    $commutingMethod = isset($_POST["commutingMethodModal"]) ? mysqli_real_escape_string($con, $_POST["commutingMethodModal"]) : null;
+    $dietPreferences = isset($_POST["dietPreferenceModal"]) ? mysqli_real_escape_string($con, $_POST["dietPreferenceModal"]) : null;
+    $energySource = isset($_POST["energySourceModal"]) ? mysqli_real_escape_string($con, $_POST["energySourceModal"]) : null;
 
     // Validate form data
     $errors = [];
@@ -240,10 +241,12 @@ if (isset($_POST['save-btn'])) {
         // Execute the update query
         $result = mysqli_stmt_execute($stmt);
 
+        // Close the prepared statement
+        mysqli_stmt_close($stmt);
+
         // Check if the update was successful
         if ($result) {
             // Redirect to the profile page after successful update
-            mysqli_stmt_close($stmt);
             mysqli_close($con);
             header("Location: profile.php");
             exit();
@@ -251,20 +254,64 @@ if (isset($_POST['save-btn'])) {
             // Handle database error
             $errors[] = "Failed to update profile. Please try again later.";
         }
-
-        // Close the prepared statement
-        mysqli_stmt_close($stmt);
     }
 
     // Set errors in session for displaying to the user
     $_SESSION['profile_update_errors'] = $errors;
 
     // Redirect back to the profile page to display errors
+    header("Location: index.php");
+    exit();
+}
+
+// Update Profile Picture
+
+// Check if the form is submitted for profile picture update
+if (isset($_POST['editPicture-btn'])) {
+    // Check if a file is uploaded
+    if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] === UPLOAD_ERR_OK) {
+        // Validate the uploaded file (size, type, etc.)
+        // Move the uploaded file to a designated location on the server
+        $uploadDir = "uploads\profile_picture"; // Specify the directory where you want to store profile pictures
+        $uploadFile = $uploadDir . basename($_FILES['profilePicture']['name']);
+
+        if (move_uploaded_file($_FILES['profilePicture']['tmp_name'], $uploadFile)) {
+            // File upload successful, update the user's profile picture in the database
+            $profilePicturePath = $uploadFile; // Update this with the actual file path or identifier
+
+            // Update the user's profile picture in the database
+            $sql = "UPDATE user SET profilePicture = ? WHERE userID = ?";
+            $stmt = mysqli_prepare($con, $sql);
+            mysqli_stmt_bind_param($stmt, "si", $profilePicturePath, $userID);
+            $result = mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+
+            if ($result) {
+                // Profile picture update successful, redirect back to the Profile Page
+                mysqli_close($con);
+                header("Location: profile.php"); // Adjust the URL accordingly
+                exit();
+            } else {
+                // Handle database error
+                $errors[] = "Failed to update profile picture. Please try again later.";
+            }
+        } else {
+            // Handle file upload error
+            $errors[] = "Failed to upload profile picture.";
+        }
+    } else {
+        // No file uploaded or error occurred during upload
+        $errors[] = "No profile picture uploaded or an error occurred.";
+    }
+
+    // Set errors in session for displaying to the user
+    $_SESSION['profile_picture_update_errors'] = $errors;
+
+    // Redirect back to the Profile Page to display errors
     header("Location: profile.php");
     exit();
 }
 
-// Close the database connection
-mysqli_close($con);
+
 ?>
 

@@ -1,6 +1,5 @@
 <?php
-session_start();
-require("connection.php");
+include("accounts.php");
 
 // Check if the database connection is established
 if (!$con) {
@@ -9,14 +8,14 @@ if (!$con) {
     exit();
 }
 
-function isLoggedIn()
-{
-        if (isset($_SESSION['userID'])) {
-                return true;
-        }else{
-                return false;
-        }
-}
+// function isLoggedIn()
+// {
+//         if (isset($_SESSION['userID'])) {
+//                 return true;
+//         }else{
+//                 return false;
+//         }
+// }
 
 // Retrieve user ID from the session after successful login
 if (!isset($_SESSION['userID'])) {
@@ -33,6 +32,7 @@ $stmt = mysqli_prepare($con, $sql);
 mysqli_stmt_bind_param($stmt, "i", $userID);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
+
 
 // Check if execute() was successful
 if (!$result) {
@@ -55,11 +55,71 @@ if (!$user) {
 $username = $user['username'];
 $firstName = $user['firstName'];
 $lastName = $user['lastName'];
+$profilePicture = $user['profilePicture'];
 $email = $user['email'];
 $contactNumber = $user['contactNumber'];
 $commutingMethod = $user['commutingMethod'];
 $dietPreferences = $user['dietPreferences'];
 $energySource = $user['energySource'];
+
+$commutingMethodDisplay = getCommutingMethodDisplay($commutingMethod);
+$dietPreferencesDisplay = getDietPreferencesDisplay($dietPreferences);
+$energySourceDisplay = getEnergySourceDisplay($energySource);
+
+
+// Define the functions for converting values to display text
+function getCommutingMethodDisplay($value) {
+   switch ($value) {
+       case "car_owner":
+           return "Car Owner";
+       case "public_transportation":
+           return "Public Transportation User";
+       case "active_commuter":
+           return "Active Commuter (Walk, Cycle)";
+       case "other_transport":
+           return "Other";
+       default:
+           return "";
+   }
+}
+
+function getDietPreferencesDisplay($value) {
+   switch ($value) {
+       case "meat_lover":
+           return "Meat Lover";
+       case "vegetarian":
+           return "Vegetarian";
+       case "vegan":
+           return "Vegan";
+       case "mixed_diet":
+           return "Mixed Diet";
+       case "other_diet":
+           return "Other";
+       default:
+           return "";
+   }
+}
+
+function getEnergySourceDisplay($value) {
+   switch ($value) {
+       case "electricity_grid":
+           return "Electricity Grid";
+       case "solar_power":
+           return "Solar Power";
+       case "wind_power":
+           return "Wind Power";
+       case "natural_gas":
+           return "Natural Gas";
+       case "biomass":
+           return "Biomass";
+       case "geothermal_energy":
+           return "Geothermal Energy";
+       case "other":
+           return "Other";
+       default:
+           return "";
+   }
+}
 
 // Free the result set
 mysqli_free_result($result);
@@ -239,7 +299,8 @@ mysqli_stmt_close($stmt);
                      <div class="card">
                         <div class="card-body">
                            <div class="d-flex flex-column align-items-center text-center">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Profile Picture" class="rounded-circle" width="150">
+                          
+                              <img src="images/profile.jpg" alt="Profile Picture" class="rounded-circle" width="150">
                               <div class="mt-3 font-weight-bold">
                                  <h5 class="mb-5 mt-2"><?php echo $firstName." ".$lastName; ?></h5>
                               </div>
@@ -307,7 +368,7 @@ mysqli_stmt_close($stmt);
                            <h6 class="mb-0">Commuting Method</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                           <?php echo $commutingMethod; ?>
+                           <?php echo $commutingMethodDisplay; ?>
                         </div>
                         </div>
                         <hr>
@@ -316,7 +377,7 @@ mysqli_stmt_close($stmt);
                            <h6 class="mb-0">Dietary Preferences</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                           <?php echo $dietPreferences; ?>
+                           <?php echo $dietPreferencesDisplay; ?>
                         </div>
                         </div>
                         <hr>
@@ -325,7 +386,7 @@ mysqli_stmt_close($stmt);
                            <h6 class="mb-0">Energy Source</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                           <?php echo $energySource; ?>
+                           <?php echo $energySourceDisplay; ?>
                         </div>
                         </div>
                      </div>
@@ -358,17 +419,24 @@ mysqli_stmt_close($stmt);
                                  <!-- Edit Profile Picture Start -->
                                  <div class="col-lg-12 d-flex justify-content-center">
                                     <div class="card">
-                                          <div class="card-body">
+                                       <div class="card-body">
                                              <div class="d-flex flex-column align-items-center text-center">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="170">
+                                                <img src="images/profile.jpg" alt="Profile Picture" class="rounded-circle p-1 bg-primary" width="170">
                                                 <div class="mt-3">
-                                                      <button class="btn btn-outline-primary">Edit Picture</button>
+                                                   <form id="profilePictureForm" method="post" enctype="multipart/form-data">
+                                                         <label for="profilePictureInput" class="btn btn-primary">
+                                                            Edit Picture
+                                                         </label>
+                                                         <input id="profilePictureInput" type="file" name="profilePicture" accept="image/*" style="display: none;">
+                                                         <button type="submit" name="editPicture-btn" class="btn btn-primary" style="display: none;"></button>
+                                                   </form>
                                                 </div>
                                              </div>
-                                          </div>
+                                       </div>
                                     </div>
                                  </div>
                                  <!-- Edit Profile Picture End -->
+
 
                                  <!-- Edit Profile Details Section -->
 
@@ -382,7 +450,7 @@ mysqli_stmt_close($stmt);
                                                       <h6 class="mb-0">Username</h6>
                                                    </div>
                                                    <div class="col-sm-8 text-secondary">
-                                                      <input type="text" class="form-control" value="<?php echo $username; ?>">
+                                                      <input type="text" name="usernameModal" class="form-control" value="<?php echo $username; ?>">
                                                    </div>
                                              </div>
                                              <div class="row mb-3">
@@ -390,7 +458,7 @@ mysqli_stmt_close($stmt);
                                                       <h6 class="mb-0">First Name</h6>
                                                    </div>
                                                    <div class="col-sm-8 text-secondary">
-                                                      <input type="text" class="form-control" value="<?php echo $firstName; ?>">
+                                                      <input type="text" name="firstNameModal" class="form-control" value="<?php echo $firstName; ?>">
                                                    </div>
                                              </div>
                                              <div class="row mb-3">
@@ -398,7 +466,7 @@ mysqli_stmt_close($stmt);
                                                       <h6 class="mb-0">Last Name</h6>
                                                    </div>
                                                    <div class="col-sm-8 text-secondary">
-                                                      <input type="text" class="form-control" value="<?php echo $lastName; ?>">
+                                                      <input type="text" name="lastNameModal" class="form-control" value="<?php echo $lastName; ?>">
                                                    </div>
                                              </div>
                                              <div class="row mb-3">
@@ -406,7 +474,7 @@ mysqli_stmt_close($stmt);
                                                       <h6 class="mb-0">Email</h6>
                                                    </div>
                                                    <div class="col-sm-8 text-secondary">
-                                                      <input type="text" class="form-control" value="<?php echo $email; ?>">
+                                                      <input type="text" name="emailModal" class="form-control" value="<?php echo $email; ?>">
                                                    </div>
                                              </div>
                                              <div class="row mb-3">
@@ -414,7 +482,7 @@ mysqli_stmt_close($stmt);
                                                       <h6 class="mb-0">Contact Number</h6>
                                                    </div>
                                                    <div class="col-sm-8 text-secondary">
-                                                      <input type="text" class="form-control" value="<?php echo $contactNumber; ?>">
+                                                      <input type="text" name="contactNumberModal" class="form-control" value="<?php echo $contactNumber; ?>">
                                                    </div>
                                              </div>
                                              <div class="row mb-3">
