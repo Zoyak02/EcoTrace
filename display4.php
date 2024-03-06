@@ -115,6 +115,7 @@ $totalPages = ceil($rowCount / $itemsPerPage);
         </nav>
         
     </header>
+    <!--Header End-->
 
 <div class="wrapper">
         <?php
