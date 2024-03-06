@@ -211,42 +211,58 @@ if (isset($_POST['newPass'])) {
 
 // Check if the form is submitted for profile update
 if (isset($_POST['save-btn'])) {
-    // Retrieve form data
-    $userID = $_SESSION['userID'];
-    $username = $_POST["username"];
-    $firstName = $_POST["firstName"];
-    $lastName = $_POST["lastName"];
-    $email = $_POST["email"];
-    $contactNumber = $_POST["contactNumber"];
-    $commutingMethod = $_POST["commutingMethod"];
-    $dietPreferences = $_POST["dietPreferences"];
-    $energySource = $_POST["energySource"];
+    // Sanitize and retrieve form data
+    $userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : null;
+    $username = isset($_POST["username"]) ? mysqli_real_escape_string($con, $_POST["username"]) : null;
+    $firstName = isset($_POST["firstName"]) ? mysqli_real_escape_string($con, $_POST["firstName"]) : null;
+    $lastName = isset($_POST["lastName"]) ? mysqli_real_escape_string($con, $_POST["lastName"]) : null;
+    $email = isset($_POST["email"]) ? mysqli_real_escape_string($con, $_POST["email"]) : null;
+    $contactNumber = isset($_POST["contactNumber"]) ? mysqli_real_escape_string($con, $_POST["contactNumber"]) : null;
+    $commutingMethod = isset($_POST["commutingMethod"]) ? mysqli_real_escape_string($con, $_POST["commutingMethod"]) : null;
+    $dietPreferences = isset($_POST["dietPreferences"]) ? mysqli_real_escape_string($con, $_POST["dietPreferences"]) : null;
+    $energySource = isset($_POST["energySource"]) ? mysqli_real_escape_string($con, $_POST["energySource"]) : null;
 
-    // Construct the update query
-    $sql = "UPDATE user SET username=?, firstName=?, lastName=?, email=?, contactNumber=?, commutingMethod=?, dietPreferences=?, energySource=? WHERE userID=?";
-    $stmt = mysqli_prepare($con, $sql);
-
-    // Bind parameters
-    mysqli_stmt_bind_param($stmt, "ssssssssi", $username, $firstName, $lastName, $email, $contactNumber, $commutingMethod, $dietPreferences, $energySource, $userID);
-
-    // Execute the update query
-    $result = mysqli_stmt_execute($stmt);
-
-    // Check if the update was successful
-    if ($result) {
-        // Redirect to the profile page after successful update
-        header("Location: profile.php");
-        exit();
-    } else {
-        // Handle error if update fails
-        echo "Failed to update profile.";
+    // Validate form data
+    $errors = [];
+    if (!$userID || !$username || !$firstName || !$lastName || !$email || !$contactNumber || !$commutingMethod || !$dietPreferences || !$energySource) {
+        $errors[] = "All fields are required.";
     }
 
-    // Close the prepared statement
-    mysqli_stmt_close($stmt);
+    // If there are no errors, proceed with the update
+    if (empty($errors)) {
+        // Construct the update query
+        $sql = "UPDATE user SET username=?, firstName=?, lastName=?, email=?, contactNumber=?, commutingMethod=?, dietPreferences=?, energySource=? WHERE userID=?";
+        $stmt = mysqli_prepare($con, $sql);
+
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt, "ssssssssi", $username, $firstName, $lastName, $email, $contactNumber, $commutingMethod, $dietPreferences, $energySource, $userID);
+
+        // Execute the update query
+        $result = mysqli_stmt_execute($stmt);
+
+        // Check if the update was successful
+        if ($result) {
+            // Redirect to the profile page after successful update
+            mysqli_stmt_close($stmt);
+            mysqli_close($con);
+            header("Location: profile.php");
+            exit();
+        } else {
+            // Handle database error
+            $errors[] = "Failed to update profile. Please try again later.";
+        }
+
+        // Close the prepared statement
+        mysqli_stmt_close($stmt);
+    }
+
+    // Set errors in session for displaying to the user
+    $_SESSION['profile_update_errors'] = $errors;
+
+    // Redirect back to the profile page to display errors
+    header("Location: profile.php");
+    exit();
 }
-
-
 
 // Close the database connection
 mysqli_close($con);

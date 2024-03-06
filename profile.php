@@ -77,6 +77,11 @@ mysqli_stmt_close($stmt);
   <meta name="author" content="">
   <link rel="icon" href="images/favicon.png">
   <title>Profile Page</title>
+
+  <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"/>
+
   <!-- CSS FILES START -->
   <link href="css/custom3.css" rel="stylesheet">
   <link href="css/color.css" rel="stylesheet">

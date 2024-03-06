@@ -39,6 +39,9 @@ $totalPages = ceil($rowCount / $itemsPerPage);
     <meta name="author" content="">
     <link rel="icon" href="images/favicon.png">
     <script src="https://kit.fontawesome.com/877d2cecdc.js" crossorigin="anonymous"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"/>
     <!-- CSS FILES START -->
     <link href="css/custom3.css" rel="stylesheet">
     <link href="css/color.css" rel="stylesheet">
