@@ -137,6 +137,7 @@ ini_set('display_errors', 1);
             </nav>
             
          </header>
+         <!--Header End-->
 
      
          <div id="index_hype_container" style="margin:auto;position:relative;overflow:hidden;">
