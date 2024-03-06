@@ -1,7 +1,8 @@
 <?php
+include_once("accounts.php");
 require("connection.php");
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 
 // Check if the 'success' parameter is set in the URL
 if (isset($_GET['success'])) {
@@ -50,48 +51,70 @@ $totalPages = ceil($rowCount / $itemsPerPage);
 <body>
     <!--Header Start-->
     <header class="header-style-2">
-    <nav class="navbar navbar-expand-lg">
-        <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index-2.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="events-grid.html">Events</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="causes.html">Causes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="blog.html">Blogs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
-            </ul>
+        <nav class="navbar navbar-expand-lg">
+            <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px; margin-left:30px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <?php if (isLoggedIn()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="activity_log.php">Activity Log</a>
+                    </li>
+                    <?php endif; ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carbon_dash.php">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="display4.php">Learn</a>
+                    </li>
+                    <!--
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    --->
+                </ul>
+                <?php if (isLoggedIn()): ?>
+                    <!-- If user is logged in, show profile circle -->
+                    <li class="nav-item profile-dropdown">
+                    <img src="images/profile.jpg" class="profile" />
+                    <ul class="profile-menu">
+                        <li class="sub-item">
+                            <a href="profile.php" style="display: flex; align-items: center; text-decoration: none;">
+                                <span class="material-icons-outlined"> manage_accounts </span>
+                                <p>Update Profile</p>
+                            </a>
+                        </li>
+                        <!-- Other profile-related items -->
+                        <li class="sub-item">
+                                <a href="index.php?logout=true" style="display: flex; align-items: center; text-decoration: none;"> <!-- Log out link -->
+                                <span class="material-icons-outlined"> logout </span>
+                                <p>Logout</p>
+                                </a>
+                        </li>
+                    </ul>
+                    </li>
 
-            <li class="nav-item" style="list-style: none;">
-                <a class="login-btn" href="login-page" role="button"> Login </a>
-            </li>
+            <?php else: ?>
+                    <!-- If user is not logged in, show login button -->
+                    <li class="nav-item" style="list-style: none;">
+                    <a class="login-btn" href="login.php" role="button"> Login </a>
+                    </li>
+            <?php endif; ?>
+            
         </div>
-    </nav>
+        
+        </nav>
+        
     </header>
-
-    <!--Inner Header Start-->
-    <section class="wf100 inner-header">
-    <div class="container">
-        <h1>Educational Content </h1>
-    </div>
-    </section>
-    <!--Inner Header End--> 
 
 <div class="wrapper">
         <?php
