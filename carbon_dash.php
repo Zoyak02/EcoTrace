@@ -64,10 +64,10 @@ ini_set('display_errors', 1);
         position: absolute;
         right: 0;
         bottom: 0;
-        height: 32px;
-        width: 32px;
+        height: 100px;
+        width: 100px;
         margin-right: -8px;
-        margin-bottom: -8px;
+        margin-bottom: -14px;
         color: #38a169; /* Change to your desired color */
         opacity: 0.5;
         }
@@ -76,13 +76,13 @@ ini_set('display_errors', 1);
      #donutChart {
         max-width: 400px;  /* Set the maximum width as needed */
         max-height: 400px; /* Set the maximum height as needed */
-        margin:auto;
+        margin:20px;
     }
 
     #lineChart{
         min-width: 400px;  /* Set the maximum width as needed */
         min-height: 300px; /* Set the maximum height as needed */
-        margin:auto;
+        margin:20px;
     }
 
     </style>
@@ -144,6 +144,48 @@ ini_set('display_errors', 1);
 
                 // Check if $con is defined and is a valid mysqli connection
                 if (isset($con) && $con instanceof mysqli && !$con->connect_error) {
+
+                    // DASHBOARD CARD CALCULATION 
+                    // Query to calculate cumulative total for food
+                    $foodQuery = "SELECT SUM(carbonFootprintFood) AS totalFood FROM weeklylog WHERE userID = '$userID'";
+                    $foodResult = mysqli_query($con, $foodQuery);
+                    $totalFood = 0;
+
+                    if ($foodResult && mysqli_num_rows($foodResult) > 0) {
+                        $totalFoodRow = mysqli_fetch_assoc($foodResult);
+                        $totalFood = $totalFoodRow['totalFood'];
+                    }
+
+                    // Query to calculate cumulative total for transport
+                    $transportQuery = "SELECT SUM(carbonFootprintTransport) AS totalTransport FROM weeklylog WHERE userID = '$userID'";
+                    $transportResult = mysqli_query($con, $transportQuery);
+                    $totalTransport = 0;
+
+                    if ($transportResult && mysqli_num_rows($transportResult) > 0) {
+                        $totalTransportRow = mysqli_fetch_assoc($transportResult);
+                        $totalTransport = $totalTransportRow['totalTransport'];
+                    }
+
+                    // Query to calculate cumulative total for energy
+                    $energyQuery = "SELECT SUM(carbonFootprintEnergy) AS totalEnergy FROM weeklylog WHERE userID = '$userID'";
+                    $energyResult = mysqli_query($con, $energyQuery);
+                    $totalEnergy = 0;
+
+                    if ($energyResult && mysqli_num_rows($energyResult) > 0) {
+                        $totalEnergyRow = mysqli_fetch_assoc($energyResult);
+                        $totalEnergy = $totalEnergyRow['totalEnergy'];
+                    }
+
+                    $overallQuery = "SELECT SUM(totalCarbonFootprint) AS totalOverall FROM weeklylog WHERE userID = '$userID'";
+                    $overallResult = mysqli_query($con, $overallQuery);
+                    $totalOverall = 0;
+
+                    if ($overallResult && mysqli_num_rows($overallResult) > 0) {
+                        $totalOverallRow = mysqli_fetch_assoc($overallResult);
+                        $totalOverall = $totalOverallRow['totalOverall'];
+                    }
+
+                    // DOUGHNUT CHART CALCULATION 
                     // Retrieve the latest week's carbon footprint data for the logged-in user
                     $selectQuery = "SELECT * FROM weeklylog WHERE userID = '$userID' ORDER BY date DESC LIMIT 1";
 
@@ -175,23 +217,35 @@ ini_set('display_errors', 1);
                     echo "Database connection is not established or is invalid.";
                 }
 
+
+                    // LINE GRAPH CALCULATION 
                     // Retrieve historical carbon footprint data for the logged-in user for the current month
-                    $historicalDataQuery = "SELECT weekNo, totalCarbonFootprint FROM weeklylog WHERE userID = '$userID' AND month = '$currentMonth' ORDER BY weekNo";
+                    $historicalDataQuery = "SELECT weekNo, carbonFootprintTransport, carbonFootprintFood, carbonFootprintEnergy, totalCarbonFootprint FROM weeklylog WHERE userID = '$userID' AND month = '$currentMonth' ORDER BY weekNo";
+
                     $historicalResult = mysqli_query($con, $historicalDataQuery);
 
                     $weeklyLabels = [];
+                    $transportationData = [];
+                    $foodData = [];
+                    $energyData = [];
                     $totalFootprintData = [];
 
                     if ($historicalResult && mysqli_num_rows($historicalResult) > 0) {
                         while ($row = mysqli_fetch_assoc($historicalResult)) {
                             $weeklyLabels[] = "Week " . $row['weekNo'];
+                            $transportationData[] = $row['carbonFootprintTransport'];
+                            $foodData[] = $row['carbonFootprintFood'];
+                            $energyData[] = $row['carbonFootprintEnergy'];
                             $totalFootprintData[] = $row['totalCarbonFootprint'];
                         }
                     } else {
                         // If no data found for the current month, you might want to reset or display a message
                         $weeklyLabels[] = "Week 1";
+                        $transportationData[] = 0;
+                        $foodData[] = 0;
+                        $energyData[] = 0;
                         $totalFootprintData[] = 0;
-                        $errors[] = "No data found for the current month, PLease update activiy log " ;
+                        $errors[] = "No data found for the current month. Please update activity log.";
                     }
                 ?>
 
@@ -211,8 +265,8 @@ ini_set('display_errors', 1);
             <div class="container flex items-center justify-center p-5">
             <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl">
                 <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-teal-400 to-green-500 rounded-md overflow-hidden">
-                <div class="relative z-10 mb-2 text-white text-3xl leading-none font-semibold">
-                    <?php echo $carbonFootprintData['transport']; ?>
+                <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
+                    <?php echo number_format($totalTransport,2) ?>
                      <span class="text-sm">kgCO2e</span>
                 </div>
                 <div class="relative z-10 text-green-200 leading-none font-semibold">Transportation</div>
@@ -220,8 +274,8 @@ ini_set('display_errors', 1);
                 </div>
 
                 <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md overflow-hidden">
-                <div class="relative z-10 mb-2 text-white text-4xl leading-none font-semibold">
-                    <?php echo $carbonFootprintData['energy']; ?>
+                <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
+                    <?php echo number_format($totalEnergy,2) ?>
                      <span class="text-sm">kgCO2e</span>
                 </div>
                 <div class="relative z-10 text-blue-200 leading-none font-semibold">Energy</div>
@@ -231,8 +285,8 @@ ini_set('display_errors', 1);
                 </div>
 
                 <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-red-400 to-red-600 rounded-md overflow-hidden">
-                <div class="relative z-10 mb-2 text-white text-4xl leading-none font-semibold">
-                    <?php echo $carbonFootprintData['food']; ?> 
+                <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
+                    <?php echo number_format($totalFood,2) ?> 
                      <span class="text-sm">kgCO2e</span>
                 </div>
                 <div class="relative z-10 text-red-200 leading-none font-semibold">Food</div>
@@ -242,8 +296,8 @@ ini_set('display_errors', 1);
                 </div>
                 
                 <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md overflow-hidden">
-                <div class="relative z-10 mb-2 text-white text-4xl leading-none font-semibold">
-                    <?php echo $carbonFootprintData['total']; ?> 
+                <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
+                    <?php echo number_format($totalOverall,2) ?> 
                      <span class="text-sm">kgCO2e</span>
                 </div>
                 <div class="text-yellow-200 leading-none font-semibold">Total Footprint</div>
@@ -400,6 +454,7 @@ ini_set('display_errors', 1);
                 });
 
                 // Create a line chart
+                var delayed = false;
                 var lineCtx = document.getElementById('lineChart').getContext('2d');
                 var lineChart = new Chart(lineCtx, {
                     type: 'line',
@@ -407,11 +462,25 @@ ini_set('display_errors', 1);
                         labels: weekLabels,
                         datasets: [{
                             label: 'Total Carbon Footprint',
-                            borderColor: '#FF5733',
+                            borderColor: '#FFD700',
+                            backgroundColor :'rgba(255, 215, 0, 0.5)',
+                            pointRadius: 5,
                             data: totalFootprintData
                         }]
                     },
                     options: {
+                        animation: {
+                                onComplete: () => {
+                                    delayed = true;
+                                },
+                                delay: (context) => {
+                                    let delay = 0;
+                                    if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                                    delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                                    }
+                                    return delay;
+                                },
+                        },
                         scales: {
 
                                 y: {
@@ -428,9 +497,9 @@ ini_set('display_errors', 1);
                                 text: 'Carbon Footprint Trend for ' + month,
                                 color:'#66bb6a',
                                 font: {
-                                    size: 15, 
+                                    size: 18, 
                                    
-                                },
+                                }
                             }
                         },
                         legend: {
@@ -439,8 +508,52 @@ ini_set('display_errors', 1);
                         },
                         responsive: true,
                         maintainAspectRatio: false,
+                        onClick: handleLineChartClick
                     }
                 });
+
+                var preloadedData = {};
+                <?php
+                // Loop through each week's data and add it to the preloadedData object
+                foreach ($weeklyLabels as $index => $label) {
+                    $transport = $transportationData[$index];
+                    $food = $foodData[$index];
+                    $energy = $energyData[$index];
+
+                    // Use json_encode to ensure correct representation in JavaScript
+                    echo "preloadedData['$label'] = " . json_encode(['transport' => $transport, 'food' => $food, 'energy' => $energy]) . ";\n";
+                }
+                ?>
+
+                function handleLineChartClick(event, elements) {
+                    if (elements.length > 0) {
+                        // Get the clicked index
+                        var clickedIndex = elements[0].index;
+
+                        // Update doughnut chart data for the clicked week
+                        updateDonutChart(clickedIndex);
+                    }
+                }
+
+                // Update the doughnut chart based on the clicked week
+            function updateDonutChart(clickedIndex) {
+                // Get the clicked week label
+                var clickedWeekLabel = weekLabels[clickedIndex];
+
+                // Get the preloaded data for the clicked week
+                var clickedWeekData = preloadedData[clickedWeekLabel];
+
+                // Update the doughnut chart
+                donutChart.data.labels = ['Transportation', 'Food', 'Energy'];
+                donutChart.data.datasets[0].data = [clickedWeekData.transport, clickedWeekData.food, clickedWeekData.energy];
+
+                // Update the title of the doughnut chart to display the clicked week
+                donutChart.options.plugins.title.text = clickedWeekLabel;
+
+                // Finally, update the doughnut chart
+                donutChart.update();
+            }
+
             </script>
 
 

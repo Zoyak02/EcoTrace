@@ -182,23 +182,26 @@ if (isset($_POST['newPass'])) {
         // No errors, proceed with the password update
         $password = password_hash($_POST['password_1'], PASSWORD_DEFAULT);
         $update_pass = "UPDATE user SET password = ?, first_login = 0 WHERE userID = ?";
-        
+
         $stmt = mysqli_prepare($con, $update_pass);
         mysqli_stmt_bind_param($stmt, 'si', $password, $userID);
-            
+
         $success = mysqli_stmt_execute($stmt);
 
         if ($success) {
             $_SESSION['first_login'] = 0;
             $success_message = "Password updated successfully!";
-            // Redirect to index.php after successful update
             header("location:index.php");
             exit;
         } else {
             // statement execution fails
             $errors[] = "Failed to update the password.";
         }
-
+        
+        // Set the success message or errors in the session
+        $_SESSION['success_message'] = $success_message ?? null;
+        $_SESSION['errors'] = $errors ?? null;
+       
         // Close the statement
         mysqli_stmt_close($stmt);
     }
@@ -206,5 +209,5 @@ if (isset($_POST['newPass'])) {
 
 // Close the database connection
 mysqli_close($con);
-
 ?>
+

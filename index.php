@@ -1,7 +1,6 @@
 <?php 
 include("accounts.php");
 
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -85,9 +84,11 @@ ini_set('display_errors', 1);
                        <li class="nav-item">
                            <a class="nav-link" href="about.html">About</a>
                        </li>
+                       <?php if (isLoggedIn()): ?>
                        <li class="nav-item">
                            <a class="nav-link" href="activity_log.php">Activity Log</a>
                        </li>
+                       <?php endif; ?>
                        <li class="nav-item">
                            <a class="nav-link" href="carbon_dash.php">Dashboard</a>
                        </li>
@@ -155,21 +156,23 @@ ini_set('display_errors', 1);
                      <div class="modal-body">
                         <!-- Display errors/success within the modal -->
                         <?php
-                        if (!empty($errors)) {
-                              echo '<div class="alert alert-danger" role="alert">';
-                              foreach ($errors as $error) {
-                                 echo $error . '<br>';
-                              }
-                              echo '</div>';
-                        }
+                        
+                             // Display success message within the modal
+                              if (isset($_SESSION['success_message'])) {
+                                 echo '<div class="alert alert-success" role="alert">';
+                                 echo $_SESSION['success_message'];
+                                 echo '</div>';
+                           }
 
-                        // Display success message within the modal
-                        if (isset($success_message)) {
-                           echo '<div class="alert alert-success" role="alert">';
-                           echo $success_message;
-                           echo '</div>';
-                        }
-                        ?>
+                           // Display errors within the modal
+                           if (!empty($_SESSION['errors'])) {
+                                 echo '<div class="alert alert-danger" role="alert">';
+                                 foreach ($_SESSION['errors'] as $error) {
+                                    echo $error . '<br>';
+                                 }
+                                 echo '</div>';
+                           }
+                       ?>
 
                         <div class="input-group mb-3">
                               <span class="input-group-text">New Password</span>
@@ -459,7 +462,7 @@ ini_set('display_errors', 1);
                      <h3><b>About Us </b></h3>
                      <h5>Fostering Change through Carbon Awareness.</h5>
                      <p> At EcoTrace, we believe tracking your carbon footprint is vital for a sustainable future. It's the key to informed choices, reducing emissions, and fostering a healthier planet. That's why we've created a platform that simplifies eco-conscious living for all, empowering individuals to make a positive impacts. </p>
-                     <a class="aboutus" href="#">Join Us Now to Explore</a> 
+                     <a class="aboutus" href="login.php">Join Us Now to Explore</a> 
                   </div>
                </div>
             </div>
