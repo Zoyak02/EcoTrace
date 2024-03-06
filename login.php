@@ -79,6 +79,7 @@ if (isset($_SESSION['success_message'])) {
             </div>
          </section>
          <!--Inner Header End--> 
+         
         <!--Content Start-->
         <section class="wf100 p80">
            <div class="container">

@@ -169,7 +169,9 @@ mysqli_stmt_close($stmt);
       </section>
       <!--Inner Header End--> 
 
-      <div class="profileContainer">
+
+      <!-- Profile Section Start -->
+      <div class="container">
          <div class="main-body">
                <div class="row gutters-sm">
                   <div class="col-md-4 mb-3">
@@ -177,8 +179,8 @@ mysqli_stmt_close($stmt);
                         <div class="card-body">
                            <div class="d-flex flex-column align-items-center text-center">
                               <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Profile Picture" class="rounded-circle" width="150">
-                              <div class="mt-3">
-                                 <h4>John Doe</h4>
+                              <div class="mt-3 font-weight-bold">
+                                 <h5 class="mb-5 mt-2"><?php echo $firstName." ".$lastName; ?></h5>
                               </div>
                               <div class="row">
                                  <div class="col-sm-12">
@@ -189,7 +191,7 @@ mysqli_stmt_close($stmt);
                         </div>
                      </div>
                   </div>
-                  <div class="col-md-8">
+                  <div class="col-md-7">
                   <div class="card mb-1">
                      <div class="card-body">
                      <div class="row">
@@ -329,113 +331,123 @@ mysqli_stmt_close($stmt);
          </div>
       </div>
 
-   <!-- FIRST-TIME LOGIN FORM -->
-   <div id="first-login-modal" class="modal">
-      <h1>Let us know you better!</h1>
-      <div class="modal-content">
-         <span class="close">&times;</span>
-         <h2>First Login Questionnaire</h2>
-         <form id="first-login-form">
-            <label for="transportation">What is your primary mode of transportation?</label><br>
-            <select id="transportation" name="transportation">
-               <option value="car_owner">Car owner</option>
-               <option value="public_transportation">Public transportation user</option>
-               <option value="active_commuter">Active commuter (walk, cycle)</option>
-               <option value="other_transport">Other</option>
-            </select>
-            <input type="text" id="other_transport_text" name="other_transport" style="display: none;" placeholder="Please specify"><br>
+      <!-- Profile Section End -->
 
-            <label for="dietary_preferences">How would you describe your dietary preferences?</label><br>
-            <select id="dietary_preferences" name="dietary_preferences">
-               <option value="meat_lover">Meat lover</option>
-               <option value="vegetarian">Vegetarian</option>
-               <option value="vegan">Vegan</option>
-               <option value="mixed_diet">Mixed diet</option>
-               <option value="other_diet">Other</option>
-            </select>
-            <input type="text" id="other_diet_text" name="other_diet" style="display: none;" placeholder="Please specify"><br>
+      <!-- Edit Profile Modal Start -->
+      
 
-            <label for="housing">Do you live in a house or an apartment?</label><br>
-            <input type="radio" id="house" name="housing" value="house">
-            <label for="house">House</label><br>
-            <input type="radio" id="apartment" name="housing" value="apartment">
-            <label for="apartment">Apartment</label><br>
 
-            <label for="air_conditioning">Do you have air conditioning?</label><br>
-            <input type="radio" id="ac_yes" name="air_conditioning" value="yes">
-            <label for="ac_yes">Yes</label><br>
-            <input type="radio" id="ac_no" name="air_conditioning" value="no">
-            <label for="ac_no">No</label><br>
+      <!-- Edit Profie Modal End -->
 
-            <label for="household_size">How many people are there in your household?</label><br>
-            <select id="household_size" name="household_size">
-               <option value="1">1</option>
-               <option value="2">2</option>
-               <option value="3">3</option>
-               <option value="4">4</option>
-               <option value="5+">5+</option>
-            </select><br>
 
-            <button type="submit">Submit</button>
-         </form>
-         <script>
-            // JavaScript to toggle the visibility of the text input fields based on the selected options
-            document.getElementById('transportation').addEventListener('change', function() {
-               var otherTransportInput = document.getElementById('other_transport_text');
-               otherTransportInput.style.display = this.value === 'other_transport' ? 'block' : 'none';
-            });
+      <!-- First-Time Login Modal -->
+      <div id="first-login-modal" class="modal">
+         <h1>Let us know you better!</h1>
+         <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>First Login Questionnaire</h2>
+            <form id="first-login-form">
+               <label for="transportation">What is your primary mode of transportation?</label><br>
+               <select id="transportation" name="transportation">
+                  <option value="car_owner">Car owner</option>
+                  <option value="public_transportation">Public transportation user</option>
+                  <option value="active_commuter">Active commuter (walk, cycle)</option>
+                  <option value="other_transport">Other</option>
+               </select>
+               <input type="text" id="other_transport_text" name="other_transport" style="display: none;" placeholder="Please specify"><br>
 
-            document.getElementById('dietary_preferences').addEventListener('change', function() {
-               var otherDietInput = document.getElementById('other_diet_text');
-               otherDietInput.style.display = this.value === 'other_diet' ? 'block' : 'none';
-            });
-         </script>
+               <label for="dietary_preferences">How would you describe your dietary preferences?</label><br>
+               <select id="dietary_preferences" name="dietary_preferences">
+                  <option value="meat_lover">Meat lover</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="mixed_diet">Mixed diet</option>
+                  <option value="other_diet">Other</option>
+               </select>
+               <input type="text" id="other_diet_text" name="other_diet" style="display: none;" placeholder="Please specify"><br>
+
+               <label for="housing">Do you live in a house or an apartment?</label><br>
+               <input type="radio" id="house" name="housing" value="house">
+               <label for="house">House</label><br>
+               <input type="radio" id="apartment" name="housing" value="apartment">
+               <label for="apartment">Apartment</label><br>
+
+               <label for="air_conditioning">Do you have air conditioning?</label><br>
+               <input type="radio" id="ac_yes" name="air_conditioning" value="yes">
+               <label for="ac_yes">Yes</label><br>
+               <input type="radio" id="ac_no" name="air_conditioning" value="no">
+               <label for="ac_no">No</label><br>
+
+               <label for="household_size">How many people are there in your household?</label><br>
+               <select id="household_size" name="household_size">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5+">5+</option>
+               </select><br>
+
+               <button type="submit">Submit</button>
+            </form>
+            <script>
+               // JavaScript to toggle the visibility of the text input fields based on the selected options
+               document.getElementById('transportation').addEventListener('change', function() {
+                  var otherTransportInput = document.getElementById('other_transport_text');
+                  otherTransportInput.style.display = this.value === 'other_transport' ? 'block' : 'none';
+               });
+
+               document.getElementById('dietary_preferences').addEventListener('change', function() {
+                  var otherDietInput = document.getElementById('other_diet_text');
+                  otherDietInput.style.display = this.value === 'other_diet' ? 'block' : 'none';
+               });
+            </script>
+         </div>
       </div>
-   </div>
 
-   <script>
-      // Function to open the first-login form modal
-      function openFirstLoginForm() {
-         console.log("Opening first-login-modal...");
-         var firstLoginModal = document.getElementById("first-login-modal");
-         console.log(firstLoginModal); // Check if the modal element is found
-         if (firstLoginModal) {
-            firstLoginModal.style.display = "block";
-         } else {
-            console.error("Could not find first-login-modal element.");
+      <!-- First-Time Login Modal End -->
+
+      <script>
+         // Function to open the first-login form modal
+         function openFirstLoginForm() {
+            console.log("Opening first-login-modal...");
+            var firstLoginModal = document.getElementById("first-login-modal");
+            console.log(firstLoginModal); // Check if the modal element is found
+            if (firstLoginModal) {
+               firstLoginModal.style.display = "block";
+            } else {
+               console.error("Could not find first-login-modal element.");
+            }
          }
-      }
 
-      // Get the modal
-      var firstLoginModal = document.getElementById("first-login-modal");
+         // Get the modal
+         var firstLoginModal = document.getElementById("first-login-modal");
 
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close")[0];
+         // Get the <span> element that closes the modal
+         var span = document.getElementsByClassName("close")[0];
 
-      // When the user clicks on <span> (x), close the modal
-      span.onclick = function() {
-         firstLoginModal.style.display = "none";
-      }
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-         if (event.target == firstLoginModal) {
+         // When the user clicks on <span> (x), close the modal
+         span.onclick = function() {
             firstLoginModal.style.display = "none";
          }
-      }
-   </script>
 
-</div>
-  <!-- Badges Section End -->
-  <!--   JS Files Start  --> 
-  <script src="js/jquery-3.3.1.min.js"></script> 
-  <script src="js/jquery-migrate-1.4.1.min.js"></script> 
-  <script src="js/popper.min.js"></script> 
-  <script src="js/bootstrap.min.js"></script> 
-  <script src="js/owl.carousel.min.js"></script> 
-  <script src="js/jquery.prettyPhoto.js"></script> 
-  <script src="js/isotope.min.js"></script> 
-  <script src="js/main.js"></script>
+         // When the user clicks anywhere outside of the modal, close it
+         window.onclick = function(event) {
+            if (event.target == firstLoginModal) {
+               firstLoginModal.style.display = "none";
+            }
+         }
+      </script>
+
+   </div>
+   <!--   JS Files Start  --> 
+   <script src="js/jquery-3.3.1.min.js"></script> 
+   <script src="js/jquery-migrate-1.4.1.min.js"></script> 
+   <script src="js/popper.min.js"></script> 
+   <script src="js/bootstrap.min.js"></script> 
+   <script src="js/owl.carousel.min.js"></script> 
+   <script src="js/jquery.prettyPhoto.js"></script> 
+   <script src="js/isotope.min.js"></script> 
+   <script src="js/main.js"></script>
 </body>
 </html>
 
