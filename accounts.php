@@ -114,7 +114,7 @@ if (isset($_POST['signup-btn'])) {
             // Password sent successfully
             echo '<script type="text/javascript">
             alert("Account created successfully. Check your email for login instructions.");
-            window.location.href = "index.php"; // Redirect to the desired page
+            window.location.href = "login.php"; // Redirect to the desired page
             </script>';
          } catch (Exception $e) {
             // Failed to send the email
