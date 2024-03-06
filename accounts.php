@@ -3,8 +3,8 @@ require("connection.php");
 
 session_start();
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 //Email Sending Requirment 
 require 'vendor/autoload.php'; // Include the Composer-generated autoloader
