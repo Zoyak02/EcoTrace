@@ -46,6 +46,7 @@ $totalPages = ceil($rowCount / $itemsPerPage);
     <link href="css/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/all.min.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
     <!-- CSS FILES End -->
 </head>
 <body>

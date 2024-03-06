@@ -29,6 +29,7 @@ if (isset($_SESSION['success_message'])) {
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/all.min.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
     <!-- CSS FILES End -->
 </head>
 <body>
