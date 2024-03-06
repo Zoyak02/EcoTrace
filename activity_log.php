@@ -1,6 +1,15 @@
 <?php
 include("carbon_calc.php");
 
+function isLoggedIn()
+{
+        if (isset($_SESSION['userID'])) {
+                return true;
+        }else{
+                return false;
+        }
+}
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -29,6 +38,7 @@ if (isset($_GET['success'])) {
     <title>Weekly Activity Log</title>
     <!-- CSS FILES START -->
     <link href="css/custom3.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
     <link href="css/color.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/owl.carousel.min.css" rel="stylesheet">
@@ -39,7 +49,7 @@ if (isset($_GET['success'])) {
 <style>
 
 #container {
-  max-width: 700px; 
+  max-width: 800px; 
 }
 .step-container {
       position: relative;
@@ -48,8 +58,8 @@ if (isset($_GET['success'])) {
 }
 
     .step-circle {
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
       background-color: #fff;
       border: 2px solid #66bb6a;
@@ -81,89 +91,149 @@ if (isset($_GET['success'])) {
     }
     
     #bikeGif {
-    position: relative;
-    animation: cycleAnimation 6s linear infinite; 
-    z-index: 1;
-}
+        position: relative;
+        animation: cycleAnimation 6s linear infinite; 
+        z-index: 1;
+    } 
+
+    
+    .h2-dashboard-txt{
+        text-align:center;
+    }
+     
+    .h2-dashboard-txt h3 {
+		color: #66bb6a;;
+		font-family: 'Poppins', sans-serif;
+		font-weight: 500;
+        line-height: 50px;
+	}
+	.h2-dashboard-txt h5 {
+		color: #1b5e20;
+		font-family: 'Poppins', sans-serif;
+		font-weight: 700;
+		margin: 15px 0;
+	}
+	.h2-dashboard-txt p {
+		font-family: 'Roboto', sans-serif;
+		font-size: 14px;
+		color: #555555;
+		line-height: 14px;
+		margin: 0 0 30px;
+	}
+    
+    .activityPic{
+        width:50%;
+        padding-top:30px;
+    }
 
 
 @keyframes cycleAnimation {
     0% {
         left: -50px; /* Initial position outside the container on the left */
-        bottom: -35px; /* Initial position below the container */
+        bottom: -40px; /* Initial position below the container */
         transform: translateY(0);
     }
     10% {
         left: 10%; /* Initial position outside the container on the left */
-        bottom: -6px; /* Initial position below the container */
-        transform: translateY(10px);
+        bottom: -8px; /* Initial position below the container */
+        transform: translateY(20px);
     }
     25% {
         left: 25%; /* Move to the right, slightly down */
-        bottom: -6px; /* Initial position below the container */
-        transform: translateY(10px);
+        bottom: -3px; /* Initial position below the container */
+        transform: translateY(20px);
     }
     50% {
         left: 50%; /* Move further right, slightly up */
-        bottom: -6px; /* Initial position below the container */
+        bottom: -8px; /* Initial position below the container */
         transform: translateY(90px);
     }
     75% {
         left: 75%; /* Move to the right, slightly down again */
-        bottom: -6px; /* Initial position below the container */
+        bottom: -15px; /* Initial position below the container */
         transform: translateY(90px);
     }
     100% {
         left: calc(100% + 50px); /* Move to the right, beyond the container */
-        bottom: -7px; /* Initial position below the container */
-        transform: translateY(0);
+        bottom: -32px; /* Initial position below the container */
+        transform: translateY(10);
     }
 }
+
+
 
 
     </style>
 </head>
 <body>
-  <div class="wrapper">
-    <!--Header Start-->
-    <header class="header-style-2">
-        <nav class="navbar navbar-expand-lg">
-            <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="events-grid.html">Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="causes.html">Causes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="blog.html">Blogs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pages</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                </ul>
+<div class="wrapper home2">
+         <!--Header Start-->
+         <header class="header-style-2">
+            <nav class="navbar navbar-expand-lg">
+               <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px; margin-left:30px;"></a>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                   <ul class="navbar-nav mr-auto">
+                       <li class="nav-item">
+                           <a class="nav-link active" href="index.php">Home</a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="about.html">About</a>
+                       </li>
+                       <?php if (isLoggedIn()): ?>
+                       <li class="nav-item">
+                           <a class="nav-link" href="activity_log.php">Activity Log</a>
+                       </li>
+                       <?php endif; ?>
+                       <li class="nav-item">
+                           <a class="nav-link" href="carbon_dash.php">Dashboard</a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="display4.php">Learn</a>
+                       </li>
+                       <!--
+                       <li class="nav-item">
+                           <a class="nav-link" href="#">Pages</a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="contact.html">Contact</a>
+                       </li>
+                       --->
+                   </ul>
+                   <?php if (isLoggedIn()): ?>
+                     <!-- If user is logged in, show profile circle -->
+                     <li class="nav-item profile-dropdown">
+                        <img src="images/profile.jpg" class="profile" />
+                        <ul class="profile-menu">
+                           <li class="sub-item">
+                               <a href="profile.php" style="display: flex; align-items: center; text-decoration: none;">
+                                  <span class="material-icons-outlined"> manage_accounts </span>
+                                  <p>Update Profile</p>
+                               </a>
+                           </li>
+                           <!-- Other profile-related items -->
+                           <li class="sub-item">
+                                 <a href="index.php?logout=true" style="display: flex; align-items: center; text-decoration: none;"> <!-- Log out link -->
+                                    <span class="material-icons-outlined"> logout </span>
+                                    <p>Logout</p>
+                                 </a>
+                           </li>
+                        </ul>
+                     </li>
 
-                <li class="nav-item" style="list-style: none;">
-                    <a class="login-btn" href="login-page" role="button"> Login </a>
-                </li>
+               <?php else: ?>
+                     <!-- If user is not logged in, show login button -->
+                     <li class="nav-item" style="list-style: none;">
+                        <a class="login-btn" href="login.php" role="button"> Login </a>
+                     </li>
+               <?php endif; ?>
+               
             </div>
-        
-        </nav>
-        
-    </header>
-    <!-- Header End -->
+         
+            </nav>
+            
+         </header>
+         <!--Header End-->
 
     <!--Inner Header Start-->
     <section class="wf100 inner-header">
@@ -171,11 +241,43 @@ if (isset($_GET['success'])) {
             <h1>Weekly Activity Log</h1>
         </div>
     </section>
-    <!--Inner Header End--> 
+    <!--Inner Header End-->
+
 
     <!-- Activity Log Form Start -->
-    <div id="container" class="container mt-5">
-        <div class="progress px-1" style="height: 5px;">
+    <div id="container" class="container mt-5" style="padding-top:110px;">
+
+<?php 
+
+if(isset($_GET['alert']))
+{
+  if($_GET['alert']=='storing')
+  {
+    echo<<<alert
+    <div class="container alert alert-danger alert-dismissible text-center custom-alert style="margin-bottom:30px;margin-top:20px;" id="alert-msg" role="alert">
+      <strong>Error While Storing Data!</strong>
+    </div>
+    alert;
+  }
+
+}
+
+else if(isset($_GET['success']))
+{
+  if($_GET['success']=='updated')
+  {
+    echo<<<alert
+    <div class="container alert alert-success alert-dismissible text-center custom-alert"style="margin-bottom:30px;margin-top:20px;" id="success-msg" role="alert">
+      <strong>"Your weekly log has been sucessfully updated!"</strong>
+    </div>
+    alert;
+  }
+
+}
+?>
+
+<?php if (!weeklyLogUpToDate($con)): ?>
+        <div class="progress px-" style="height: 5px;">
             <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <div class="step-container d-flex justify-content-between">
@@ -201,12 +303,17 @@ if (isset($_GET['success'])) {
                         <!-- Public transportation questions -->
                         <label>How many times did you use public transportation this week?</label>
                         <input type="number" name="public_transportation_times" min="0" step="1" class="form-control">
+                        <label>How many times did you use a bicycle as a mode of transportation this week?</label>
+                        <input type="number" name="bicycle_times" min="0" step="1" class="form-control">
                      </div>
 
                      <div id="active_commuter_questions" class="form-group">
                         <!-- Active commuter questions -->
                         <label>How many days did you walk or cycle as your primary mode of transportation this week?</label>
                         <input type="number" name="active_commuter_days" min="0" step="1" class="form-control">
+                        <label>How many kilometers did you cover using an electric scooter or motorbike?</label>
+                        <input type="number" name="electric_scooter_days" min="0" step="1" class="form-control">
+                        
                      </div>
 
                      <div class="col-md-12 text-center">
@@ -373,14 +480,37 @@ if (isset($_GET['success'])) {
                         updateProgressBar();
                     });
 
-                      
                     </script>
                     <img src="images/lets-go-outside-saying-hello.gif" alt="Bike Ride Gif" id="bikeGif">
+                      <!-- Activity Log Form End -->
+                       
+                      <!-- Up to Date Message Start -->
 
-      <!-- Activity Log Form End -->
+                    <?php else: ?>
+                        <div class="contain">
+                        <div class="row ">
+                            <div class="col-12" style="padding-bottom:20px; text-align:center;">
+                                <img src="images/complete.png" class="activityPic" alt="">
+                            </div>
+                            <div class="col-12">
+                            <div class="h2-dashboard-txt">
+                                <h3><b>Impressive!</b></h3>
+                                <h5>Your carbon footprint data is up to date.</h5>
+                                <p>Your efforts are helping to create a more sustainable future. Keep up the good work in reducing your carbon footprint!<p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+    
 
       <!-- Footer section -->
-      <div class="ftco-section wf100">
+<?php if (!weeklyLogUpToDate($con)): ?>
+      <div class="ftco-section wf100 ">
+<?php else: ?>
+     <div class="ftco-section wf100 pt80 "> 
+<?php endif; ?>
             <footer class="footer">
               <svg class="footer-wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">
                 <path class="footer-wave-path" d="M851.8,100c125,0,288.3-45,348.2-64V0H0v44c3.7-1,7.3-1.9,11-2.9C80.7,22,151.7,10.8,223.5,6.3C276.7,2.9,330,4,383,9.8 c52.2,5.7,103.3,16.2,153.4,32.8C623.9,71.3,726.8,100,851.8,100z"></path>

@@ -25,8 +25,7 @@ ini_set('display_errors', 1);
 
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
       rel="stylesheet"/>
 
    

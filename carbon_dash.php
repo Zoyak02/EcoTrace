@@ -1,6 +1,15 @@
 <?php
 include("carbon_calc.php");
 
+function isLoggedIn()
+{
+        if (isset($_SESSION['userID'])) {
+                return true;
+        }else{
+                return false;
+        }
+}
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ?>
@@ -25,6 +34,7 @@ ini_set('display_errors', 1);
 
       <!-- CSS FILES START -->
       <link href="css/custom3.css" rel="stylesheet">
+      <link href="css/login.css" rel="stylesheet">
       <link href="css/color.css" rel="stylesheet">
       <link href="css/responsive.css" rel="stylesheet">
       <link href="css/owl.carousel.min.css" rel="stylesheet">
@@ -85,6 +95,36 @@ ini_set('display_errors', 1);
         margin:20px;
     }
 
+	.pt40 {
+		padding-top: 40px;
+	}
+	
+	.h2-dashboard-txt h3 {
+		color: #66bb6a;;
+		font-family: 'Poppins', sans-serif;
+		font-weight: 500;
+	}
+	.h2-dashboard-txt h6 {
+		color: #1b5e20;
+		font-family: 'Poppins', sans-serif;
+		font-weight: 700;
+		margin: 15px 0;
+	}
+	.h2-dashboard-txt p {
+		font-family: 'Roboto', sans-serif;
+		font-size: 16px;
+		color: #555555;
+		line-height: 28px;
+		margin: 0 0 30px;
+	}
+    .navPic{
+        margin: 20px;
+        border:4px solid #ADDFA4;
+        border-radius: 500%;
+        -webkit-border-radius: 500px;
+        -moz-border-radius: 500px;
+        }
+
     </style>
 
       
@@ -92,43 +132,73 @@ ini_set('display_errors', 1);
    <body>
       <div class="wrapper home2">
          <!--Header Start-->
+         <!--Header Start-->
          <header class="header-style-2">
             <nav class="navbar navbar-expand-lg">
-               <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px"></a>
+               <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px; margin-left:30px;"></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                    <ul class="navbar-nav mr-auto">
                        <li class="nav-item">
-                           <a class="nav-link" href="index-2.html">Home</a>
+                           <a class="nav-link active" href="index.php">Home</a>
                        </li>
                        <li class="nav-item">
                            <a class="nav-link" href="about.html">About</a>
                        </li>
+                       <?php if (isLoggedIn()): ?>
                        <li class="nav-item">
-                           <a class="nav-link" href="events-grid.html">Events</a>
+                           <a class="nav-link" href="activity_log.php">Activity Log</a>
+                       </li>
+                       <?php endif; ?>
+                       <li class="nav-item">
+                           <a class="nav-link" href="carbon_dash.php">Dashboard</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="causes.html">Causes</a>
+                           <a class="nav-link" href="display4.php">Learn</a>
                        </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="blog.html">Blogs</a>
-                       </li>
+                       <!--
                        <li class="nav-item">
                            <a class="nav-link" href="#">Pages</a>
                        </li>
                        <li class="nav-item">
                            <a class="nav-link" href="contact.html">Contact</a>
                        </li>
+                       --->
                    </ul>
+                   <?php if (isLoggedIn()): ?>
+                     <!-- If user is logged in, show profile circle -->
+                     <li class="nav-item profile-dropdown">
+                        <img src="images/profile.jpg" class="profile" />
+                        <ul class="profile-menu">
+                           <li class="sub-item">
+                               <a href="profile.php" style="display: flex; align-items: center; text-decoration: none;">
+                                  <span class="material-icons-outlined"> manage_accounts </span>
+                                  <p>Update Profile</p>
+                               </a>
+                           </li>
+                           <!-- Other profile-related items -->
+                           <li class="sub-item">
+                                 <a href="index.php?logout=true" style="display: flex; align-items: center; text-decoration: none;"> <!-- Log out link -->
+                                    <span class="material-icons-outlined"> logout </span>
+                                    <p>Logout</p>
+                                 </a>
+                           </li>
+                        </ul>
+                     </li>
 
-                   <li class="nav-item" style="list-style: none;">
-                     <a class="login-btn" href="login-page" role="button"> Login </a>
-                 </li>
-               </div>
+               <?php else: ?>
+                     <!-- If user is not logged in, show login button -->
+                     <li class="nav-item" style="list-style: none;">
+                        <a class="login-btn" href="login.php" role="button"> Login </a>
+                     </li>
+               <?php endif; ?>
+               
+            </div>
          
             </nav>
             
          </header>
+         <!--Header End-->
 
           <!--Inner Header Start-->
           <section class="wf100 inner-header">
@@ -139,7 +209,7 @@ ini_set('display_errors', 1);
          <!--Inner Header End--> 
 
          <?php
-
+            
                 $userID = 1;
 
                 // Check if $con is defined and is a valid mysqli connection
@@ -260,7 +330,7 @@ ini_set('display_errors', 1);
 
                     ?>
 
-
+    <?php if (isLoggedIn()): ?>
             <!--Dashboard card start--> 
             <div class="container flex items-center justify-center p-5">
             <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl">
@@ -332,9 +402,62 @@ ini_set('display_errors', 1);
                 </div>
             </div>
         </div>
+        <?php else: ?>
+            <section class="page404 wf100 p80">
+            <div class="container">
+               <div class="row ">
+                  <div class="col-lg-5 col-md-6 col-sm-6" style="padding-bottom:20px;">
+                     <img src="images/log.jpg"  style = "height:75%; margin-right:50px;"alt="">
+                  </div>
+                  <div class="col-lg-7 col-md-6 pt40 col-sm-16">
+                  <div class="h2-dashboard-txt">
+                     <h3><b>Hello There!</b></h3>
+                     <h6>We see that you want to make a change by tracking your Carbon Footprint</h6>
+                     <p> To get started, the <b>1st step</b> is to create an account. Click on the <b>"Login"</b> button on the Navigation bar at the top or the <b>"Sign up"</b> button below and provide the necessary information to set up your EcoTrace account. Creating an account will allow you to log and track your daily activities, making it easier to monitor and reduce your carbon footprint.</p>
+                     <a class="aboutus" href="login.php">Sign up</a> 
+                  </div>
+                  </div>
+               </div>
+              <div class="row">
+                 <div class="col-lg-7 col-md-6 col-sm-16" style="padding-left:20px;">
+                  <div class="h2-dashboard-txt">
+                     <h3><b>Ready to Make a Difference?</b></h3>
+                     <h6>Log Your Daily Activities for Precise Carbon Tracking.</h6>
+                     <p> Now that you have an account, proceed to the <b>"Activity Log"</b> page on the nav. Here, you can log various aspects of your daily routine, including transportation, energy usage, and food consumption. <b>Don't worry;</b> it's a straightforward process that contributes significantly to your commitment to sustainability.</p>
+                  </div>
+                  </div>
+                  <div class="col-lg-5 col-md-6 col-sm-6" style="margin-top:20px;">
+                    <img src="https://media.tenor.com/MlHKXX_Uh40AAAAj/klick-click.gif" style=" width:40px;position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); z-index: 2;">
+                    <!-- Image to be Clicked -->
+                    <img class="navPic" src="images/activitynav.png" style="height: 40%;" alt="">     
+                 </div>
+              </div>
+              <div class="row ">
+                  <div class="col-lg-5 col-md-6 col-sm-6">
+                     <img src="images/dash.jpg"  style = "height:78%; margin-right:50px;"alt="">
+                  </div>
+                  <div class="col-lg-7 col-md-6 col-sm-16">
+                  <div class="h2-dashboard-txt pt40" style="margin-top:15px;">
+                     <h3><b>Track and Analyze Your Carbon Footprint</b></h3>
+                     <h6>Unlock Powerful Insights for a Greener Lifestyle.</h6>
+                     <p> <b>Congratulations</b> on logging your activities! Head over to the <b>"Dashboard"</b> page in the navigation while logged into your account to visualize your carbon footprint. Here, you can <b>track your weekly and overall monthly carbon footprint </b>. The intuitive charts and graphs provide valuable insights into your environmental impact. Use this information to make informed decisions and explore ways to reduce your carbon footprint further.</p>
+                  </div>
+                  </div>
+               </div>
+            </div>
+                  <div class="page-404-txt wf100" style="padding:5px; margin-top:-50px;">
+                    <a href="#"><i class="fas fa-home"></i> Go Home </a>
+                     </div>
+         </section>
+        <?php endif; ?>
+
 
          <!--Footer Section Start--> 
-         <div class="ftco-section wf100 pt80">
+         <?php if (isLoggedIn()): ?>  
+         <div class="ftco-section wf100 p80">
+         <?php else: ?>
+        <div class="ftco-section wf100">
+        <?php endif; ?>
             <footer class="footer">
               <svg class="footer-wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">
                 <path class="footer-wave-path" d="M851.8,100c125,0,288.3-45,348.2-64V0H0v44c3.7-1,7.3-1.9,11-2.9C80.7,22,151.7,10.8,223.5,6.3C276.7,2.9,330,4,383,9.8 c52.2,5.7,103.3,16.2,153.4,32.8C623.9,71.3,726.8,100,851.8,100z"></path>
@@ -555,10 +678,6 @@ ini_set('display_errors', 1);
             }
 
             </script>
-
-
-
-
-
-
-</body>
+   </body>
+    </head>
+    </html>

@@ -1,7 +1,6 @@
 <?php
-require("connection.php");
-
 session_start();
+require("connection.php");
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -14,6 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $carpoolInstances = floatval($_POST["carpool_instances"]) ?? 0;
     $publicTransportationTimes = floatval($_POST["public_transportation_times"]) ?? 0;
     $activeCommuterDays = floatval($_POST["active_commuter_days"]) ?? 0;
+    $bicycleTimes = floatval($_POST["bicycle_times"]) ?? 0;
+    $electricScooterDays = floatval($_POST["electric_scooter_days"]) ?? 0;
 
     $redMeatServings = floatval($_POST["red_meat_servings"]) ?? 0;
     $poultryServings = floatval($_POST["poultry_servings"]) ?? 0;
@@ -30,12 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errors = array();
    
     //External data to store
-    $userID = 1 ;//$_SESSION['userID'] ;
+    $userID = $_SESSION['userID'] ;
     date_default_timezone_set('Asia/Kuala_Lumpur');
     $date = new DateTime('now');
 
     // Calculate carbon footprint for each category
-    $carbonFootprintTransport = calculateTransportCarbonFootprint($carKilometers, $carpoolInstances, $publicTransportationTimes, $activeCommuterDays);
+    $carbonFootprintTransport = calculateTransportCarbonFootprint($carKilometers, $carpoolInstances, $publicTransportationTimes, $activeCommuterDays,$bicycleTimes, $electricScooterDays);
     $carbonFootprintFood = calculateFoodCarbonFootprint($redMeatServings, $poultryServings, $fishServings, $plantBasedMeals, $plantProteinServings, $mixedDietMeals);
     $carbonFootprintEnergy = calculateEnergyCarbonFootprint($heatingHours, $acHours, $laundryLoads, $dryerHours, $dishwasherLoads);
 
@@ -71,13 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($con, $insertQuery);
 
         if ($result) {
-            $errors[] = "Your weekly log has been sucessfully updated!";;
+            header("Location: activity_log.php?success=updated");
+            exit(); 
         } else {
-            $errors[] = "Error Data seem to be insuffiecent try again " ;
+            header("Location: activity_log.php?alert=storing");
+            exit(); 
         }
-        header("Location: dashboard.php");
-        exit();
-
+        
  }
  
  
@@ -87,15 +88,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $carpoolEmissionFactor = 1.5; // kgCO2e per kilometer for carpooling
         $publicTransportEmissionFactor = 0.5; // kgCO2e per trip for public transportation
         $activeCommuterEmissionFactor = 0.1; // kgCO2e per day for active commuting (walking or cycling)
+        $electricScooterEmissionFactor = 0.2;
+        $bicycleTimesEmissionFactor = 0.1;
     
         // Calculate carbon footprint for each mode of transportation
         $carCarbonFootprint = $carKilometers * $carEmissionFactor;
         $carpoolCarbonFootprint = $carpoolInstances * $carpoolEmissionFactor;
         $publicTransportCarbonFootprint = $publicTransportationTimes * $publicTransportEmissionFactor;
         $activeCommuterCarbonFootprint = $activeCommuterDays * $activeCommuterEmissionFactor;
+        $electricScooterCarbonFootprint = $electricScooterDay * $electricScooterEmissionFactor;
+        $bicycleTimesCarbonFootprint = $bicycleTimes * $bicycleTimesEmissionFactor;
     
         // Sum up the carbon footprints for all transportation activities
-        $totalTransportCarbonFootprint = $carCarbonFootprint + $carpoolCarbonFootprint + $publicTransportCarbonFootprint + $activeCommuterCarbonFootprint;
+        $totalTransportCarbonFootprint = $carCarbonFootprint + $carpoolCarbonFootprint + $publicTransportCarbonFootprint + 
+                                         $activeCommuterCarbonFootprint + $electricScooterCarbonFootprint + $bicycleTimesCarbonFootprint;
     
         return $totalTransportCarbonFootprint;
     }
@@ -144,6 +150,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                      $dryerCarbonFootprint + $dishwasherCarbonFootprint;
     
         return $totalEnergyCarbonFootprint;
+    }
+
+    function weeklyLogUpToDate($con) {
+        // Get the current week number
+        $today = new DateTime('now');
+        $firstDayOfMonth = new DateTime('first day of this month');
+        $daysDiff = $today->diff($firstDayOfMonth)->days;
+        $weekNumber = ceil(($daysDiff + 1) / 7);
+    
+        // Get the month name
+        $month = $today->format('F');
+    
+        // Get the userID from the session
+        $userID = $_SESSION['userID'];
+    
+        // Check if there is an entry for the current week in the current month
+        $checkQuery = "SELECT * FROM weeklylog WHERE userID = '$userID' AND weekNo = '$weekNumber' AND month = '$month'";
+        $result = mysqli_query($con, $checkQuery);
+    
+        if ($result && mysqli_num_rows($result) > 0) {
+            // User has already entered the weekly log for the current week in the current month
+            return true;
+        } else {
+            // User has not entered the weekly log for the current week in the current month
+            return false;
+        }
     }
     
 ?>
