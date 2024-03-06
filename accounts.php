@@ -207,6 +207,47 @@ if (isset($_POST['newPass'])) {
     }
 }
 
+// Update Profile Details
+
+// Check if the form is submitted for profile update
+if (isset($_POST['save-btn'])) {
+    // Retrieve form data
+    $userID = $_SESSION['userID'];
+    $username = $_POST["username"];
+    $firstName = $_POST["firstName"];
+    $lastName = $_POST["lastName"];
+    $email = $_POST["email"];
+    $contactNumber = $_POST["contactNumber"];
+    $commutingMethod = $_POST["commutingMethod"];
+    $dietPreferences = $_POST["dietPreferences"];
+    $energySource = $_POST["energySource"];
+
+    // Construct the update query
+    $sql = "UPDATE user SET username=?, firstName=?, lastName=?, email=?, contactNumber=?, commutingMethod=?, dietPreferences=?, energySource=? WHERE userID=?";
+    $stmt = mysqli_prepare($con, $sql);
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "ssssssssi", $username, $firstName, $lastName, $email, $contactNumber, $commutingMethod, $dietPreferences, $energySource, $userID);
+
+    // Execute the update query
+    $result = mysqli_stmt_execute($stmt);
+
+    // Check if the update was successful
+    if ($result) {
+        // Redirect to the profile page after successful update
+        header("Location: profile.php");
+        exit();
+    } else {
+        // Handle error if update fails
+        echo "Failed to update profile.";
+    }
+
+    // Close the prepared statement
+    mysqli_stmt_close($stmt);
+}
+
+
+
 // Close the database connection
 mysqli_close($con);
 ?>

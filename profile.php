@@ -117,6 +117,24 @@ mysqli_stmt_close($stmt);
       cursor: pointer;
       }
 
+      /* Edit Profile Modal */
+      .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid transparent;
+            border-radius: .25rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+        }
+        .me-2 {
+            margin-right: .5rem!important;
+        }
+
    </style>
 
 </head>
@@ -184,7 +202,9 @@ mysqli_stmt_close($stmt);
                               </div>
                               <div class="row">
                                  <div class="col-sm-12">
-                                 <a class="aboutUs" href="#">Edit Profile</a> 
+                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">
+                                    Edit Profile
+                                 </button> 
                                  </div>
                               </div>
                            </div>
@@ -267,63 +287,6 @@ mysqli_stmt_close($stmt);
                         </div>
                      </div>
                   </div>
-
-                  <div class="row gutters-sm">
-                     <div class="col-sm-6 mb-3">
-                        <div class="card h-100">
-                        <div class="card-body">
-                           <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                           <small>Web Design</small>
-                           <div class="progress mb-3" style="height: 5px">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                           </div>
-                           <small>Website Markup</small>
-                           <div class="progress mb-3" style="height: 5px">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                           </div>
-                           <small>One Page</small>
-                           <div class="progress mb-3" style="height: 5px">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                           </div>
-                           <small>Mobile Template</small>
-                           <div class="progress mb-3" style="height: 5px">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                           </div>
-                           <small>Backend API</small>
-                           <div class="progress mb-3" style="height: 5px">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                           </div>
-                        </div>
-                        </div>
-                     </div>
-                     <div class="col-sm-6 mb-3">
-                        <div class="card h-100">
-                        <div class="card-body">
-                           <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                           <small>Web Design</small>
-                           <div class="progress mb-3" style="height: 5px">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                           </div>
-                           <small>Website Markup</small>
-                           <div class="progress mb-3" style="height: 5px">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                           </div>
-                           <small>One Page</small>
-                           <div class="progress mb-3" style="height: 5px">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                           </div>
-                           <small>Mobile Template</small>
-                           <div class="progress mb-3" style="height: 5px">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                           </div>
-                           <small>Backend API</small>
-                           <div class="progress mb-3" style="height: 5px">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                           </div>
-                        </div>
-                        </div>
-                     </div>
-                  </div>
                   </div>
                </div>
 
@@ -333,12 +296,176 @@ mysqli_stmt_close($stmt);
 
       <!-- Profile Section End -->
 
-      <!-- Edit Profile Modal Start -->
-      
+      <!-- Edit Profile Modal -->
+      <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                  <!-- Form for editing profile -->
+                  <form id="editProfileForm" action="accounts.php" method="POST">
+                     <div class="container">
+                           <div class="main-body">
+                              <div class="row">
+                                 <!-- Edit Profile Picture Start -->
+                                 <div class="col-lg-12 d-flex justify-content-center">
+                                    <div class="card">
+                                          <div class="card-body">
+                                             <div class="d-flex flex-column align-items-center text-center">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="170">
+                                                <div class="mt-3">
+                                                      <button class="btn btn-outline-primary">Edit Picture</button>
+                                                </div>
+                                             </div>
+                                          </div>
+                                    </div>
+                                 </div>
+                                 <!-- Edit Profile Picture End -->
 
+                                 <!-- Edit Profile Details Section -->
 
-      <!-- Edit Profie Modal End -->
+                                 <div class=row>
+                                    <div class="col-lg-12">
+                                    <div class="card">
+                                          <div class="card-body">
+                                             <!-- Edit Profile Details Start -->
+                                             <div class="row mb-3">
+                                                   <div class="col-sm-4">
+                                                      <h6 class="mb-0">Username</h6>
+                                                   </div>
+                                                   <div class="col-sm-8 text-secondary">
+                                                      <input type="text" class="form-control" value="<?php echo $username; ?>">
+                                                   </div>
+                                             </div>
+                                             <div class="row mb-3">
+                                                   <div class="col-sm-4">
+                                                      <h6 class="mb-0">First Name</h6>
+                                                   </div>
+                                                   <div class="col-sm-8 text-secondary">
+                                                      <input type="text" class="form-control" value="<?php echo $firstName; ?>">
+                                                   </div>
+                                             </div>
+                                             <div class="row mb-3">
+                                                   <div class="col-sm-4">
+                                                      <h6 class="mb-0">Last Name</h6>
+                                                   </div>
+                                                   <div class="col-sm-8 text-secondary">
+                                                      <input type="text" class="form-control" value="<?php echo $lastName; ?>">
+                                                   </div>
+                                             </div>
+                                             <div class="row mb-3">
+                                                   <div class="col-sm-4">
+                                                      <h6 class="mb-0">Email</h6>
+                                                   </div>
+                                                   <div class="col-sm-8 text-secondary">
+                                                      <input type="text" class="form-control" value="<?php echo $email; ?>">
+                                                   </div>
+                                             </div>
+                                             <div class="row mb-3">
+                                                   <div class="col-sm-4">
+                                                      <h6 class="mb-0">Contact Number</h6>
+                                                   </div>
+                                                   <div class="col-sm-8 text-secondary">
+                                                      <input type="text" class="form-control" value="<?php echo $contactNumber; ?>">
+                                                   </div>
+                                             </div>
+                                             <div class="row mb-3">
+                                                   <div class="col-sm-4">
+                                                      <h6 class="mb-0">Commuting Method</h6>
+                                                   </div>
+                                                   <div class="col-sm-8 text-secondary">
+                                                      <select id="commutingMethodModal" name="commutingMethodModal" class="form-control">
+                                                         <option value="" <?php if($commutingMethod === null) echo "selected"; ?>>Select</option>
+                                                         <option value="car_owner" <?php if($commutingMethod == "car_owner") echo "selected"; ?>>Car owner</option>
+                                                         <option value="public_transportation" <?php if($commutingMethod == "public_transportation") echo "selected"; ?>>Public transportation user</option>
+                                                         <option value="active_commuter" <?php if($commutingMethod == "active_commuter") echo "selected"; ?>>Active commuter (walk, cycle)</option>
+                                                         <option value="other_transport" <?php if($commutingMethod == "other_transport") echo "selected"; ?>>Other</option>
+                                                      </select>
+                                                   </div>
+                                             </div>
+                                             <div class="row mb-3">
+                                                   <div class="col-sm-4">
+                                                      <h6 class="mb-0">Dietary Preferences</h6>
+                                                   </div>
+                                                   <div class="col-sm-8 text-secondary">
+                                                      <select id="dietPreferenceModal" name="dietPreferenceModal" class="form-control">
+                                                         <option value="" <?php if($dietPreferences === null) echo "selected"; ?>>Select</option>
+                                                         <option value="meat_lover" <?php if($dietPreferences == "meat_lover") echo "selected"; ?>>Meat lover</option>
+                                                         <option value="vegetarian" <?php if($dietPreferences == "vegetarian") echo "selected"; ?>>Vegetarian</option>
+                                                         <option value="vegan" <?php if($dietPreferences == "vegan") echo "selected"; ?>>Vegan</option>
+                                                         <option value="mixed_diet" <?php if($dietPreferences == "mixed_diet") echo "selected"; ?>>Mixed diet</option>
+                                                         <option value="other_diet" <?php if($dietPreferences == "other_diet") echo "selected"; ?>>Other</option>
+                                                      </select>
+                                                      <input type="text" id="other_dietPreference_textModal" name="other_dietPreferenceModal" style="display: none;" placeholder="Please specify">
+                                                   </div>                                
+                                             </div>
+                                             <div class="row mb-3">
+                                                   <div class="col-sm-4">
+                                                      <h6 class="mb-0">Energy Source</h6>
+                                                   </div>
+                                                   <div class="col-sm-8 text-secondary">
+                                                      <select id="energySourceModal" name="energySourceModal" class="form-control">
+                                                         <option value="" <?php if($energySource === null) echo "selected"; ?>>Select</option>
+                                                         <option value="electricity_grid" <?php if($energySource == "electricity_grid") echo "selected"; ?>>Electricity Grid</option>
+                                                         <option value="solar_power" <?php if($energySource == "solar_power") echo "selected"; ?>>Solar Power</option>
+                                                         <option value="wind_power" <?php if($energySource == "wind_power") echo "selected"; ?>>Wind Power</option>
+                                                         <option value="natural_gas" <?php if($energySource == "natural_gas") echo "selected"; ?>>Natural gas</option>
+                                                         <option value="biomass" <?php if($energySource == "biomass") echo "selected"; ?>>Biomass</option>
+                                                         <option value="geothermal_energy" <?php if($energySource == "geothermal_energy") echo "selected"; ?>>Geothermal Energy</option>
+                                                         <option value="other" <?php if($energySource == "other") echo "selected"; ?>>Other</option>
+                                                      </select>
+                                                      <input type="text" id="other_energySource_textModal" name="other_energySourceModal" style="display: none;" placeholder="Please specify">
+                                                   </div>
+                                             </div>
 
+                                             <!-- Add a hidden input field to indicate profile update -->
+                                             <!-- <input type="hidden" name="update-profile" value="1"> -->
+
+                                             <div class="row">
+                                                   <div class="col-sm-4"></div>
+                                                   <div class="col-sm-8 text-secondary">
+                                                      <button type="submit" name="save-btn" class="btn btn-primary px-4">Save Changes</button>
+                                                   </div>
+                                             </div>
+                                             <!-- Edit Profile Details End -->
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <!-- Edit Profile Details Section End -->
+                              </div>
+                           </div>
+                     </div>
+                  </form>
+
+                     
+                  </div>
+               </div>
+         </div>
+      </div>
+
+      <script>
+         // JavaScript to toggle the visibility of the text input fields based on the selected options
+         document.getElementById('commutingMethodModal').addEventListener('change', function() {
+               var otherCommutingMethodInput = document.getElementById('other_commutingMethod_textModal');
+               otherCommutingMethodInput.style.display = this.value === 'other_transport' ? 'block' : 'none';
+         });
+
+         document.getElementById('dietPreferenceModal').addEventListener('change', function() {
+               var otherDietPreferenceInput = document.getElementById('other_dietPreference_textModal');
+               otherDietPreferenceInput.style.display = this.value === 'other_diet' ? 'block' : 'none';
+         });
+
+         document.getElementById('energySourceModal').addEventListener('change', function() {
+               var otherEnergySourceInput = document.getElementById('other_energySource_textModal');
+               otherEnergySourceInput.style.display = this.value === 'other' ? 'block' : 'none';
+         });
+      </script>
 
       <!-- First-Time Login Modal -->
       <div id="first-login-modal" class="modal">

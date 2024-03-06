@@ -34,7 +34,9 @@ if (isset($_SESSION['success_message'])) {
 <body>
     <div class="wrapper home2">
         <!--Header Start-->
+        <!--Header Start-->
         <header class="header-style-2">
+<<<<<<< Updated upstream
             <nav class="navbar navbar-expand-lg">
                 <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px; margin-left:30px;"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
@@ -99,6 +101,42 @@ if (isset($_SESSION['success_message'])) {
             </nav>
             
         </header>
+=======
+    <nav class="navbar navbar-expand-lg">
+        <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index-2.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="events-grid.html">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="causes.html">Causes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="blog.html">Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </ul>
+
+            <li class="nav-item" style="list-style: none;">
+                <a class="login-btn" href="login-page" role="button"> Login </a>
+            </li>
+        </div>
+    </nav>
+    </header>
+>>>>>>> Stashed changes
          <!-- Header End -->
         <!--Inner Header Start-->
         <section class="wf100 inner-header">
