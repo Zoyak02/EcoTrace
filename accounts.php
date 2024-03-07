@@ -194,7 +194,10 @@ if (isset($_POST['newPass'])) {
         $errors[] = "Password is required";
     }
     if ($password_1 != $password_2) {
-        $errors[] = "The two passwords do not match";
+        $errors[] = "The two passwords do not match"; //Not used
+        header("location: index.php?alert=not_match");
+
+
     }
 
     if (empty($errors)) {

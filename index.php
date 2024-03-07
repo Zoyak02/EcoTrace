@@ -165,11 +165,14 @@ ini_set('display_errors', 1);
 
                            // Display errors within the modal
                            if (!empty($_SESSION['errors'])) {
+                              
+                              //Code below does not do anything
                                  echo '<div class="alert alert-danger" role="alert">';
                                  foreach ($_SESSION['errors'] as $error) {
                                     echo $error . '<br>';
                                  }
                                  echo '</div>';
+                                 alert;
                            }
                        ?>
 
@@ -180,6 +183,17 @@ ini_set('display_errors', 1);
                         <div class="input-group mb-3">
                               <span class="input-group-text">Confirm New Password</span>
                               <input type="password" class="form-control" name="password_2" required>
+                        </div>
+                        <div class="container"> 
+                              <?php
+                              if(isset($_GET['alert']) && $_GET['alert'] == 'not_match') {
+                                    echo <<<alert
+                                    <div class="alert alert-danger alert-dismissible text-center" id="alert-msg" role="alert">
+                                        <strong>The two passwords do not match.</strong>
+                                    </div>
+                                    alert;
+                                }
+                              ?>
                         </div>
                      </div>
                      <div class="modal-footer">
