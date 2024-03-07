@@ -26,10 +26,12 @@ ini_set('display_errors', 1);
       <title>CarbonFootprint Dashboard</title> 
       <link href='https://fonts.googleapis.com/css?family=Anton&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
       <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" 
-      integrity="sha384-oS3vJDOi7W1ZLfIR3hjOMaL8NZ2Imw8qCD9T/ME5SXNtE1QhSUpc6auRvRSaG8lN" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.8.13/tailwind.min.css" rel='stylesheet'>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"/>
 
 
       <!-- CSS FILES START -->
@@ -77,9 +79,44 @@ ini_set('display_errors', 1);
         height: 100px;
         width: 100px;
         margin-right: -8px;
-        margin-bottom: -14px;
-        color: #38a169; /* Change to your desired color */
-        opacity: 0.5;
+        margin-bottom: -20px;
+        color: green; /* Change to your desired color */
+        opacity: 0.1;
+        }
+
+        .energy_icon{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        height: 92px;
+        width: 92px;
+        margin-bottom: -10px;
+        color: blue; /* Change to your desired color */
+        opacity: 0.1;
+        }
+
+        .transport_icon{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        height: 90px;
+        width: 90px;
+        margin-bottom: -10px;
+        margin-right:4px;
+        color: red; /* Change to your desired color */
+        opacity: 0.1;
+        }
+
+        .add_icon{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        height: 90px;
+        width: 90px;
+        margin-bottom: -10px;
+        margin-right:4px;
+        color: yellow; /* Change to your desired color */
+        opacity: 0.1;
         }
 
 
@@ -124,6 +161,24 @@ ini_set('display_errors', 1);
         -webkit-border-radius: 500px;
         -moz-border-radius: 500px;
         }
+
+            .h2-dashboard-txt a {
+                background: #66bb6a;
+                color: #fff;
+                display: inline-block;
+                line-height: 44px;
+                border-radius: 5px;
+                padding: 0 50px;
+                font-weight: 600;
+                text-transform: uppercase;
+                font-family: 'Poppins', sans-serif;
+                margin-bottom:-50px;
+                margin-top:-30px;
+            }
+            .h2-dashboard-txt a:hover {
+                background: #33691e;
+                color: #fff;
+            }
 
     </style>
 
@@ -336,12 +391,13 @@ ini_set('display_errors', 1);
             <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl">
                 <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-teal-400 to-green-500 rounded-md overflow-hidden">
                 <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
-                    <?php echo number_format($totalTransport,2) ?>
+                    <?php echo number_format($totalFood,2) ?>
                      <span class="text-sm">kgCO2e</span>
                 </div>
-                <div class="relative z-10 text-green-200 leading-none font-semibold">Transportation</div>
+                <div class="relative z-10 text-green-200 leading-none font-semibold">Food</div>
                 <i class="food_icon"> <img src="https://cdn-icons-png.flaticon.com/128/308/308556.png"></i>
                 </div>
+             
 
                 <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md overflow-hidden">
                 <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
@@ -349,20 +405,17 @@ ini_set('display_errors', 1);
                      <span class="text-sm">kgCO2e</span>
                 </div>
                 <div class="relative z-10 text-blue-200 leading-none font-semibold">Energy</div>
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="absolute right-0 bottom-0 h-32 w-32 -mr-8 -mb-8 text-blue-700 opacity-50">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+                <i class="energy_icon"> <img src="https://cdn-icons-png.flaticon.com/128/1835/1835596.png"></i>
                 </div>
+                
 
                 <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-red-400 to-red-600 rounded-md overflow-hidden">
                 <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
-                    <?php echo number_format($totalFood,2) ?> 
+                    <?php echo number_format($totalTransport,2) ?> 
                      <span class="text-sm">kgCO2e</span>
                 </div>
-                <div class="relative z-10 text-red-200 leading-none font-semibold">Food</div>
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="absolute right-0 bottom-0 h-32 w-32 -mr-8 -mb-8 text-red-700 opacity-50">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
+                <div class="relative z-10 text-red-200 leading-none font-semibold">Transport</div>
+                <i class="transport_icon"> <img src="https://cdn-icons-png.flaticon.com/128/1723/1723597.png"></i>
                 </div>
                 
                 <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md overflow-hidden">
@@ -370,12 +423,11 @@ ini_set('display_errors', 1);
                     <?php echo number_format($totalOverall,2) ?> 
                      <span class="text-sm">kgCO2e</span>
                 </div>
-                <div class="text-yellow-200 leading-none font-semibold">Total Footprint</div>
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="absolute right-0 bottom-0 h-32 w-32 -mr-8 -mb-8 text-yellow-700 opacity-50">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-                </svg>
+                <div class="relative z-10 text-yellow-200 leading-none font-semibold">Total Footprint</div>
+                <i class="add_icon"> <img src="https://cdn-icons-png.flaticon.com/128/992/992651.png"></i>
+                </div>
+              
+               
             </div>
         </section>
        </div>
@@ -442,12 +494,13 @@ ini_set('display_errors', 1);
                      <h6>Unlock Powerful Insights for a Greener Lifestyle.</h6>
                      <p> <b>Congratulations</b> on logging your activities! Head over to the <b>"Dashboard"</b> page in the navigation while logged into your account to visualize your carbon footprint. Here, you can <b>track your weekly and overall monthly carbon footprint </b>. The intuitive charts and graphs provide valuable insights into your environmental impact. Use this information to make informed decisions and explore ways to reduce your carbon footprint further.</p>
                   </div>
-                  </div>
+                  </div> 
                </div>
+               <div class="h2-dashboard-txt wf100" style="text-align: center;">
+                    <a href="index.php"><i class="fas fa-home"></i> Go Home </a>
+                  </div>
             </div>
-                  <div class="page-404-txt wf100" style="padding:5px; margin-top:-50px;">
-                    <a href="#"><i class="fas fa-home"></i> Go Home </a>
-                     </div>
+                  
          </section>
         <?php endif; ?>
 
@@ -552,7 +605,7 @@ ini_set('display_errors', 1);
                         labels: ['Transportation', 'Food', 'Energy'],
                         datasets: [{
                             data: [transportationData, foodData, energyData],
-                            backgroundColor: ['#4CAF50', '#FF4F4B', '#2196F3']
+                            backgroundColor: ['#FF4F4B', '#4CAF50', '#2196F3']
                         }]
                     },
                     options: {

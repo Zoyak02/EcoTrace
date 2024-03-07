@@ -17,20 +17,30 @@ use PHPMailer\PHPMailer\Exception;
 // Check if the form is submitted
 if (isset($_POST['login-btn'])) {
     // Retrieve form data
-    
     $username = $_POST["username"];
     $password = $_POST["password"];
-    
-    // Query to fetch the hashed password from the database based on the provided username
-    $sql = "SELECT userID, password, first_login FROM user WHERE username = ? LIMIT 1";
-    $stmt = mysqli_prepare($con, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $username);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $userID, $hashed_password, $first_login);
-    mysqli_stmt_fetch($stmt);
 
-    // Verify the password
-    if ($hashed_password && password_verify($password, $hashed_password)) {
+    // Query to fetch the hashed password from the user table based on the provided username
+    $user_sql = "SELECT userID, password, first_login FROM user WHERE username = ? LIMIT 1";
+    $user_stmt = mysqli_prepare($con, $user_sql);
+    mysqli_stmt_bind_param($user_stmt, "s", $username);
+    mysqli_stmt_execute($user_stmt);
+    mysqli_stmt_bind_result($user_stmt, $userID, $hashed_user_password, $first_login);
+    mysqli_stmt_fetch($user_stmt);
+
+    // Close the user statement before preparing the admin statement
+    mysqli_stmt_close($user_stmt);
+
+    // Query to fetch the password from the admin table based on the provided username
+    $admin_sql = "SELECT adminID, password FROM admin WHERE username = ? LIMIT 1";
+    $admin_stmt = mysqli_prepare($con, $admin_sql);
+    mysqli_stmt_bind_param($admin_stmt, "s", $username);
+    mysqli_stmt_execute($admin_stmt);
+    mysqli_stmt_bind_result($admin_stmt, $adminID, $admin_password);
+    mysqli_stmt_fetch($admin_stmt);
+
+    // Verify the password for the user
+    if ($hashed_user_password && password_verify($password, $hashed_user_password)) {
         // Password is correct, set user ID in session
         $_SESSION['userID'] = $userID;
 
@@ -39,18 +49,24 @@ if (isset($_POST['login-btn'])) {
             $_SESSION['first_login'] = 1;
         }
 
-        // Redirect to index.php
+        // User is a regular user, redirect to index.php
         header("Location:index.php");
+        exit();
+    } elseif ($admin_password && $password == $admin_password) {
+        // Password is correct, set admin ID in session
+        $_SESSION['adminID'] = $adminID;
+
+        // User is an admin, redirect to index_admin.php
+        header("Location:index_admin.php");
         exit();
     } else {
         // Password is incorrect, display error message
         $error_message = "Invalid username or password.";
     }
 
-    mysqli_stmt_close($stmt);
-
-
+    mysqli_stmt_close($admin_stmt);
 }
+
 
 
 if (isset($_POST['signup-btn'])) {
