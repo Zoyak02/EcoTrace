@@ -269,8 +269,12 @@ if (isset($_POST['save-btn'])) {
         // Check if the update was successful
         if ($result) {
             // Redirect to the profile page after successful update
+            echo '<script type="text/javascript">
+            alert("Your profile has been updated successfully.");
+            window.location.href = "profile.php"; // Redirect to the desired page
+            </script>';
             mysqli_close($con);
-            header("Location: profile.php");
+            //header("Location: profile.php");
             exit();
         } else {
             // Handle database error
@@ -282,7 +286,8 @@ if (isset($_POST['save-btn'])) {
     $_SESSION['profile_update_errors'] = $errors;
 
     // Redirect back to the profile page to display errors
-    header("Location: index.php");
+    //header("Location: index.php");
+    header("location: profile.php?alert=profile_incomplete");
     exit();
 }
 
