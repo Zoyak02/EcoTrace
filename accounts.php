@@ -61,7 +61,10 @@ if (isset($_POST['login-btn'])) {
         exit();
     } else {
         // Password is incorrect, display error message
-        $error_message = "Invalid username or password.";
+        //$error_message = "Invalid username or password.";
+
+        header("location: login.php?alert=wrong_password");
+      exit;
     }
 
     mysqli_stmt_close($admin_stmt);
@@ -129,7 +132,7 @@ if (isset($_POST['signup-btn'])) {
     
             // Password sent successfully
             echo '<script type="text/javascript">
-            alert("Account created successfully. Check your email for login instructions.");
+            alert("Account created successfully. Please check your email for login instructions.");
             window.location.href = "login.php"; // Redirect to the desired page
             </script>';
          } catch (Exception $e) {

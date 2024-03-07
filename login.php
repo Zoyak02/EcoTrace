@@ -7,7 +7,6 @@ if (isset($_SESSION['success_message'])) {
    $success_message = $_SESSION['success_message'];
    // Unset the session variable to clear the message after displaying it once
    unset($_SESSION['success_message']);
-
 }
 
 ?>
@@ -111,14 +110,18 @@ if (isset($_SESSION['success_message'])) {
         <section class="wf100 inner-header">
             <div class="container">
                <h1>Account </h1>
-            </div>
+
+            
          </section>
          <!--Inner Header End--> 
-         
+
         <!--Content Start-->
         <section class="wf100 p80">
+            
            <div class="container">
+            
               <div class="row">
+                
                  <div class="col-lg-8">
                     <div class="myaccount-form">
                        <h3>Create Account</h3>
@@ -173,6 +176,18 @@ if (isset($_SESSION['success_message'])) {
                           <div class="input-group">
                              <input type="password" class="form-control"  name="password" placeholder="Password" required>
                           </div>
+                          <div class="container">
+                            <?php
+                            if(isset($_GET['alert']) && $_GET['alert'] == 'wrong_password') {
+                                echo <<<alert
+                                <div class="alert alert-danger alert-dismissible text-center" id="alert-msg" role="alert">
+                                    <strong>Incorrect password. Please try again</strong>
+                                </div>
+                                alert;
+                            }
+                            ?>
+                        </div>
+
                           <div class="input-group form-check">
                              <input type="checkbox" class="form-check-input" id="exampleCheck2">
                              <label class="form-check-label" for="exampleCheck2">Remember Me</label>
