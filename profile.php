@@ -441,114 +441,106 @@ mysqli_stmt_close($stmt);
                                                                Edit Picture
                                                             </label>
                                                             <input id="profilePictureInput" type="file" name="profilePicture" accept="image/*" style="display: none;">
+                                                            <button type="submit" name="editPicture-btn" class="btn btn-primary" style="display: none;"></button>
+                                                      </form>
+                                                   </div>
                                                 </div>
-                                             </div>
+                                          </div>
                                        </div>
                                     </div>
-                                 </div>
-                                 <!-- Edit Profile Picture End -->
+                                    <!-- Edit Profile Picture End -->
 
-
-                                 <!-- Edit Profile Details Section -->
-
-                                 <div class=row>
-                                    <div class="col-lg-12">
-                                    <div class="card">
-                                          <div class="card-body">
-                                             <!-- Edit Profile Details Start -->
-                                             <div class="row mb-3">
-                                                   <div class="col-sm-4">
-                                                      <h6 class="mb-0">Username</h6>
-                                                   </div>
-                                                   <div class="col-sm-8 text-secondary">
-                                                      <input type="text" name="usernameModal" class="form-control" value="<?php echo $username; ?>">
-                                                   </div>
-                                             </div>
-                                             <div class="row mb-3">
-                                                   <div class="col-sm-4">
-                                                      <h6 class="mb-0">First Name</h6>
-                                                   </div>
-                                                   <div class="col-sm-8 text-secondary">
-                                                      <input type="text" name="firstNameModal" class="form-control" value="<?php echo $firstName; ?>">
-                                                   </div>
-                                             </div>
-                                             <div class="row mb-3">
-                                                   <div class="col-sm-4">
-                                                      <h6 class="mb-0">Last Name</h6>
-                                                   </div>
-                                                   <div class="col-sm-8 text-secondary">
-                                                      <input type="text" name="lastNameModal" class="form-control" value="<?php echo $lastName; ?>">
-                                                   </div>
-                                             </div>
-                                             <div class="row mb-3">
-                                                   <div class="col-sm-4">
-                                                      <h6 class="mb-0">Email</h6>
-                                                   </div>
-                                                   <div class="col-sm-8 text-secondary">
-                                                      <input type="text" name="emailModal" class="form-control" value="<?php echo $email; ?>">
-                                                   </div>
-                                             </div>
-                                             <div class="row mb-3">
-                                                   <div class="col-sm-4">
-                                                      <h6 class="mb-0">Contact Number</h6>
-                                                   </div>
-                                                   <div class="col-sm-8 text-secondary">
-                                                      <input type="text" name="contactNumberModal" class="form-control" value="<?php echo $contactNumber; ?>">
-                                                   </div>
-                                             </div>
-                                             <div class="row mb-3">
-                                                   <div class="col-sm-4">
-                                                      <h6 class="mb-0">Commuting Method</h6>
-                                                   </div>
-                                                   <div class="col-sm-8 text-secondary">
-                                                      <select id="commutingMethodModal" name="commutingMethodModal" class="form-control">
-                                                         <option value="" <?php if($commutingMethod === null) echo "selected"; ?>>Select</option>
-                                                         <option value="car_owner" <?php if($commutingMethod == "car_owner") echo "selected"; ?>>Car owner</option>
-                                                         <option value="public_transportation" <?php if($commutingMethod == "public_transportation") echo "selected"; ?>>Public transportation user</option>
-                                                         <option value="active_commuter" <?php if($commutingMethod == "active_commuter") echo "selected"; ?>>Active commuter (walk, cycle)</option>
-                                                         <option value="other_transport" <?php if($commutingMethod == "other_transport") echo "selected"; ?>>Other</option>
-                                                      </select>
-                                                   </div>
-                                             </div>
-                                             <div class="row mb-3">
-                                                   <div class="col-sm-4">
-                                                      <h6 class="mb-0">Dietary Preferences</h6>
-                                                   </div>
-                                                   <div class="col-sm-8 text-secondary">
-                                                      <select id="dietPreferenceModal" name="dietPreferenceModal" class="form-control">
-                                                         <option value="" <?php if($dietPreferences === null) echo "selected"; ?>>Select</option>
-                                                         <option value="meat_lover" <?php if($dietPreferences == "meat_lover") echo "selected"; ?>>Meat lover</option>
-                                                         <option value="vegetarian" <?php if($dietPreferences == "vegetarian") echo "selected"; ?>>Vegetarian</option>
-                                                         <option value="vegan" <?php if($dietPreferences == "vegan") echo "selected"; ?>>Vegan</option>
-                                                         <option value="mixed_diet" <?php if($dietPreferences == "mixed_diet") echo "selected"; ?>>Mixed diet</option>
-                                                         <option value="other_diet" <?php if($dietPreferences == "other_diet") echo "selected"; ?>>Other</option>
-                                                      </select>
-                                                      <input type="text" id="other_dietPreference_textModal" name="other_dietPreferenceModal" style="display: none;" placeholder="Please specify">
-                                                   </div>                                
-                                             </div>
-                                             <div class="row mb-3">
-                                                   <div class="col-sm-4">
-                                                      <h6 class="mb-0">Energy Source</h6>
-                                                   </div>
-                                                   <div class="col-sm-8 text-secondary">
-                                                      <select id="energySourceModal" name="energySourceModal" class="form-control">
-                                                         <option value="" <?php if($energySource === null) echo "selected"; ?>>Select</option>
-                                                         <option value="electricity_grid" <?php if($energySource == "electricity_grid") echo "selected"; ?>>Electricity Grid</option>
-                                                         <option value="solar_power" <?php if($energySource == "solar_power") echo "selected"; ?>>Solar Power</option>
-                                                         <option value="wind_power" <?php if($energySource == "wind_power") echo "selected"; ?>>Wind Power</option>
-                                                         <option value="natural_gas" <?php if($energySource == "natural_gas") echo "selected"; ?>>Natural gas</option>
-                                                         <option value="biomass" <?php if($energySource == "biomass") echo "selected"; ?>>Biomass</option>
-                                                         <option value="geothermal_energy" <?php if($energySource == "geothermal_energy") echo "selected"; ?>>Geothermal Energy</option>
-                                                         <option value="other" <?php if($energySource == "other") echo "selected"; ?>>Other</option>
-                                                      </select>
-                                                      <input type="text" id="other_energySource_textModal" name="other_energySourceModal" style="display: none;" placeholder="Please specify">
-                                                   </div>
-                                             </div>
-
-                                             <!-- Add a hidden input field to indicate profile update -->
-                                             <!-- <input type="hidden" name="update-profile" value="1"> -->
-
-                                             <div class="row">
+                                    <!-- Edit Profile Details Section -->
+                                    <div class=row>
+                                       <div class="col-lg-12 justify-content-center">
+                                       <div class="card">
+                                             <div class="card-body">
+                                                <!-- Edit Profile Details Start -->
+                                                <div class="row mb-3">
+                                                      <div class="col-sm-4">
+                                                         <h6 class="mb-0">Username</h6>
+                                                      </div>
+                                                      <div class="col-sm-8 text-secondary">
+                                                         <input type="text" name="usernameModal" class="form-control" value="<?php echo $username; ?>">
+                                                      </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                      <div class="col-sm-4">
+                                                         <h6 class="mb-0">First Name</h6>
+                                                      </div>
+                                                      <div class="col-sm-8 text-secondary">
+                                                         <input type="text" name="firstNameModal" class="form-control" value="<?php echo $firstName; ?>">
+                                                      </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                      <div class="col-sm-4">
+                                                         <h6 class="mb-0">Last Name</h6>
+                                                      </div>
+                                                      <div class="col-sm-8 text-secondary">
+                                                         <input type="text" name="lastNameModal" class="form-control" value="<?php echo $lastName; ?>">
+                                                      </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                      <div class="col-sm-4">
+                                                         <h6 class="mb-0">Email</h6>
+                                                      </div>
+                                                      <div class="col-sm-8 text-secondary">
+                                                         <input type="text" name="emailModal" class="form-control" value="<?php echo $email; ?>">
+                                                      </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                      <div class="col-sm-4">
+                                                         <h6 class="mb-0">Contact Number</h6>
+                                                      </div>
+                                                      <div class="col-sm-8 text-secondary">
+                                                         <input type="text" name="contactNumberModal" class="form-control" value="<?php echo $contactNumber; ?>">
+                                                      </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                      <div class="col-sm-4">
+                                                         <h6 class="mb-0">Commuting Method</h6>
+                                                      </div>
+                                                      <div class="col-sm-8 text-secondary">
+                                                         <select id="commutingMethodModal" name="commutingMethodModal" class="form-control">
+                                                            <option value="" <?php if($commutingMethod === null) echo "selected"; ?>>Select</option>
+                                                            <option value="car_owner" <?php if($commutingMethod == "car_owner") echo "selected"; ?>>Car owner</option>
+                                                            <option value="public_transportation" <?php if($commutingMethod == "public_transportation") echo "selected"; ?>>Public transportation user</option>
+                                                            <option value="active_commuter" <?php if($commutingMethod == "active_commuter") echo "selected"; ?>>Active commuter (walk, cycle)</option>
+                                                            <option value="other_transport" <?php if($commutingMethod == "other_transport") echo "selected"; ?>>Other</option>
+                                                         </select>
+                                                      </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                      <div class="col-sm-4">
+                                                         <h6 class="mb-0">Dietary Preferences</h6>
+                                                      </div>
+                                                      <div class="col-sm-8 text-secondary">
+                                                         <select id="dietPreferenceModal" name="dietPreferenceModal" class="form-control">
+                                                            <option value="" <?php if($dietPreferences === null) echo "selected"; ?>>Select</option>
+                                                            <option value="meat_lover" <?php if($dietPreferences == "meat_lover") echo "selected"; ?>>Meat lover</option>
+                                                            <option value="vegetarian" <?php if($dietPreferences == "vegetarian") echo "selected"; ?>>Vegetarian</option>
+                                                            <option value="vegan" <?php if($dietPreferences == "vegan") echo "selected"; ?>>Vegan</option>
+                                                            <option value="mixed_diet" <?php if($dietPreferences == "mixed_diet") echo "selected"; ?>>Mixed diet</option>
+                                                            <option value="other_diet" <?php if($dietPreferences == "other_diet") echo "selected"; ?>>Other</option>
+                                                         </select>
+                                                         <input type="text" id="other_dietPreference_textModal" name="other_dietPreferenceModal" style="display: none;" placeholder="Please specify">
+                                                      </div>                                
+                                                </div>
+                                                <div class="row mb-3">
+                                                      <div class="col-sm-4">
+                                                         <h6 class="mb-0">Energy Source</h6>
+                                                      </div>
+                                                      <div class="col-sm-8 text-secondary">
+                                                         <select id="energySourceModal" name="energySourceModal" class="form-control">
+                                                            <option value="" <?php if($energySource === null) echo "selected"; ?>>Select</option>
+                                                            <option value="electricity_grid" <?php if($energySource == "electricity_grid") echo "selected"; ?>>Electricity Grid</option>
+                                                            <option value="solar_power" <?php if($energySource == "solar_power") echo "selected"; ?>>Solar Power</option>
+                                                            <option value="wind_power" <?php if($energySource == "wind_power") echo "selected"; ?>>Wind Power</option>
+                                                            <option value="natural_gas" <?php if($energySource == "natural_gas") echo "selected"; ?>>Natural gas</option>
+                                                            <option value="biomass" <?php if($energySource == "biomass") echo "selected"; ?>>Biomass</option>
+                                                            <option value="geothermal_energy" <?php if($energySource == "geothermal_energy") echo "selected"; ?>>Geothermal Energy</option>
+                                                            <option value="other" <?php if($energySource == "other") echo "selected"; ?>>Other</option>
+                                                         </select>
                                                          <input type="text" id="other_energySource_textModal" name="other_energySourceModal" style="display: none;" placeholder="Please specify">
                                                       </div>
                                                 </div>
