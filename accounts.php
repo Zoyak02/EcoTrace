@@ -176,7 +176,7 @@ function isLoggedIn()
 
 if (isset($_GET['logout'])) {
         session_destroy();
-        unset($_SESSION['user']);
+        unset($_SESSION['userID']);
         header("location:index.php");
         exit();
 }

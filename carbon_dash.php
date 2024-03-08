@@ -263,12 +263,16 @@ ini_set('display_errors', 1);
          </section>
          <!--Inner Header End--> 
 
-         <?php
-            
-                $userID = 1;
+         
+
+         <?php if (isLoggedIn()): ?>
+            <?php
+                $userID = $_SESSION['userID'];
 
                 // Check if $con is defined and is a valid mysqli connection
                 if (isset($con) && $con instanceof mysqli && !$con->connect_error) {
+                    
+                    $latestWeekEntered = weeklyLogUpToDate($con);
 
                     // DASHBOARD CARD CALCULATION 
                     // Query to calculate cumulative total for food
@@ -311,32 +315,37 @@ ini_set('display_errors', 1);
                     }
 
                     // DOUGHNUT CHART CALCULATION 
-                    // Retrieve the latest week's carbon footprint data for the logged-in user
-                    $selectQuery = "SELECT * FROM weeklylog WHERE userID = '$userID' ORDER BY date DESC LIMIT 1";
-
-                    $result = mysqli_query($con, $selectQuery);
-
-                    if ($result && mysqli_num_rows($result) > 0) {
-                        $row = mysqli_fetch_assoc($result);
-
-                        // Extract carbon footprint data for the latest week
-                        $carbonFootprintData = [
-                            "total" => $row['totalCarbonFootprint'],
-                            "transport" => $row['carbonFootprintTransport'],
-                            "food" => $row['carbonFootprintFood'],
-                            "energy" => $row['carbonFootprintEnergy']
-                        ];
-                       
-                        $latestWeekNumber = $row['weekNo'];
-                        $currentMonth = $row['month'];
-
-                    } else {
-                         // Display Bootstrap error message with a link to activity_log.php
-                        echo '<div class="alert alert-danger" role="alert">';
-                        echo 'No data found for the latest week. Please ';
-                        echo '<a href="activity_log.php" class="alert-link">update your activity log for this week</a>.';
-                        echo '</div>';
+                   
+                    if (!$latestWeekEntered) {
+                        echo<<<alert
+                        <div class="container alert alert-danger alert-dismissible text-center custom-alert" style=" margin-top: 15%; padding:5px; height:40px; width:70%;" id="alert-msg" role="alert">
+                            <strong>No data found for the latest week. Please update your <a href="activity_log.php" class="alert-link" style="text-decoration: underline;">activity log</a> for this week</strong>
+                        </div>
+                        alert;
                     }
+                   
+                    else{
+                        $selectQuery = "SELECT * FROM weeklylog WHERE userID = '$userID' ORDER BY date DESC LIMIT 1";
+
+                        $result = mysqli_query($con, $selectQuery);
+
+                        if ($result && mysqli_num_rows($result) > 0) {
+                            $row = mysqli_fetch_assoc($result);
+
+                            // Extract carbon footprint data for the latest week
+                            $carbonFootprintData = [
+                                "total" => $row['totalCarbonFootprint'],
+                                "transport" => $row['carbonFootprintTransport'],
+                                "food" => $row['carbonFootprintFood'],
+                                "energy" => $row['carbonFootprintEnergy']
+                            ];
+                        
+                            $latestWeekNumber = $row['weekNo'];
+                            $currentMonth = $row['month'];
+                        }
+                        
+                    }
+                 
                 } else {
                     // Handle the case where $con is not defined or is not a valid mysqli connection
                     echo "Database connection is not established or is invalid.";
@@ -345,15 +354,32 @@ ini_set('display_errors', 1);
 
                     // LINE GRAPH CALCULATION 
                     // Retrieve historical carbon footprint data for the logged-in user for the current month
-                    $historicalDataQuery = "SELECT weekNo, carbonFootprintTransport, carbonFootprintFood, carbonFootprintEnergy, totalCarbonFootprint FROM weeklylog WHERE userID = '$userID' AND month = '$currentMonth' ORDER BY weekNo";
+                    $latestMonthDataQuery = "SELECT DISTINCT month FROM weeklylog WHERE userID = '$userID' ORDER BY date DESC LIMIT 1";
+                    $latestMonthResult = mysqli_query($con, $latestMonthDataQuery);
 
-                    $historicalResult = mysqli_query($con, $historicalDataQuery);
+                    if ($latestMonthResult && mysqli_num_rows($latestMonthResult) > 0) {
+                        $latestMonthRow = mysqli_fetch_assoc($latestMonthResult);
+                        $currentMonth = $latestMonthRow['month'];
+                    } else {
+                        // If no data found, set a default month (you may adjust this according to your needs)
+                        $currentMonth = date('F');
+                    }
 
-                    $weeklyLabels = [];
-                    $transportationData = [];
-                    $foodData = [];
-                    $energyData = [];
-                    $totalFootprintData = [];
+                    // Check if $latestWeekEntered is true
+                    if ($latestWeekEntered) {
+                        // Override $currentMonth with the current month if the latest week is entered
+                        $currentMonth = date('F');
+                    }
+
+                        $historicalDataQuery = "SELECT weekNo, carbonFootprintTransport, carbonFootprintFood, carbonFootprintEnergy, totalCarbonFootprint FROM weeklylog WHERE userID = '$userID' AND month = '$currentMonth' ORDER BY weekNo";
+
+                        $historicalResult = mysqli_query($con, $historicalDataQuery);
+
+                        $weeklyLabels = [];
+                        $transportationData = [];
+                        $foodData = [];
+                        $energyData = [];
+                        $totalFootprintData = [];
 
                     if ($historicalResult && mysqli_num_rows($historicalResult) > 0) {
                         while ($row = mysqli_fetch_assoc($historicalResult)) {
@@ -363,15 +389,7 @@ ini_set('display_errors', 1);
                             $energyData[] = $row['carbonFootprintEnergy'];
                             $totalFootprintData[] = $row['totalCarbonFootprint'];
                         }
-                    } else {
-                        // If no data found for the current month, you might want to reset or display a message
-                        $weeklyLabels[] = "Week 1";
-                        $transportationData[] = 0;
-                        $foodData[] = 0;
-                        $energyData[] = 0;
-                        $totalFootprintData[] = 0;
-                        $errors[] = "No data found for the current month. Please update activity log.";
-                    }
+                    } 
                 ?>
 
                   <?php
@@ -385,7 +403,13 @@ ini_set('display_errors', 1);
 
                     ?>
 
-    <?php if (isLoggedIn()): ?>
+        <?php if (empty($overallQuery)): ?>
+            <!-- Display pop-up alert for new users -->
+        <script>
+            alert("Welcome! Please go to the activity log and fill it up to see your dashboard.");
+            window.location.href = 'activity_log.php';
+        </script>
+        <?php else: ?>
             <!--Dashboard card start--> 
             <div class="container flex items-center justify-center p-5">
             <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl">
@@ -454,7 +478,9 @@ ini_set('display_errors', 1);
                 </div>
             </div>
         </div>
-        <?php else: ?>
+        
+         <?php endif; ?>
+    <?php else: ?>
             <section class="page404 wf100 p80">
             <div class="container">
                <div class="row ">
@@ -507,9 +533,9 @@ ini_set('display_errors', 1);
 
          <!--Footer Section Start--> 
          <?php if (isLoggedIn()): ?>  
-         <div class="ftco-section wf100 p80">
+         <div class="ftco-section wf100">
          <?php else: ?>
-        <div class="ftco-section wf100">
+        <div class="ftco-section wf100 pt80">
         <?php endif; ?>
             <footer class="footer">
               <svg class="footer-wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">
