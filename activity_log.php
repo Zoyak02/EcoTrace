@@ -294,25 +294,25 @@ else if(isset($_GET['success']))
                      <div id="car_owner_questions" class="form-group">
                         <!-- Car owner questions -->
                         <label>How many kilometers did you drive your car this week?</label>
-                        <input type="number" name="car_kilometers" min="0" step="1" class="form-control">
+                        <input type="number" name="car_kilometers" min="0" step="1" class="form-control" required>
                         <label>Were there any carpooling instances this week? If yes, how many times?</label>
-                        <input type="number" name="carpool_instances" min="0" step="1" class="form-control">
+                        <input type="number" name="carpool_instances" min="0" step="1" class="form-control" required>
                      </div>
 
                      <div id="public_transportation_questions" class="form-group">
                         <!-- Public transportation questions -->
                         <label>How many times did you use public transportation this week?</label>
-                        <input type="number" name="public_transportation_times" min="0" step="1" class="form-control">
+                        <input type="number" name="public_transportation_times" min="0" step="1" class="form-control" required>
                         <label>How many times did you use a bicycle as a mode of transportation this week?</label>
-                        <input type="number" name="bicycle_times" min="0" step="1" class="form-control">
+                        <input type="number" name="bicycle_times" min="0" step="1" class="form-control" required>
                      </div>
 
                      <div id="active_commuter_questions" class="form-group">
                         <!-- Active commuter questions -->
                         <label>How many days did you walk or cycle as your primary mode of transportation this week?</label>
-                        <input type="number" name="active_commuter_days" min="0" step="1" class="form-control">
+                        <input type="number" name="active_commuter_days" min="0" step="1" class="form-control" required>
                         <label>How many kilometers did you cover using an electric scooter or motorbike?</label>
-                        <input type="number" name="electric_scooter_days" min="0" step="1" class="form-control">
+                        <input type="number" name="electric_scooter_days" min="0" step="1" class="form-control" required>
                         
                      </div>
 
@@ -329,25 +329,25 @@ else if(isset($_GET['success']))
                      <div id="meat_lover_questions" class="form-group">
                         <!-- Meat lover questions -->
                         <label>How many servings of red meat (beef, lamb, pork) did you consume this week?</label>
-                        <input type="number" name="red_meat_servings" min="0" step="1" class="form-control">
+                        <input type="number" name="red_meat_servings" min="0" step="1" class="form-control" required>
                         <label>How many servings of poultry (chicken, turkey) did you consume this week?</label>
-                        <input type="number" name="poultry_servings" min="0" step="1" class="form-control">
+                        <input type="number" name="poultry_servings" min="0" step="1" class="form-control" required>
                         <label>How many servings of fish did you consume this week?</label>
-                        <input type="number" name="fish_servings" min="0" step="1" class="form-control">
+                        <input type="number" name="fish_servings" min="0" step="1" class="form-control" required>
                      </div>
 
                      <div id="vegetarian_questions" class="form-group">
                         <!-- Vegetarian questions -->
                         <label>How many plant-based meals did you have this week?</label>
-                        <input type="number" name="plant_based_meals" min="0" step="1" class="form-control">
+                        <input type="number" name="plant_based_meals" min="0" step="1" class="form-control" required>
                         <label>How many servings of tofu or other plant-based protein did you consume?</label>
-                        <input type="number" name="plant_protein_servings" min="0" step="1" class="form-control">
+                        <input type="number" name="plant_protein_servings" min="0" step="1" class="form-control" required>
                      </div>
 
                      <div id="mixed_diet_questions" class="form-group">
                         <!-- Mixed diet questions -->
                         <label>Specify the number of meat-based and plant-based meals you had this week.</label>
-                        <input type="text" name="mixed_diet_meals" class="form-control">
+                        <input type="text" name="mixed_diet_meals" class="form-control" required>
                      </div>
 
                      <div class="col-md-12 text-center">
@@ -365,19 +365,19 @@ else if(isset($_GET['success']))
                      <div id="heating_cooling_questions" class="form-group">
                         <!-- Heating and Cooling questions -->
                         <label>On average, how many hours per day did you use heating this week?</label>
-                        <input type="number" name="heating_hours" min="0" step="1" class="form-control">
+                        <input type="number" name="heating_hours" min="0" step="1" class="form-control" required>
                         <label>On average, how many hours per day did you use air conditioning this week?</label>
-                        <input type="number" name="ac_hours" min="0" step="1" class="form-control">
+                        <input type="number" name="ac_hours" min="0" step="1" class="form-control" required>
                      </div>
 
                      <div id="appliances_questions" class="form-group">
                         <!-- Energy-Intensive Appliances questions -->
                         <label>How many loads of laundry did you do using a washing machine this week?</label>
-                        <input type="number" name="laundry_loads" min="0" step="1" class="form-control">
+                        <input type="number" name="laundry_loads" min="0" step="1" class="form-control" required>
                         <label>How many hours did you use a dryer this week?</label>
-                        <input type="number" name="dryer_hours" min="0" step="1" class="form-control">
+                        <input type="number" name="dryer_hours" min="0" step="1" class="form-control" required>
                         <label>How many loads did you run in the dishwasher this week?</label>
-                        <input type="number" name="dishwasher_loads" min="0" step="1" class="form-control">
+                        <input type="number" name="dishwasher_loads" min="0" step="1" class="form-control" required>
                      </div>
 
                      <div class="col-md-12 text-center">
@@ -590,5 +590,46 @@ else if(isset($_GET['success']))
   <script src="js/owl.carousel.min.js"></script> 
   <script src="js/isotope.min.js"></script> 
   <script src="js/main.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+        $('#activity-log-form').find('.step').slice(1).hide();
+
+        $(".next-step").click(function () {
+            var currentStepFields = $(".step-" + currentStep + " input[required]");
+            var isValid = true;
+
+            // Check if all required fields in the current step are filled out
+            currentStepFields.each(function() {
+                if (!$(this).val()) {
+                    isValid = false;
+                    return false; // Exit the loop early if a required field is empty
+                }
+            });
+
+            if (isValid) {
+                console.log("Next button clicked");
+                if (currentStep < 3) {
+                    $(".step-" + currentStep).addClass("animate__fadeOutLeft");
+                    currentStep++;
+                    setTimeout(function () {
+                        $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
+                        $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
+                        updateProgressBar();
+                    }, 500);
+                }
+            } else {
+                alert("Please fill out all required fields before proceeding.");
+                // Prevent the form from advancing to the next step
+                return false;
+            }
+        });
+    });
+
+
+    </script>
+
 </body>
 </html>

@@ -4893,15 +4893,3 @@ ul.post-meta li span {
 	margin: 0px;
 }
 
-/* Profile Page */
-.editProfile {
-	display: inline-block;
-	color: #fff;
-	border-radius: 3px;
-	line-height: 44px;
-	padding: 0 25px;
-	font-family: 'Poppins', sans-serif;
-	font-size: 14px;
-	font-weight: 600;
-	text-transform: uppercase;
-}
