@@ -81,6 +81,23 @@ if (isset($_POST['signup-btn'])) {
     $email = $_POST["email"];
     $profilePicture = "images/profile.jpg";
     $first_login = 1;
+
+
+    // Check if username already exists
+    $check_username_sql = "SELECT * FROM user WHERE username = ?";
+    $check_username_stmt = mysqli_prepare($con, $check_username_sql);
+    mysqli_stmt_bind_param($check_username_stmt, "s", $username);
+    mysqli_stmt_execute($check_username_stmt);
+    $result = mysqli_stmt_get_result($check_username_stmt);
+
+    if (mysqli_num_rows($result) > 0) {
+        // Username already exists, show error message
+        echo '<script type="text/javascript">
+            alert("Username is already taken. Please choose another username.");
+            window.location.href = "login.php"; // Close the modal or redirect to the desired page
+            </script>';
+        exit;
+    }
     
     // Generate a default password and hash it
     $default_password = generateRandomPassword();
