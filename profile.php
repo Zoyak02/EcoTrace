@@ -294,7 +294,7 @@ mysqli_stmt_close($stmt);
       <!--Inner Header Start-->
       <section class="wf100 inner-header">
          <div class="container">
-            <h1>My Account </h1>
+            <h1><?php echo $firstName."'s Page"?> </h1>
          </div>
       </section>
       <!--Inner Header End--> 
@@ -310,8 +310,7 @@ mysqli_stmt_close($stmt);
                         <div class="card">
                            <div class="card-body">
                               <div class="d-flex flex-column align-items-center text-center">
-                           
-                                 <img src="images/profile.jpg" alt="Profile Picture" class="rounded-circle" width="150">
+                                 <img src="<?php echo $profilePicture ?>" alt="Profile Picture" class="rounded-circle" width="150">
                                  <div class="mt-3 font-weight-bold">
                                     <h5 class="mb-5 mt-2"><?php echo $firstName." ".$lastName; ?></h5>
                                  </div>
@@ -326,77 +325,77 @@ mysqli_stmt_close($stmt);
                            </div>
                         </div>
                      </div>
-                     <div class="col-md-7">
+                     <div class="col-md-8">
                      <div class="card mb-1">
                         <div class="card-body">
                         <div class="row">
-                           <div class="col-sm-3">
+                           <div class="col-sm-4">
                               <h6 class="mb-0">Username</h6>
                            </div>
-                           <div class="col-sm-9 text-secondary">
+                           <div class="col-sm-8 text-secondary">
                               <?php echo $username; ?>
                            </div>
                            </div>
                            <hr>
                            <div class="row">
-                           <div class="col-sm-3">
+                           <div class="col-sm-4">
                               <h6 class="mb-0">First Name</h6>
                            </div>
-                           <div class="col-sm-9 text-secondary">
+                           <div class="col-sm-8 text-secondary">
                               <?php echo $firstName; ?>
                            </div>
                            </div>
                            <hr>
                            <div class="row">
-                           <div class="col-sm-3">
+                           <div class="col-sm-4">
                               <h6 class="mb-0">Last Name</h6>
                            </div>
-                           <div class="col-sm-9 text-secondary">
+                           <div class="col-sm-8 text-secondary">
                               <?php echo $lastName; ?>
                            </div>
                            </div>
                            <hr>
                            <div class="row">
-                           <div class="col-sm-3">
+                           <div class="col-sm-4">
                               <h6 class="mb-0">Email</h6>
                            </div>
-                           <div class="col-sm-9 text-secondary">
+                           <div class="col-sm-8 text-secondary">
                               <?php echo $email; ?>
                            </div>
                            </div>
                            <hr>
                            <div class="row">
-                           <div class="col-sm-3">
+                           <div class="col-sm-4">
                               <h6 class="mb-0">Contact</h6>
                            </div>
-                           <div class="col-sm-9 text-secondary">
+                           <div class="col-sm-8 text-secondary">
                               <?php echo $contactNumber; ?>
                            </div>
                            </div>
                            <hr>
                            <div class="row">
-                           <div class="col-sm-3">
+                           <div class="col-sm-4">
                               <h6 class="mb-0">Commuting Method</h6>
                            </div>
-                           <div class="col-sm-9 text-secondary">
+                           <div class="col-sm-8 text-secondary">
                               <?php echo $commutingMethodDisplay; ?>
                            </div>
                            </div>
                            <hr>
                            <div class="row">
-                           <div class="col-sm-3">
+                           <div class="col-sm-4">
                               <h6 class="mb-0">Dietary Preferences</h6>
                            </div>
-                           <div class="col-sm-9 text-secondary">
+                           <div class="col-sm-8 text-secondary">
                               <?php echo $dietPreferencesDisplay; ?>
                            </div>
                            </div>
                            <hr>
                            <div class="row">
-                           <div class="col-sm-3">
+                           <div class="col-sm-4">
                               <h6 class="mb-0">Energy Source</h6>
                            </div>
-                           <div class="col-sm-9 text-secondary">
+                           <div class="col-sm-8 text-secondary">
                               <?php echo $energySourceDisplay; ?>
                            </div>
                            </div>
@@ -423,6 +422,17 @@ mysqli_stmt_close($stmt);
                            <span aria-hidden="true">&times;</span>
                      </button>
                   </div>
+                  <div class="container"> 
+                     <?php
+                        if(isset($_GET['alert']) && $_GET['alert'] == 'profile_incomplete') {
+                              echo <<<alert
+                              <div class="alert alert-danger alert-dismissible text-center" id="alert-msg" role="alert">
+                                 <strong>Please fill in all fields.</strong>
+                              </div>
+                              alert;
+                        }
+                     ?>
+                  </div>
                   <div class="modal-body">
                      <!-- Form for editing profile -->
                      <form id="editProfileForm" action="accounts.php" method="POST">
@@ -436,12 +446,13 @@ mysqli_stmt_close($stmt);
                                                 <div class="d-flex flex-column align-items-center text-center">
                                                    <img src="images/profile.jpg" alt="Profile Picture" class="rounded-circle p-1 profile-picture" width="170">
                                                    <div class="mt-3">
-                                                      <form id="profilePictureForm" method="post" enctype="multipart/form-data">
+                                                      <!-- Modify the form to include the profile picture input -->
+                                                      <form id="profilePictureForm" method="post" enctype="multipart/form-data" action="accounts.php">
                                                             <label for="profilePictureInput" class="btn btn-success">
                                                                Edit Picture
                                                             </label>
+                                                            <!-- Input field for selecting the profile picture -->
                                                             <input id="profilePictureInput" type="file" name="profilePicture" accept="image/*" style="display: none;">
-                                                            <button type="submit" name="editPicture-btn" class="btn btn-primary" style="display: none;"></button>
                                                       </form>
                                                    </div>
                                                 </div>
@@ -449,6 +460,7 @@ mysqli_stmt_close($stmt);
                                        </div>
                                     </div>
                                     <!-- Edit Profile Picture End -->
+
 
                                     <!-- Edit Profile Details Section -->
                                     <div class=row>
@@ -544,17 +556,7 @@ mysqli_stmt_close($stmt);
                                                          <input type="text" id="other_energySource_textModal" name="other_energySourceModal" style="display: none;" placeholder="Please specify">
                                                       </div>
                                                 </div>
-                                                <div class="container"> 
-                                                   <?php
-                                                      if(isset($_GET['alert']) && $_GET['alert'] == 'profile_incomplete') {
-                                                            echo <<<alert
-                                                            <div class="alert alert-danger alert-dismissible text-center" id="alert-msg" role="alert">
-                                                               <strong>Please fill in all fields.</strong>
-                                                            </div>
-                                                            alert;
-                                                      }
-                                                   ?>
-                                                </div>
+                                                
                                                 <div class="row">
                                                    <div class="col-sm-4"></div>
                                                    <div class="col-sm-8 mt-3 text-secondary">
@@ -577,6 +579,47 @@ mysqli_stmt_close($stmt);
                </div>
          </div>
       </div>
+
+      <script type="text/javascript">
+         // Function to validate the form
+         function validateForm() {
+            // Check if any of the required fields are empty
+            var username = document.forms["editProfileForm"]["usernameModal"].value;
+            var firstName = document.forms["editProfileForm"]["firstNameModal"].value;
+            var lastName = document.forms["editProfileForm"]["lastNameModal"].value;
+            var email = document.forms["editProfileForm"]["emailModal"].value;
+            var contactNumber = document.forms["editProfileForm"]["contactNumberModal"].value;
+            var commutingMethod = document.forms["editProfileForm"]["commutingMethodModal"].value;
+            var dietPreferences = document.forms["editProfileForm"]["dietPreferenceModal"].value;
+            var energySource = document.forms["editProfileForm"]["energySourceModal"].value;
+
+            // Email validation regular expression
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (username == "" || firstName == "" || lastName == "" || email == "" || contactNumber == "" || commutingMethod == "" || dietPreferences == "" || energySource == "") {
+                  // Display an alert message
+                  alert("Please fill in all fields.");
+                  return false; // Prevent form submission
+            }
+
+            // Check if email is valid
+            if (!emailRegex.test(email)) {
+                  alert("Please enter a valid email address.");
+                  return false; // Prevent form submission
+            }
+
+            return true;
+         }
+
+         // Attach an event listener to the form submission event
+         document.getElementById("editProfileForm").addEventListener("submit", function(event) {
+            // Check if the form is incomplete
+            if (!validateForm()) {
+                  event.preventDefault(); // Prevent the form from submitting
+            }
+         });
+      </script>
+
 
       <script>
          // JavaScript to toggle the visibility of the text input fields based on the selected options

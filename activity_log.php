@@ -628,8 +628,22 @@ else if(isset($_GET['success']))
                 return false;
             }
         });
-    });
 
+        $(".prev-step").click(function () {
+            console.log("previous button clicked");
+            if (currentStep > 1) {
+                $(".step-" + currentStep).addClass("animate__fadeOutRight");
+                currentStep--;
+                setTimeout(function () {
+                    $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
+                    $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
+                    updateProgressBar();
+                }, 500);
+            }
+        });
+
+        updateProgressBar();
+    });
 
     </script>
 

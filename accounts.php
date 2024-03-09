@@ -79,7 +79,25 @@ if (isset($_POST['signup-btn'])) {
     $username = $_POST["username"];
     $contactNumber = $_POST["contactNumber"];
     $email = $_POST["email"];
+    $profilePicture = "images/profile.jpg";
     $first_login = 1;
+
+
+    // Check if username already exists
+    $check_username_sql = "SELECT * FROM user WHERE username = ?";
+    $check_username_stmt = mysqli_prepare($con, $check_username_sql);
+    mysqli_stmt_bind_param($check_username_stmt, "s", $username);
+    mysqli_stmt_execute($check_username_stmt);
+    $result = mysqli_stmt_get_result($check_username_stmt);
+
+    if (mysqli_num_rows($result) > 0) {
+        // Username already exists, show error message
+        echo '<script type="text/javascript">
+            alert("Username is already taken. Please choose another username.");
+            window.location.href = "login.php"; // Close the modal or redirect to the desired page
+            </script>';
+        exit;
+    }
     
     // Generate a default password and hash it
     $default_password = generateRandomPassword();
@@ -249,7 +267,7 @@ if (isset($_POST['save-btn'])) {
     $errors = [];
     if (!$userID || !$username || !$firstName || !$lastName || !$email || !$contactNumber || !$commutingMethod || !$dietPreferences || !$energySource) {
         $errors[] = "All fields are required.";
-    }
+    }    
 
     // If there are no errors, proceed with the update
     if (empty($errors)) {
@@ -304,12 +322,12 @@ if (isset($_POST['editPicture-btn'])) {
 
         if (move_uploaded_file($_FILES['profilePicture']['tmp_name'], $uploadFile)) {
             // File upload successful, update the user's profile picture in the database
-            $profilePicturePath = $uploadFile; // Update this with the actual file path or identifier
+            $profilePicture = $uploadFile; // Update this with the actual file path or identifier
 
             // Update the user's profile picture in the database
             $sql = "UPDATE user SET profilePicture = ? WHERE userID = ?";
             $stmt = mysqli_prepare($con, $sql);
-            mysqli_stmt_bind_param($stmt, "si", $profilePicturePath, $userID);
+            mysqli_stmt_bind_param($stmt, "si", $profilePicture, $userID);
             $result = mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
 
