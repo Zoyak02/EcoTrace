@@ -72,6 +72,15 @@ ini_set('display_errors', 1);
         }
    </style>
    <style>
+       .dashboard-card {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+        margin-bottom:5px;
+       }
+
+       .custom-box-shadow {
+        box-shadow: 0 10px 40px rgba(156, 204, 101, 0.3);
+       }
+
         .food_icon{
         position: absolute;
         right: 0;
@@ -413,7 +422,7 @@ ini_set('display_errors', 1);
             <!--Dashboard card start--> 
             <div class="container flex items-center justify-center p-5">
             <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl">
-                <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-teal-400 to-green-500 rounded-md overflow-hidden">
+                <div class=" dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-teal-400 to-green-500 rounded-md overflow-hidden">
                 <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
                     <?php echo number_format($totalFood,2) ?>
                      <span class="text-sm">kgCO2e</span>
@@ -423,7 +432,7 @@ ini_set('display_errors', 1);
                 </div>
              
 
-                <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md overflow-hidden">
+                <div class=" dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md overflow-hidden">
                 <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
                     <?php echo number_format($totalEnergy,2) ?>
                      <span class="text-sm">kgCO2e</span>
@@ -433,7 +442,7 @@ ini_set('display_errors', 1);
                 </div>
                 
 
-                <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-red-400 to-red-600 rounded-md overflow-hidden">
+                <div class=" dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-red-400 to-red-600 rounded-md overflow-hidden">
                 <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
                     <?php echo number_format($totalTransport,2) ?> 
                      <span class="text-sm">kgCO2e</span>
@@ -442,7 +451,7 @@ ini_set('display_errors', 1);
                 <i class="transport_icon"> <img src="https://cdn-icons-png.flaticon.com/128/1723/1723597.png"></i>
                 </div>
                 
-                <div class="relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md overflow-hidden">
+                <div class=" dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md overflow-hidden">
                 <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
                     <?php echo number_format($totalOverall,2) ?> 
                      <span class="text-sm">kgCO2e</span>
@@ -461,7 +470,7 @@ ini_set('display_errors', 1);
             <div class="row">
                 <!-- Donut Chart Card -->
                 <div class="col-md-12 col-lg-4 mb-3 mb-md-0">
-                    <div class="card">
+                    <div class="card custom-box-shadow">
                         <div class="card-body">
                             <canvas id="donutChart"></canvas>
                         </div>
@@ -470,7 +479,7 @@ ini_set('display_errors', 1);
 
                 <!-- Line Chart Card -->
                 <div class="col-md-12 col-lg-8">
-                    <div class="card">
+                    <div class="card custom-box-shadow">
                         <div class="card-body">
                             <canvas id="lineChart"></canvas>
                         </div>
@@ -533,9 +542,9 @@ ini_set('display_errors', 1);
 
          <!--Footer Section Start--> 
          <?php if (isLoggedIn()): ?>  
-         <div class="ftco-section wf100">
+         <div class="ftco-section wf100 pt80">
          <?php else: ?>
-        <div class="ftco-section wf100 pt80">
+        <div class="ftco-section wf100">
         <?php endif; ?>
             <footer class="footer">
               <svg class="footer-wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">

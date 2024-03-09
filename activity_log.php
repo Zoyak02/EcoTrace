@@ -346,8 +346,8 @@ else if(isset($_GET['success']))
 
                      <div id="mixed_diet_questions" class="form-group">
                         <!-- Mixed diet questions -->
-                        <label>Specify the number of meat-based and plant-based meals you had this week.</label>
-                        <input type="text" name="mixed_diet_meals" class="form-control" required>
+                        <label>How many servings of dairy products, such as milk, cheese, or yogurt, did you consume this week?</label>
+                        <input type="number" name="mixed_diet_meals" min="0" step="1" class="form-control" required>
                      </div>
 
                      <div class="col-md-12 text-center">
@@ -378,6 +378,8 @@ else if(isset($_GET['success']))
                         <input type="number" name="dryer_hours" min="0" step="1" class="form-control" required>
                         <label>How many loads did you run in the dishwasher this week?</label>
                         <input type="number" name="dishwasher_loads" min="0" step="1" class="form-control" required>
+                        <label>How many hours of electronic devices (e.g., computers, TVs, gaming consoles) were in use per day this week?</label>
+                        <input type="number" name="electronic_hours" min="0" step="1" class="form-control" required>
                      </div>
 
                      <div class="col-md-12 text-center">

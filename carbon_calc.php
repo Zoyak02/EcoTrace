@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $laundryLoads = floatval($_POST["laundry_loads"]) ?? 0;
     $dryerHours = floatval( $_POST["dryer_hours"]) ?? 0;
     $dishwasherLoads = floatval($_POST["dishwasher_loads"]) ?? 0;
+    $electronicHours = floatval($_POST["electronic_hours"]) ?? 0;
     $errors = array();
    
     //External data to store
@@ -113,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fishEmissionFactor = 2.0; // kgCO2e per serving of fish
         $plantBasedMealEmissionFactor = 1.0; // kgCO2e per plant-based meal
         $plantProteinEmissionFactor = 0.5; // kgCO2e per serving of plant-based protein
-        $mixedDietEmissionFactor = 4.0; // kgCO2e per mixed diet meal (adjust as needed)
+        $mixedDietEmissionFactor = 2.0; // kgCO2e per dairy 
     
         // Calculate carbon footprint for each food category
         $redMeatCarbonFootprint = $redMeatServings * $redMeatEmissionFactor;
@@ -137,6 +138,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $laundryEmissionFactor = 0.1; // kgCO2e per load of laundry
         $dryerEmissionFactor = 0.2; // kgCO2e per hour of dryer use
         $dishwasherEmissionFactor = 0.15; // kgCO2e per load in the dishwasher
+        $electronicEmissionFactor = 0.1; // kgCO2e per per hour for a mix of electronic devices
+
     
         // Calculate carbon footprint for each energy-related activity
         $heatingCarbonFootprint = $heatingHours * $heatingEmissionFactor;
@@ -144,10 +147,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $laundryCarbonFootprint = $laundryLoads * $laundryEmissionFactor;
         $dryerCarbonFootprint = $dryerHours * $dryerEmissionFactor;
         $dishwasherCarbonFootprint = $dishwasherLoads * $dishwasherEmissionFactor;
+        $electronicCarbonFootprint = $electronicEmissionFactor * $electronicHours;
     
         // Sum up the carbon footprints for all energy-related activities
         $totalEnergyCarbonFootprint = $heatingCarbonFootprint + $acCarbonFootprint + $laundryCarbonFootprint +
-                                     $dryerCarbonFootprint + $dishwasherCarbonFootprint;
+                                     $dryerCarbonFootprint + $dishwasherCarbonFootprint +  $electronicCarbonFootprint;
     
         return $totalEnergyCarbonFootprint;
     }
