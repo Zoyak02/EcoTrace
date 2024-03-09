@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Calculate carbon footprint for each category
     $carbonFootprintTransport = calculateTransportCarbonFootprint($carKilometers, $carpoolInstances, $publicTransportationTimes, $activeCommuterDays,$bicycleTimes, $electricScooterDays);
     $carbonFootprintFood = calculateFoodCarbonFootprint($redMeatServings, $poultryServings, $fishServings, $plantBasedMeals, $plantProteinServings, $mixedDietMeals);
-    $carbonFootprintEnergy = calculateEnergyCarbonFootprint($heatingHours, $acHours, $laundryLoads, $dryerHours, $dishwasherLoads);
+    $carbonFootprintEnergy = calculateEnergyCarbonFootprint($heatingHours, $acHours, $laundryLoads, $dryerHours, $dishwasherLoads, $electronicHours);
 
     // Calculate the total carbon footprint
     $totalCarbonFootprint = $carbonFootprintTransport + $carbonFootprintFood + $carbonFootprintEnergy;
