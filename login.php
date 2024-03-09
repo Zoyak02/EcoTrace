@@ -144,7 +144,7 @@ if (isset($_SESSION['success_message'])) {
                               </li>
                               <li class="col-md-6">
                                     <div class="input-group">
-                                       <input type="text" name="contactNumber" class="form-control" placeholder="Contact Number">
+                                       <input type="text" name="contactNumber" class="form-control" placeholder="Contact Number" required>
                                     </div>
                               </li>
                               <li class="col-md-6">
