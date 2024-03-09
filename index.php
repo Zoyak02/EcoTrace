@@ -141,14 +141,19 @@ function weeklyLogUpToDate($con) {
                               <div class="number"></div>
                            <?php else : ?>
                               <div class="number">1</div
-                           <?php endif; ?>>
+                           <?php endif; ?>
                               <i class="fas fa-bell"></i>
-                              <div class="box" >
+                              <div class="box">
                                  <div class="display">
                                     <?php if (weeklyLogUpToDate($con)) : ?>
-                                          <div class="nothing">
-                                             <i class="fas fa-check-circle stick"></i>
+                                       <div class="container" style= "padding-top:25px;">
+                                          <div class="row">
+                                             <div class="col-3">
+                                             <img class="icon" style="width:60px; margin-left:8px;" src="https://cdn-icons-png.flaticon.com/128/8832/8832119.png" alt="Update Weekly Log Icon">
+                                             </div>
+                                             <div class="col-8">
                                              <div class="cent">You're all caught up!</div>
+                                            </div>
                                           </div>
                                     <?php else : ?>
                                        <div class="container" style= "padding-top:22px;">

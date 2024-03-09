@@ -276,6 +276,7 @@ ini_set('display_errors', 1);
 
          <?php if (isLoggedIn()): ?>
             <?php
+
                 $userID = $_SESSION['userID'];
 
                 // Check if $con is defined and is a valid mysqli connection
@@ -374,11 +375,6 @@ ini_set('display_errors', 1);
                         $currentMonth = date('F');
                     }
 
-                    // Check if $latestWeekEntered is true
-                    if ($latestWeekEntered) {
-                        // Override $currentMonth with the current month if the latest week is entered
-                        $currentMonth = date('F');
-                    }
 
                         $historicalDataQuery = "SELECT weekNo, carbonFootprintTransport, carbonFootprintFood, carbonFootprintEnergy, totalCarbonFootprint FROM weeklylog WHERE userID = '$userID' AND month = '$currentMonth' ORDER BY weekNo";
 
@@ -399,6 +395,14 @@ ini_set('display_errors', 1);
                             $totalFootprintData[] = $row['totalCarbonFootprint'];
                         }
                     } 
+
+                    $checkRecordsQuery = "SELECT COUNT(*) AS totalRecords
+                     FROM weeklylog
+                     WHERE userID = '$userID'
+                     AND (carbonFootprintFood IS NOT NULL OR totalCarbonFootprint IS NOT NULL OR carbonFootprintEnergy IS NOT NULL or carbonFootprintTransport)";
+                    $checkRecordsResult = mysqli_query($con, $checkRecordsQuery);
+                    $row = mysqli_fetch_assoc($checkRecordsResult);
+                                    
                 ?>
 
                   <?php
@@ -411,8 +415,8 @@ ini_set('display_errors', 1);
                         }
 
                     ?>
-
-        <?php if (empty($overallQuery)): ?>
+       
+        <?php if($row['totalRecords'] <= 0): ?>
             <!-- Display pop-up alert for new users -->
         <script>
             alert("Welcome! Please go to the activity log and fill it up to see your dashboard.");
@@ -488,7 +492,7 @@ ini_set('display_errors', 1);
             </div>
         </div>
         
-         <?php endif; ?>
+        <?php endif; ?>
     <?php else: ?>
             <section class="page404 wf100 p80">
             <div class="container">
