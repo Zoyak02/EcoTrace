@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  }
  
  
-    function calculateTransportCarbonFootprint($carKilometers, $carpoolInstances, $publicTransportationTimes, $activeCommuterDays) {
+    function calculateTransportCarbonFootprint($carKilometers, $carpoolInstances, $publicTransportationTimes, $activeCommuterDays, $bicycleTimes,$electricScooterDays) {
         // Assume some emission factors 
         $carEmissionFactor = 2.0; // kgCO2e per kilometer for a typical car
         $carpoolEmissionFactor = 1.5; // kgCO2e per kilometer for carpooling
@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return $totalFoodCarbonFootprint;
     }
 
-    function calculateEnergyCarbonFootprint($heatingHours, $acHours, $laundryLoads, $dryerHours, $dishwasherLoads) {
+    function calculateEnergyCarbonFootprint($heatingHours, $acHours, $laundryLoads, $dryerHours, $dishwasherLoads,$electronicHours) {
         // Assume some emission factors
         $heatingEmissionFactor = 0.2; // kgCO2e per hour of heating
         $acEmissionFactor = 0.3; // kgCO2e per hour of air conditioning
