@@ -454,6 +454,18 @@ else if(isset($_GET['success']))
                         $('#activity-log-form').find('.step').slice(1).hide();
 
                         $(".next-step").click(function () {
+                            var currentStepFields = $(".step-" + currentStep + " input[required]");
+                            var isValid = true;
+
+                            // Check if all required fields in the current step are filled out
+                            currentStepFields.each(function() {
+                                if (!$(this).val()) {
+                                    isValid = false;
+                                    return false; // Exit the loop early if a required field is empty
+                                }
+                            });
+
+                        if (isValid) {
                             console.log("Next button clicked");
                             if (currentStep < 3) {
                                 $(".step-" + currentStep).addClass("animate__fadeOutLeft");
@@ -464,25 +476,49 @@ else if(isset($_GET['success']))
                                     updateProgressBar();
                                 }, 500);
                             }
-                        });
+                        } else {
+                            // Prevent the form from advancing to the next step
+                            return false;
+                        }
+                    });
 
-                        $(".prev-step").click(function () {
-                            console.log("previous button clicked");
-                            if (currentStep > 1) {
-                                $(".step-" + currentStep).addClass("animate__fadeOutRight");
-                                currentStep--;
-                                setTimeout(function () {
-                                    $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
-                                    $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
-                                    updateProgressBar();
-                                }, 500);
+                    $(".prev-step").click(function () {
+                        console.log("previous button clicked");
+                        if (currentStep > 1) {
+                            $(".step-" + currentStep).addClass("animate__fadeOutRight");
+                            currentStep--;
+                            setTimeout(function () {
+                                $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
+                                $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
+                                updateProgressBar();
+                            }, 500);
+                        }
+                    });
+
+                    // Function to validate form before submitting
+                    $("form").submit(function() {
+                        var currentStepFields = $(".step-" + currentStep + " input[required]");
+                        var isValid = true;
+
+                        // Check if all required fields in the current step are filled out
+                        currentStepFields.each(function() {
+                            if (!$(this).val()) {
+                                isValid = false;
+                                return false; // Exit the loop early if a required field is empty
                             }
                         });
 
-                        updateProgressBar();
+                        if (!isValid) {
+                            // Display error message if any required field is empty
+                            alert("Please fill out all required fields before proceeding.");
+                            return false; // Prevent form submission
+                        }
                     });
 
-                    </script>
+                    updateProgressBar();
+                });
+
+                </script>
                     <img src="images/lets-go-outside-saying-hello.gif" alt="Bike Ride Gif" id="bikeGif">
                       <!-- Activity Log Form End -->
                        
