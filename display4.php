@@ -187,6 +187,14 @@ function weeklyLogUpToDate($con) {
     </header>
     <!--Header End-->
 
+      <!--Inner Header Start-->
+      <section class="wf100 inner-header">
+            <div class="container">
+               <h1>Educational Content</h1>
+            </div>
+         </section>
+         <!--Inner Header End--> 
+
 <div class="wrapper">
         <?php
 

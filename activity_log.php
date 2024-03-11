@@ -18,31 +18,6 @@ if (isset($_GET['success'])) {
   $success_message = $_GET['success'];
 }
 
-function weeklyLogUpToDate($con) {
-    // Get the current week number
-    $today = new DateTime('now');
-    $firstDayOfMonth = new DateTime('first day of this month');
-    $daysDiff = $today->diff($firstDayOfMonth)->days;
-    $weekNumber = ceil(($daysDiff + 1) / 7);
- 
-    // Get the month name
-    $month = $today->format('F');
- 
-    // Get the userID from the session
-    $userID = $_SESSION['userID'];
- 
-    // Check if there is an entry for the current week in the current month
-    $checkQuery = "SELECT * FROM weeklylog WHERE userID = '$userID' AND weekNo = '$weekNumber' AND month = '$month'";
-    $result = mysqli_query($con, $checkQuery);
- 
-    if ($result && mysqli_num_rows($result) > 0) {
-        // User has already entered the weekly log for the current week in the current month
-        return true;
-    } else {
-        // User has not entered the weekly log for the current week in the current month
-        return false;
-    }
- }
 ?>
 
 <!DOCTYPE html>
