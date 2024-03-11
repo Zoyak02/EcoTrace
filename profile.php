@@ -178,7 +178,7 @@ function weeklyLogUpToDate($con) {
   <!-- CSS FILES START -->
   <link href="css/custom3.css" rel="stylesheet">
   <link href="css/color.css" rel="stylesheet">
-  <link href="css/notification.css" rel="stylesheet">
+  <link href="css/notificationBell.css" rel="stylesheet">
   <link href="css/responsive.css" rel="stylesheet">
   <link href="css/owl.carousel.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -297,7 +297,7 @@ function weeklyLogUpToDate($con) {
                            <?php else : ?>
                               <div class="number">1</div
                            <?php endif; ?>
-                              <i class="fas fa-bell"></i>
+                              <i class="fas fa-bell" id="bell"></i>
                               <div class="box">
                                  <div class="display">
                                     <?php if (weeklyLogUpToDate($con)) : ?>

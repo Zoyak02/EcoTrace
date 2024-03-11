@@ -48,7 +48,7 @@
     cursor: pointer
   }
   
-  .fas{
+  #bell{
     font-size: 22pt;
     padding-bottom: 10px;
     color: rgb(255, 252, 252);
@@ -75,7 +75,7 @@
   }
 
   
-  .fas:hover {
+  #bell:hover {
     color: #d7d4d4;
   }
   
