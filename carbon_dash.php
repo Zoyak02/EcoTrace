@@ -28,6 +28,8 @@ ini_set('display_errors', 1);
       <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.8.13/tailwind.min.css" rel='stylesheet'>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
@@ -37,6 +39,7 @@ ini_set('display_errors', 1);
       <!-- CSS FILES START -->
       <link href="css/custom3.css" rel="stylesheet">
       <link href="css/login.css" rel="stylesheet">
+      <link href="css/notification.css" rel="stylesheet">
       <link href="css/color.css" rel="stylesheet">
       <link href="css/responsive.css" rel="stylesheet">
       <link href="css/owl.carousel.min.css" rel="stylesheet">
@@ -231,6 +234,45 @@ ini_set('display_errors', 1);
                    </ul>
                    <?php if (isLoggedIn()): ?>
                      <!-- If user is logged in, show profile circle -->
+                     <li class="nav-item" style="list-style: none;">
+                     <!-- If user is not logged in, show login button -->
+                     <div class="notification" >
+                        <div class="notBtn" href="#">
+                           <?php if (weeklyLogUpToDate($con)) : ?>
+                              <div class="number"></div>
+                           <?php else : ?>
+                              <div class="number">1</div
+                           <?php endif; ?>
+                              <i class="fas fa-bell"></i>
+                              <div class="box">
+                                 <div class="display">
+                                    <?php if (weeklyLogUpToDate($con)) : ?>
+                                       <div class="container" style= "padding-top:25px;">
+                                          <div class="row">
+                                             <div class="col-3">
+                                             <img class="icon" style="width:60px; margin-left:8px;" src="https://cdn-icons-png.flaticon.com/128/8832/8832119.png" alt="Update Weekly Log Icon">
+                                             </div>
+                                             <div class="col-8">
+                                             <div class="cent">You're all caught up!</div>
+                                            </div>
+                                          </div>
+                                    <?php else : ?>
+                                       <div class="container" style= "padding-top:22px;">
+                                          <div class="row">
+                                             <div class="col-3">
+                                                   <img class="icon" style="width:50px;" src="https://cdn-icons-png.flaticon.com/128/10308/10308693.png" alt="Update Weekly Log Icon">
+                                             </div>
+                                             <div class="col-8">
+                                                   <div class="cent">Please update your weekly log for this week</div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    <?php endif; ?>
+                                 </div>
+                              </div>
+                              </div>
+                        </div>
+                     </li>
                      <li class="nav-item profile-dropdown">
                         <img src="images/profile.jpg" class="profile" />
                         <ul class="profile-menu">
@@ -251,11 +293,11 @@ ini_set('display_errors', 1);
                      </li>
 
                <?php else: ?>
-                     <!-- If user is not logged in, show login button -->
                      <li class="nav-item" style="list-style: none;">
                         <a class="login-btn" href="login.php" role="button"> Login </a>
                      </li>
                <?php endif; ?>
+               
                
             </div>
          
