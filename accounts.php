@@ -71,9 +71,9 @@ if (isset($_POST['login-btn'])) {
 }
 
 
-
+// Check if form is submitted
 if (isset($_POST['signup-btn'])) {
-
+    //Retrieve form data
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
     $username = $_POST["username"];
@@ -164,7 +164,7 @@ if (isset($_POST['signup-btn'])) {
        // User registration failed
        echo '<script type="text/javascript">
        alert("Failed to register. Please try again later.");
-       window.location.href = "#"; // Close the modal or redirect to the desired page
+       window.location.href = "login.php"; // Close the modal or redirect to the desired page
        </script>';
     }
 
