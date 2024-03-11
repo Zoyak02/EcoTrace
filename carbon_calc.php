@@ -135,8 +135,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Assume some emission factors
         $heatingEmissionFactor = 0.2; // kgCO2e per hour of heating
         $acEmissionFactor = 0.3; // kgCO2e per hour of air conditioning
-        $laundryEmissionFactor = 0.1; // kgCO2e per load of laundry
-        $dryerEmissionFactor = 0.2; // kgCO2e per hour of dryer use
+        $laundryEmissionFactor = 1.0; // kgCO2e per load of laundry
+        $dryerEmissionFactor = 1.5; // kgCO2e per hour of dryer use
         $dishwasherEmissionFactor = 0.15; // kgCO2e per load in the dishwasher
         $electronicEmissionFactor = 0.1; // kgCO2e per per hour for a mix of electronic devices
 

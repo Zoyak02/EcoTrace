@@ -167,11 +167,6 @@ function weeklyLogUpToDate($con) {
                                           </div>
                                        </div>
                                     <?php endif; ?>
-                                    <!-- <div class="cont">
-                                          Your existing notification content goes here -->
-                                          <!-- ... 
-                                    </div>
-                                    -->
                                  </div>
                               </div>
                               </div>
