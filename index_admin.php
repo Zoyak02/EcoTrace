@@ -289,7 +289,7 @@ function validateForm() {
 
     // Check if the file size is within the allowed limit
     if (fileInput.files[0].size > maxSize) {
-        document.getElementById("fileError").innerText = "File size exceeds the allowed limit. Maximum (Image: 5MB) (Video: 500MB)";
+        document.getElementById("fileError").innerText = "File size exceeds the allowed limit. Maximum (Image: 5MB) (Video: 20MB)";
         return false;
     }
 
