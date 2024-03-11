@@ -9,6 +9,32 @@ if (isset($_SESSION['success_message'])) {
    unset($_SESSION['success_message']);
 }
 
+function weeklyLogUpToDate($con) {
+    // Get the current week number
+    $today = new DateTime('now');
+    $firstDayOfMonth = new DateTime('first day of this month');
+    $daysDiff = $today->diff($firstDayOfMonth)->days;
+    $weekNumber = ceil(($daysDiff + 1) / 7);
+ 
+    // Get the month name
+    $month = $today->format('F');
+ 
+    // Get the userID from the session
+    $userID = $_SESSION['userID'];
+ 
+    // Check if there is an entry for the current week in the current month
+    $checkQuery = "SELECT * FROM weeklylog WHERE userID = '$userID' AND weekNo = '$weekNumber' AND month = '$month'";
+    $result = mysqli_query($con, $checkQuery);
+ 
+    if ($result && mysqli_num_rows($result) > 0) {
+        // User has already entered the weekly log for the current week in the current month
+        return true;
+    } else {
+        // User has not entered the weekly log for the current week in the current month
+        return false;
+    }
+ }
+
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +47,8 @@ if (isset($_SESSION['success_message'])) {
     <link rel="icon" href="images/favicon.png">
     <title>Login/Sign Up</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
       rel="stylesheet"/>
@@ -28,6 +56,7 @@ if (isset($_SESSION['success_message'])) {
     <!-- CSS FILES START -->
     <link href="css/custom3.css" rel="stylesheet">
     <link href="css/color.css" rel="stylesheet">
+    <link href="css/notification.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">

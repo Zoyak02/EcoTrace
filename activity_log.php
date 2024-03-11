@@ -17,6 +17,32 @@ ini_set('display_errors', 1);
 if (isset($_GET['success'])) {
   $success_message = $_GET['success'];
 }
+
+function weeklyLogUpToDate($con) {
+    // Get the current week number
+    $today = new DateTime('now');
+    $firstDayOfMonth = new DateTime('first day of this month');
+    $daysDiff = $today->diff($firstDayOfMonth)->days;
+    $weekNumber = ceil(($daysDiff + 1) / 7);
+ 
+    // Get the month name
+    $month = $today->format('F');
+ 
+    // Get the userID from the session
+    $userID = $_SESSION['userID'];
+ 
+    // Check if there is an entry for the current week in the current month
+    $checkQuery = "SELECT * FROM weeklylog WHERE userID = '$userID' AND weekNo = '$weekNumber' AND month = '$month'";
+    $result = mysqli_query($con, $checkQuery);
+ 
+    if ($result && mysqli_num_rows($result) > 0) {
+        // User has already entered the weekly log for the current week in the current month
+        return true;
+    } else {
+        // User has not entered the weekly log for the current week in the current month
+        return false;
+    }
+ }
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +56,9 @@ if (isset($_GET['success'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
       rel="stylesheet"/>
@@ -39,6 +67,7 @@ if (isset($_GET['success'])) {
     <!-- CSS FILES START -->
     <link href="css/custom3.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
+    <link href="css/notification.css" rel="stylesheet">
     <link href="css/color.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/owl.carousel.min.css" rel="stylesheet">
