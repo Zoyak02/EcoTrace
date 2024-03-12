@@ -701,7 +701,7 @@ else if(isset($_GET['success']))
                     }, 500);
                 }
             } else {
-                alert("Please fill out all required fields before proceeding.");
+                //alert("Please fill out all required fields before proceeding.");
                 // Prevent the form from advancing to the next step
                 return false;
             }
