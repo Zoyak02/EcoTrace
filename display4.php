@@ -123,7 +123,7 @@ function weeklyLogUpToDate($con) {
                            <?php if (weeklyLogUpToDate($con)) : ?>
                               <div class="number"></div>
                            <?php else : ?>
-                              <div class="number">1</div
+                              <div class="number">1</div>
                            <?php endif; ?>
                               <i class="fas fa-bell" id="bell"></i>
                               <div class="box">

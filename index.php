@@ -109,7 +109,7 @@ function weeklyLogUpToDate($con) {
                            <a class="nav-link active" href="index.php">Home</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="about.html">About</a>
+                           <a class="nav-link" href="#about">About</a>
                        </li>
                        <?php if (isLoggedIn()): ?>
                        <li class="nav-item">
@@ -140,7 +140,7 @@ function weeklyLogUpToDate($con) {
                            <?php if (weeklyLogUpToDate($con)) : ?>
                               <div class="number"></div>
                            <?php else : ?>
-                              <div class="number">1</div
+                              <div class="number">1</div>
                            <?php endif; ?>
                               <i class="fas fa-bell" id="bell"></i>
                               <div class="box">
@@ -521,7 +521,7 @@ function weeklyLogUpToDate($con) {
 
 
       <!--About Section Start-->
-      <section class="home2-about wf100 p100 gallery">
+      <section class="home2-about wf100 p100 gallery" id="about">
          <div class="container">
             <div class="row">
                <div class="col-6">
