@@ -36,8 +36,8 @@ if (isset($_GET['success'])) {
         </button>
         <!-- Logout button -->
         <li class="login__item" style="list-style-type: none;">
-          <a href="index.php?logout=1" type="button" class="btn btn-danger">
-            Logout <i class="bi bi-box-arrow-left"></i>
+          <a href="index.php?logout=1" type="button" class="btn btn-danger" >
+            <i class="bi bi-box-arrow-left"></i> Logout
           </a>
         </li>
       </div>
