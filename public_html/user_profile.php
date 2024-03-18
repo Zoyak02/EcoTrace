@@ -51,7 +51,7 @@ if (isset($_GET['userID']) && !empty($_GET['userID'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/minisearch@6.1.0/dist/umd/index.min.js"></script>
 
-    <link rel="stylesheet" href="css/style.2css">
+    <link rel="stylesheet" href="css/style3.css">
     <script src="scripts/handle-scroll-to.js" defer></script>
     <script type="module" src="scripts/show-search-suggestions.js" defer></script>
     <script src="scripts/lazy-load.js" defer></script>

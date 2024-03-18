@@ -342,6 +342,7 @@ if (isset($_POST['editPicture-btn'])) {
         if ($upload_result) {
             // Profile picture upload successful, get the secure URL
             $profilePicture = $upload_result['secure_url']; // Update this with the actual file path or identifier
+            $_SESSION['profilePicture'] = $profilePicture;
 
             // Update the user's profile picture in the database
             $sql = "UPDATE user SET profilePicture = ? WHERE userID = ?";
@@ -349,6 +350,7 @@ if (isset($_POST['editPicture-btn'])) {
             mysqli_stmt_bind_param($stmt, "si", $profilePicture, $userID);
             $result = mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
+            
 
             if ($result) {
                 // Profile picture update successful, redirect back to the Profile Page

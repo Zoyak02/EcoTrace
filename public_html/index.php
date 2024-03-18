@@ -23,7 +23,7 @@ require_once('post_display.php');
 
     <script src="https://cdn.jsdelivr.net/npm/minisearch@6.1.0/dist/umd/index.min.js"></script>
 
-    <link rel="stylesheet" href="css/style2.css">
+    <link rel="stylesheet" href="css/style3.css">
 
     <script type="module" src="scripts/show-search-suggestions.js" defer></script>
     <script src="scripts/lazy-load.js" defer></script>

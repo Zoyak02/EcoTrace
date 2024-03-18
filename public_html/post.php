@@ -61,7 +61,7 @@ if (isset($_GET['post_id'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/minisearch@7.1.0/dist/umd/index.min.js"></script>
 
-    <link rel="stylesheet" href="css/style2.css">
+    <link rel="stylesheet" href="css/style3.css">
     <script type="module" src="scripts/show-search-suggestions.js" defer></script>
     <script type="module" src="scripts/post-modal-handler.js" defer></script>
     <script type="module" src="scripts/post-more-options-handler.js" defer></script>

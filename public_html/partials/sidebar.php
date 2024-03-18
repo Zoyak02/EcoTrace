@@ -1,7 +1,6 @@
 <?php
 require_once('../core/db_functions.php');
 require_once('../core/utility_functions.php');
-require_once('../accounts.php');
 
 $conn = connect_to_db();
 $userID = $_SESSION['userID'];
@@ -15,21 +14,29 @@ $user_followers_count = count($user_followers);
 $user_following = get_followed_users_by_user($conn, $userID);
 $user_following_count = count($user_following);
 
+// Assume $userID contains the ID of the currently logged-in user
+$sql = "SELECT profilePicture FROM user WHERE userID = ?";
+$stmt = mysqli_prepare($con, $sql);
+mysqli_stmt_bind_param($stmt, "i", $userID);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt, $profilePicture);
+mysqli_stmt_fetch($stmt);
+mysqli_stmt_close($stmt);
+
 $active_page = get_active_page();
 
-$poster_profile_picture = $_SESSION['profilePicture'];
 $profile_pic_compression_settings = "w_500/f_auto,q_auto:eco";
-$profile_pic_transformed_url = add_transformation_parameters($poster_profile_picture, $profile_pic_compression_settings);
+$profile_pic_transformed_url = add_transformation_parameters($profilePicture, $profile_pic_compression_settings);
 
 $user_profile_link = 'user_profile.php?userID=' . $userID . '"';
 ?>
 
 <nav class="fixed-top sidebar navbar navbar-light bg-white h-100 border-end p-0">
     <div class="d-flex flex-column position-sticky h-100 w-100">
-        <div class="sidebar-container d-flex flex-column h-100 pt-5 pb-4">
+        <div class="sidebar-container d-flex flex-column h-100 pt-3 pb-4">
 
             <!-- User Profile -->
-            <div class="home-navbar-profile-container d-flex flex-column align-items-center text-center mb-4 pb-3">
+            <div class="home-navbar-profile-container d-flex flex-column align-items-center text-center mb-4 pb-2">
                 <a href="<?php echo $user_profile_link; ?>" class="text-decoration-none">
                     <img class="home-navbar-user-profile-picture mb-2" src="<?php echo $profile_pic_transformed_url; ?>"
                         alt="User profile picture">

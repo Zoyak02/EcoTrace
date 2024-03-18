@@ -224,14 +224,14 @@ function get_user_info($pdo, $userID)
     }
 }
 
-function get_users_info($pdo, $userIDs)
+function get_users_info($pdo, $userID)
 {
-    $placeholders = implode(',', array_fill(0, count($userIDs), '?'));
-    $sql = "SELECT id, username, user_display_name, profilePicture 
+    $placeholders = implode(',', array_fill(0, count($userID), '?'));
+    $sql = "SELECT userID, username, user_display_name, profilePicture 
             FROM user 
-            WHERE id IN ($placeholders)";
+            WHERE userID IN ($placeholders)";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute($userIDs);
+    $stmt->execute($userID);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
