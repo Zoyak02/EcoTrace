@@ -328,7 +328,7 @@ function weeklyLogUpToDate($con) {
                         </div>
                      </li>
                      <li class="nav-item profile-dropdown">
-                        <img src="images/profile.jpg" class="profile" />
+                     <img src="<?php echo $_SESSION['profilePicture']; ?>" alt="Profile Picture" class="profile" />
                         <ul class="profile-menu">
                            <li class="sub-item">
                                <a href="profile.php" style="display: flex; align-items: center; text-decoration: none;">
@@ -377,7 +377,7 @@ function weeklyLogUpToDate($con) {
                         <div class="card">
                            <div class="card-body">
                               <div class="d-flex flex-column align-items-center text-center">
-                                 <img src="images/profile.jpg" alt="Profile Picture" class="rounded-circle" width="150">
+                              <img src="<?php echo $_SESSION['profilePicture']; ?>" alt="Profile Picture" class="rounded-circle" width="150">
                                  <div class="mt-3 font-weight-bold">
                                     <h5 class="mb-5 mt-2"><?php echo $firstName." ".$lastName; ?></h5>
                                  </div>

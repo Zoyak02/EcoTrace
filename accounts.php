@@ -43,6 +43,21 @@ if (isset($_POST['login-btn'])) {
     if ($hashed_user_password && password_verify($password, $hashed_user_password)) {
         // Password is correct, set user ID in session
         $_SESSION['userID'] = $userID;
+        
+        $user_info_sql = "SELECT username, user_bio, user_display_name FROM user WHERE userID = ?";
+        $user_info_stmt = mysqli_prepare($con, $user_info_sql);
+        mysqli_stmt_bind_param($user_info_stmt, "i", $userID);
+        mysqli_stmt_execute($user_info_stmt);
+        mysqli_stmt_bind_result($user_info_stmt, $fetched_username, $fetched_user_bio, $fetched_user_display_name);
+        mysqli_stmt_fetch($user_info_stmt);
+        mysqli_stmt_close($user_info_stmt);
+
+        // Store fetched user information in the session
+        $_SESSION['username'] = $fetched_username;
+        $_SESSION['user_bio'] = $fetched_user_bio;
+        $_SESSION['user_display_name'] = $fetched_user_display_name;
+
+        
 
         if ($first_login == 1) {
             // It's the user's first login, set the first_login session variable
@@ -98,17 +113,22 @@ if (isset($_POST['signup-btn'])) {
             </script>';
         exit;
     }
+
+      // Set default values for bio and display name
+      $user_bio = "Hello, I am " . $username; // Default bio
+      $user_display_name = $username; // Default display name
     
     // Generate a default password and hash it
     $default_password = generateRandomPassword();
     $hashed_password = password_hash($default_password, PASSWORD_DEFAULT);
 
     // Prepare SQL statement to insert user data into the database
-    $sql = "INSERT INTO user (username, password, first_login, email, contactNumber, firstName, lastName) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO user (username, password, first_login, email, contactNumber, firstName, lastName, user_bio, user_display_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($con, $sql);
 
+
     // Bind parameters and execute the statement
-    mysqli_stmt_bind_param($stmt, "ssissss", $username, $hashed_password, $first_login, $email, $contactNumber, $firstName, $lastName);
+    mysqli_stmt_bind_param($stmt, "ssissssss", $username, $hashed_password, $first_login, $email, $contactNumber, $firstName, $lastName, $user_bio, $user_display_name);
     $success = mysqli_stmt_execute($stmt);
 
     if ($success) {
@@ -315,14 +335,13 @@ if (isset($_POST['save-btn'])) {
 if (isset($_POST['editPicture-btn'])) {
     // Check if a file is uploaded
     if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] === UPLOAD_ERR_OK) {
-        // Validate the uploaded file (size, type, etc.)
-        // Move the uploaded file to a designated location on the server
-        $uploadDir = "uploads\profile_picture"; // Specify the directory where you want to store profile pictures
-        $uploadFile = $uploadDir . basename($_FILES['profilePicture']['name']);
-
-        if (move_uploaded_file($_FILES['profilePicture']['tmp_name'], $uploadFile)) {
-            // File upload successful, update the user's profile picture in the database
-            $profilePicture = $uploadFile; // Update this with the actual file path or identifier
+        // Upload profile picture to Cloudinary
+        $target_dir = 'EcoTrace/profile-pictures/';
+        $upload_result = upload_image_to_cloudinary($_FILES['profilePicture'], $target_dir);
+        
+        if ($upload_result) {
+            // Profile picture upload successful, get the secure URL
+            $profilePicture = $upload_result['secure_url']; // Update this with the actual file path or identifier
 
             // Update the user's profile picture in the database
             $sql = "UPDATE user SET profilePicture = ? WHERE userID = ?";
@@ -341,8 +360,8 @@ if (isset($_POST['editPicture-btn'])) {
                 $errors[] = "Failed to update profile picture. Please try again later.";
             }
         } else {
-            // Handle file upload error
-            $errors[] = "Failed to upload profile picture.";
+            // Handle Cloudinary upload error
+            $errors[] = "Failed to upload profile picture to Cloudinary.";
         }
     } else {
         // No file uploaded or error occurred during upload
@@ -356,6 +375,7 @@ if (isset($_POST['editPicture-btn'])) {
     header("Location: profile.php");
     exit();
 }
+
 
 
 ?>

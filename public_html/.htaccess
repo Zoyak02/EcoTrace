@@ -1,0 +1,5 @@
+php_value display_errors 1
+
+SetEnv CLOUDINARY_CLOUD_NAME "dd0foupua"
+SetEnv CLOUDINARY_API_KEY "281899821689492"
+SetEnv CLOUDINARY_API_SECRET "pt-7e8mv7pbtu6qB7nvYLyAbvCQ"

@@ -172,6 +172,9 @@ function weeklyLogUpToDate($con) {
                               </div>
                         </div>
                      </li>
+                     <li class="nav-item" style="list-style: none;">
+                        <a class="login-btn" href="public_html/index.php" role="button">EcoHub</a>
+                     </li>
                      <li class="nav-item profile-dropdown">
                         <img src="images/profile.jpg" class="profile" />
                         <ul class="profile-menu">
