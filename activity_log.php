@@ -698,7 +698,7 @@ else if(isset($_GET['success']))
                         $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
                         $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
                         updateProgressBar();
-                    }, 500);
+                    }, 500 );
                 }
             } else {
                 //alert("Please fill out all required fields before proceeding.");
