@@ -319,7 +319,7 @@ ini_set('display_errors', 1);
          </section>
          <!--Inner Header End--> 
 
-
+        <!--diplaying the content -->
             <?php
 
                 $userID = $_SESSION['userID'];
