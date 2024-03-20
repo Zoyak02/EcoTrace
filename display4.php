@@ -105,10 +105,12 @@ function weeklyLogUpToDate($con) {
                     <li class="nav-item">
                         <a class="nav-link" href="display4.php">Learn</a>
                     </li>
-                    <!--
+                    <?php if (isLoggedIn()): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pages</a>
+                        <a class="nav-link" href="recommend2.php">Recommendations</a>
                     </li>
+                    <?php endif; ?>
+                    <!--
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html">Contact</a>
                     </li>
