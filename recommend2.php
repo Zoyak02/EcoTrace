@@ -53,6 +53,9 @@ $fetch_src = FETCH_SRC;
       <!-- CSS FILES End -->
 
    <style>
+        .red-text {
+        color: red;
+        }
        .dashboard-card {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
         margin-bottom:5px;
@@ -495,8 +498,6 @@ $fetch_src = FETCH_SRC;
 
 
         <?php
-            // Assuming $con is your database connection
-
             // Retrieve the user's carbon footprint for food, energy, and transportation
             $userID = $_SESSION['userID'];
 
@@ -527,24 +528,33 @@ $fetch_src = FETCH_SRC;
                 $totalTransportation = $totalTransportationRow['totalTransportation'];
             }
 
-            // Check which category exceeds 200 kgCO2e and retrieve corresponding content
-            if ($totalFood > 200) {
-                $category = 'Dietary Choice';
-            } elseif ($totalEnergy > 200) {
-                $category = 'Energy Consumption';
-            } elseif ($totalTransportation > 200) {
-                $category = 'Transportation';
-            } else {
-                $category = 'Environmental Issue'; // Default category
+            // Determine the category with the highest carbon footprint
+            $maxCategory = 'Environmental Issue'; // Default category
+            $maxCarbonFootprint = max($totalFood, $totalEnergy, $totalTransportation);
+            if ($maxCarbonFootprint >= 200) {
+                if ($maxCarbonFootprint == $totalFood) {
+                    $maxCategory = 'Dietary Choice';
+                } elseif ($maxCarbonFootprint == $totalEnergy) {
+                    $maxCategory = 'Energy Consumption';
+                } elseif ($maxCarbonFootprint == $totalTransportation) {
+                    $maxCategory = 'Transportation';
+                }
             }
 
-            // Retrieve content from the database based on the determined category
-            $contentQuery = "SELECT * FROM eduContent WHERE categoryOfContent = '$category'";
+            // Retrieve content from the database based on the category with the highest carbon footprint
+            $contentQuery = "SELECT * FROM eduContent WHERE categoryOfContent = '$maxCategory'";
             $result = mysqli_query($con, $contentQuery);
+
+            // Print the message with the highest category
+            echo '<div class="container">';
+            echo '<h3>Personalized recommend Based on Your Carbon Footprint</h3>';
+            echo '<p>Based on your recent activity, your <span style="color: red;">' . $maxCategory . '</span> has the highest 
+            carbon footprint among food, energy, and transportation. Please view the content below to reduce your carbon footprint.</p>';
+            echo '</div>';
 
             // Display content in modal format
             if ($result) {
-                echo '<section class="wf100 p80-40 blog" style="padding-bottom:0px;">';
+                echo '<section class="wf100 p80-40 blog" style="padding-bottom:0px; padding-top:35px;">';
                 echo '<div class="causes-grid">';
                 echo '<div class="container">';
                 echo '<div class="row">';
