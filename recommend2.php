@@ -729,6 +729,7 @@ $fetch_src = FETCH_SRC;
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/isotope.min.js"></script>
     <script src="js/main.js"></script>
+    <!-- JS Files End -->
 
     <!-- Add the new script for the modal -->
     <script>
@@ -746,7 +747,6 @@ $fetch_src = FETCH_SRC;
             });
         });
     </script>
-    <!-- JS Files End -->
    </body>
     </head>
     </html>
