@@ -53,9 +53,6 @@ $fetch_src = FETCH_SRC;
       <!-- CSS FILES End -->
 
    <style>
-        .red-text {
-        color: red;
-        }
        .dashboard-card {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
         margin-bottom:5px;
@@ -540,16 +537,25 @@ $fetch_src = FETCH_SRC;
                     $maxCategory = 'Transportation';
                 }
             }
-
+        
             // Retrieve content from the database based on the category with the highest carbon footprint
             $contentQuery = "SELECT * FROM eduContent WHERE categoryOfContent = '$maxCategory'";
             $result = mysqli_query($con, $contentQuery);
 
-            // Print the message with the highest category
+            //determine if all carbon footprint are below 200
+            $allCarbonFootprintsBelow200 = ($totalFood < 200 && $totalEnergy < 200 && $totalTransportation < 200);
+
+            // Print the message based on the condition
             echo '<div class="container">';
             echo '<h3>Personalized recommend Based on Your Carbon Footprint</h3>';
-            echo '<p>Based on your recent activity, your <span style="color: red;">' . $maxCategory . '</span> has the highest 
-            carbon footprint among food, energy, and transportation. Please view the content below to reduce your carbon footprint.</p>';
+            if($allCarbonFootprintsBelow200){
+                echo '<p>You are doing great! <span style="color: green;">All your carbon footprints are low</span>. Continue 
+                your efforts to reduce your environmental impact.Please view the content below to maintain your eco-friendly lifestyle.</p>';
+            }
+            else{
+                echo '<p>Based on your recent activity, your <span style="color: red;">' . $maxCategory . '</span> has the highest 
+                carbon footprint among food, energy, and transportation. Please view the content below to reduce your carbon footprint.</p>';
+            }
             echo '</div>';
 
             // Display content in modal format
