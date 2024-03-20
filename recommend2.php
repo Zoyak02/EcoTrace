@@ -38,7 +38,8 @@ $fetch_src = FETCH_SRC;
       <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
       rel="stylesheet"/>
-
+      <link rel="icon" href="images/favicon.png">
+      <script src="https://kit.fontawesome.com/877d2cecdc.js" crossorigin="anonymous"></script>
 
       <!-- CSS FILES START -->
       <link href="css/custom3.css" rel="stylesheet">
