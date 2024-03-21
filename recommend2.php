@@ -175,47 +175,43 @@ $fetch_src = FETCH_SRC;
       
    </head>
    <body>
-      <div class="wrapper home2">
-         <!--Header Start-->
-         <!--Header Start-->
-         <header class="header-style-2">
-            <nav class="navbar navbar-expand-lg">
-               <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px; margin-left:30px;"></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                   <ul class="navbar-nav mr-auto">
-                       <li class="nav-item">
-                           <a class="nav-link active" href="index.php">Home</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="about.html">About</a>
-                       </li>
-                       <?php if (isLoggedIn()): ?>
-                       <li class="nav-item">
-                           <a class="nav-link" href="activity_log.php">Activity Log</a>
-                       </li>
-                       <?php endif; ?>
-                       <li class="nav-item">
-                           <a class="nav-link" href="carbon_dash.php">Dashboard</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="display4.php">Learn</a>
-                       </li>
-                       <?php if (isLoggedIn()): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="recommend2.php">Recommendations</a>
-                        </li>
+    <div class="wrapper home2">
+    <!--Header Start-->
+    <header class="header-style-2">
+        <nav class="navbar navbar-expand-lg">
+            <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px; margin-left:30px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <?php if (isLoggedIn()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="activity_log.php">Activity Log</a>
+                    </li>
                     <?php endif; ?>
-                       <!--
-                       <li class="nav-item">
-                           <a class="nav-link" href="#">Pages</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="contact.html">Contact</a>
-                       </li>
-                       --->
-                   </ul>
-                   <?php if (isLoggedIn()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carbon_dash.php">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="display4.php">Learn</a>
+                    </li>
+                    <?php if (isLoggedIn()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recommend2.php">Recommendations</a>
+                    </li>
+                    <?php endif; ?>
+                    <!--
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    --->
+                </ul>
+                <?php if (isLoggedIn()): ?>
                      <!-- If user is logged in, show profile circle -->
                      <li class="nav-item" style="list-style: none;">
                      <!-- If user is not logged in, show login button -->
@@ -280,14 +276,13 @@ $fetch_src = FETCH_SRC;
                         <a class="login-btn" href="login.php" role="button"> Login </a>
                      </li>
                <?php endif; ?>
-               
-               
-            </div>
-         
-            </nav>
             
-         </header>
-         <!--Header End-->
+        </div>
+        
+        </nav>
+        
+    </header>
+    <!--Header End-->
 
           <!--Inner Header Start-->
           <section class="wf100 inner-header">
@@ -381,8 +376,6 @@ $fetch_src = FETCH_SRC;
                     echo "Database connection is not established or is invalid.";
                 }
 
-
-                    // LINE GRAPH CALCULATION 
                     // Retrieve historical carbon footprint data for the logged-in user for the current month
                     $latestMonthDataQuery = "SELECT DISTINCT month FROM weeklylog WHERE userID = '$userID' ORDER BY date DESC LIMIT 1";
                     $latestMonthResult = mysqli_query($con, $latestMonthDataQuery);
