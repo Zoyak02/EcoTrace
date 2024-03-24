@@ -31,7 +31,7 @@ getUsersList()
         // PHP code to retrieve profile picture based on userID
         $sql = "SELECT profilePicture FROM user WHERE id = ?";
         $stmt = mysqli_prepare($con, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $result.id); // Assuming $result.userID is accessible here
+        mysqli_stmt_bind_param($stmt, "i", $result.id); 
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $profilePicture);
         mysqli_stmt_fetch($stmt);
@@ -39,15 +39,13 @@ getUsersList()
         ?>
 `
         // JavaScript code to display search results
-        const profilePicCompressionSettings = "w_100/f_auto,q_auto:eco";
-        const profilePicTransformedUrl = addTransformationParameters(
-          "<?php echo $profilePicture; ?>",
-          profilePicCompressionSettings
-        );
+        
+        const profilePicTransformedUrl = `<?php echo $profilePicture; ?>`
+    
 
         html += `
           <li class="search-result-item w-100">
-            <a href="user_profile.php?user_id=${result.id}"
+            <a href="user_profile.php?userID=${result.id}"
               class="text-decoration-none w-100 d-flex gap-2 p-2 align-items-center justify-content-start">
               <img class='search-result-profile-picture flex-shrink-0' src='${profilePicTransformedUrl}' alt='${result.user_display_name}'s profile picture'>
               <p class="search-result-text text-nowrap m-0 fw-semibold fs-6 overflow-hidden flex-shrink-0 fs-6 text-body">${result.user_display_name}</p>

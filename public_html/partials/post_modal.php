@@ -1,5 +1,4 @@
-<div class="modal fade" id="post-modal" tabindex="-1" role="dialog" aria-labelledby="post-modal-label
-    aria-hidden=">
+<div class="modal fade" id="post-modal" tabindex="-1" role="dialog" aria-labelledby="post-modal-label" aria-hidden="">
     <div class=" modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="d-flex modal-header align-items-center justify-content-center">
@@ -36,12 +35,12 @@
                 </div>
                 <div class="modal-footer w-100 px-5 py-4">
                     <div class="d-flex gap-3 w-100 m-0 p-0">
-                        <button type="button" class="btn btn-outline-secondary w-100"
-                            data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary w-100" id="post-modal-submit-button">Share</button>
+                    <button type="button" class="btn custom-red-button w-100" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success w-100" id="post-modal-submit-button">Share</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+

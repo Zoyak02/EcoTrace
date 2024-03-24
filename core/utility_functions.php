@@ -20,6 +20,7 @@ function get_active_page()
     return $active_page;
 }
 
+
 function add_transformation_parameters($imageUrl, $transformation)
 {
     $url_parts = explode("/upload/", $imageUrl);

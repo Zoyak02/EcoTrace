@@ -1,3 +1,16 @@
+<style>
+    .custom-red-button {
+        background-color: #dc3545; /* Darker shade of red */
+        border-color: #dc3545; /* Border color same as background */
+    }
+
+    .custom-red-button:hover {
+        background-color: #9c1d26; /* Even darker shade of red on hover */
+        border-color: #9c1d26;
+        color : white; /* Border color same as background on hover */
+    }
+</style>
+
 <nav class="header navbar navbar-light fixed-top bg-white w-100 border-bottom-1 m-0 p-0 border-bottom flex-nowrap">
     <div class="container-fluid d-flex justify-content-between w-100 pt-2 pe-5 pb-2 ps-5">
         <a class="navbar-brand d-flex align-items-center justify-content-center align-self-start gap-2"
@@ -20,7 +33,7 @@
         </div>
 
         <button type="button"
-            class="btn d-flex align-items-center justify-content-center text-nowrap fw-semibold"
+            class="btn btn-success d-flex align-items-center justify-content-center text-nowrap fw-semibold"
             data-toggle="modal" data-target="#post-modal" id="post-modal-trigger">
             <i class="bi bi-plus fs-4 d-flex me-1"></i>
             Create Post

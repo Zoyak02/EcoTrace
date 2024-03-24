@@ -29,14 +29,129 @@ $profile_pic_compression_settings = "w_500/f_auto,q_auto:eco";
 $profile_pic_transformed_url = add_transformation_parameters($profilePicture, $profile_pic_compression_settings);
 
 $user_profile_link = 'user_profile.php?userID=' . $userID . '"';
+
+$overallQuery = "SELECT SUM(totalCarbonFootprint) AS totalOverall FROM weeklylog WHERE userID = '$userID'";
+                    $overallResult = mysqli_query($con, $overallQuery);
+                    $totalOverall = 0;
+
+                    if ($overallResult && mysqli_num_rows($overallResult) > 0) {
+                        $totalOverallRow = mysqli_fetch_assoc($overallResult);
+                        $totalOverall = $totalOverallRow['totalOverall'];
+                    }
 ?>
 
-<nav class="fixed-top sidebar navbar navbar-light bg-white h-100 border-end p-0">
+<style>
+    /* CARDS */
+    .cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card {
+  margin: 20px;
+  margin-left: 40px;
+  margin-bottom: 30px;
+  padding:6px;
+  width: 300px;
+  min-height: 100px; /* Adjusted height */
+  display: grid;
+  grid-template-rows: auto 1fr auto auto; /* Adjusted grid template rows */
+  border-radius: 10px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+  transform: scale(1.01);
+}
+
+.card__link,
+.card__exit,
+.card__icon {
+  position: relative;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.card__link::after {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  content: "";
+  width: 0%;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.6);
+  transition: all 0.5s;
+}
+
+.card__link:hover::after {
+  width: 100%;
+}
+
+.card__exit {
+  grid-row: 1/2;
+  justify-self: end;
+}
+
+.card__icon {
+  grid-row: 2/3;
+  font-size: 30px;
+  margin-left:25px;
+}
+
+.card__title {
+  grid-row: 3/4;
+  margin: 0; 
+  padding-top:5px;
+  margin-left:20px;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 1rem; /* Adjusted font size */
+}
+
+.card__apply {
+  grid-row: 4/5;
+  align-self: center;
+  font-weight: 800;
+  color: #1b5e20;
+  font-size: 1.5rem; 
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  /* Other styles for the card */
+}
+
+.card__content {
+  display: flex;
+  align-items: center;
+  /* Other styles for the card content */
+}
+
+
+.card-4 {
+    background: rgb(144,237,147);
+ background: radial-gradient(circle, rgba(144,237,147,1) 0%, rgba(93,196,152,1) 100%); 
+}
+
+
+@media (max-width: 1600px) {
+  .cards {
+    justify-content: center;
+  }
+}
+    </style>
+
+
+<nav class="fixed-top sidebar navbar navbar-light bg-white h-100 p-0">
     <div class="d-flex flex-column position-sticky h-100 w-100">
         <div class="sidebar-container d-flex flex-column h-100 pt-3 pb-4">
 
             <!-- User Profile -->
-            <div class="home-navbar-profile-container d-flex flex-column align-items-center text-center mb-4 pb-2">
+            <div class="home-navbar-profile-container d-flex flex-column align-items-center text-center mb-3 pb-2">
                 <a href="<?php echo $user_profile_link; ?>" class="text-decoration-none">
                     <img class="home-navbar-user-profile-picture mb-2" src="<?php echo $profile_pic_transformed_url; ?>"
                         alt="User profile picture">
@@ -50,50 +165,15 @@ $user_profile_link = 'user_profile.php?userID=' . $userID . '"';
                     </div>
                 </a>
             </div>
-
-            <!-- User Profile Information -->
-            <div class="d-flex align-items-center justify-content-between navbar-user-info mx-5 px-2 mb-4 pb-3">
-                <a href="<?php echo $user_profile_link; ?>" class="text-decoration-none">
-                    <div class="d-flex flex-column align-items-center">
-                        <p class="fw-bold mb-1 text-body">
-                            <?php echo $user_post_count ?>
-                        </p>
-                        <p class="m-0 text-secondary">
-                            <?php echo strval($user_post_count) === '1' ? 'Post' : 'Posts' ?>
-                        </p>
-                    </div>
-                </a>
-                <p class="p-0 m-0"><small>.</small></p>
-                <a href="#" class="text-decoration-none">
-                    <div class="d-flex flex-column align-items-center">
-                        <p class="fw-bold mb-1 text-body" id="sidebar-user-followers-count">
-                            <?php echo $user_followers_count ?>
-                        </p>
-                        <p class="m-0 text-secondary">
-                            <?php echo strval($user_followers_count) === '1' ? 'Follower' : 'Followers' ?>
-                        </p>
-                    </div>
-                </a>
-                <p class="p-0 m-0"><small>.</small></p>
-                <a href="#" class="text-decoration-none">
-                    <div class="d-flex flex-column align-items-center">
-                        <p class="fw-bold mb-1 text-body" id="sidebar-user-following-count">
-                            <?php echo $user_following_count ?>
-                        </p>
-                        <p class="m-0 text-secondary">Following</p>
-                    </div>
-                </a>
+            
+            <div class="card card-4">
+            <div class="card__content">
+                <div class="card__icon"><i class="fas fa-bolt"></i></div>
+                <h2 class="card__title">Total Carbon Footprint</h2>
+            </div>
+            <p class="card__apply"><?php echo number_format($totalOverall,2) ?> </p>
             </div>
 
-            <!-- User Bio -->
-            <div class="mb-5 pb-1 mx-5 px-2 d-flex flex-column align-items-start">
-                <p class="user-profile-name fs-6 fw-bold p-0 m-0 mb-2 text-nowrap">
-                    <?php echo $_SESSION['user_display_name']; ?>
-                </p>
-                <p class="sidebar-bio-text m-0 text-secondary fs-6">
-                    <?php echo $_SESSION['user_bio']; ?>
-                </p>
-            </div>
 
             <!-- Menu Links -->
             <ul class="navbar-menu-links-container d-flex flex-column navbar-nav w-100 ps-0 mb-5">
@@ -106,7 +186,7 @@ $user_profile_link = 'user_profile.php?userID=' . $userID . '"';
                     </a>
                 </li>
                 <li
-                    class="nav-item d-flex align-items-center <?php echo ($active_page === 'profile') ? 'fw-semibold active' : ''; ?>">
+                    class="nav-item d-flex mb-2 align-items-center <?php echo ($active_page === 'profile') ? 'fw-semibold active' : ''; ?>">
                     <a class="nav-link d-flex px-2 ms-5 w-100" href="user_profile.php?userID=<?php echo $userID; ?>">
                         <i
                             class="nav-link-icon bi <?php echo ($active_page === 'profile') ? 'bi-person-fill' : 'bi-person'; ?> me-4 d-flex align-items-center justify-content-center"></i>

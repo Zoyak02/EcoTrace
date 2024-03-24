@@ -19,6 +19,7 @@ body.preload * {
 #edit-profile-form,
 #setup-profile-form {
   max-width: 470px !important;
+  margin-top: 60px;
 }
 
 .edit-profile-card {
@@ -45,8 +46,8 @@ body.preload * {
 
 /* Adjusted Sidebar */
 .sidebar {
-  margin-top: 85px !important;
-  width: 380px !important;
+  margin-top: 80px !important;
+  width: 390px !important;
   max-height: calc(100vh - 175px) !important; /* Adjusted max-height */
   z-index: 0;
 }
@@ -78,8 +79,8 @@ body.preload * {
 /* Home */
 .feed-container,
 .profile-info {
-  max-width: 500px;
-  width: 105%;
+  max-width: 400px;
+  width: 100%;
 }
 
 .page-register,
@@ -95,22 +96,13 @@ body.preload * {
   margin-left: 400px !important;
 }
 
-.page-login,
-.page-register,
-.page-profile-setup,
-.page-login + .footer,
-.page-register + .footer,
-.page-profile-setup + .footer {
-  margin-left: 0 !important;
-}
-
 .page-register,
 .page-login,
 .page-home,
 .page-user-profile,
 .page-post,
 .page-settings {
-  margin-top: 88px !important;
+  margin-top: -10px !important;
 }
 
 .home-navbar-user-profile-picture {
@@ -128,13 +120,13 @@ body.preload * {
 /* Feed */
 .post {
   border-radius: 22px;
-  max-width: 1500px;
+  max-width: 1300px;
 }
 
 .feed-post-image {
   width: 100%;
   height: auto;
-  max-height: 60vh;
+  max-height: 50vh;
   object-fit: cover;
   object-position: center;
   border-radius: 16px;
@@ -171,6 +163,7 @@ body.preload * {
 
 .likes-text-container {
   z-index: 101;
+  padding :2px;
 }
 
 /* Post like button */
@@ -378,8 +371,8 @@ input[type="checkbox"].btn-check + label .follow-text {
 /* Main Content */
 main {
   margin-left: 400px !important;
-  margin-bottom: 200px; /* Added margin-bottom to create space for the footer */
 }
+
 
 
 /* Animations */

@@ -5,6 +5,7 @@ function get_formatted_time_ago($created_at)
     $current_timestamp = time();
     $time_diff = $current_timestamp - $created_timestamp;
 
+
     if ($time_diff < 60) {
         $time_ago = ($time_diff == 1) ? "1 second ago" : $time_diff . " seconds ago";
     } elseif ($time_diff < 3600) {
@@ -21,6 +22,7 @@ function get_formatted_time_ago($created_at)
     }
 
     return $time_ago;
+   
 }
 
 function get_dropdown_menu_item($icon_class, $text, $post_id)

@@ -25,14 +25,16 @@ $profile_pic_transformed_url = add_transformation_parameters($poster_profile_pic
     <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/minisearch@6.1.0/dist/umd/index.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="css/style3.css">
+
+
+    <link rel="stylesheet" href="css/style5.css">
 
     <script type="module" src="scripts/validate-profile-setup.js" defer></script>
-    <script type="module" src="scripts/show-search-suggestions.js" defer></script>
+    <script type="module" src="scripts/search-results.js" defer></script>
     <script type="module" src="scripts/post-modal-handler.js" defer></script>
 </head>
-
 <body>
     <?php include('partials/post_modal.php') ?>
     <div class="w-100 h-100 body-container container-fluid m-0 p-0">
@@ -56,7 +58,7 @@ $profile_pic_transformed_url = add_transformation_parameters($poster_profile_pic
                                         class="profile-picture-picker-image img-fluid rounded-circle"
                                         id="profile-picture-picker-image" alt="profile picture" />
                                 </div>
-                                <div class="btn btn-light btn-rounded p-0">
+                                <div class="btn btn-success p-0">
                                     <label class="choose-profile-picture-label form-label mb-0 w-100 h-100 p-2"
                                         for="profile-picture-picker">Upload</label>
                                     <input type="file" name="profile_picture_picker" accept="image/*"
@@ -82,7 +84,7 @@ $profile_pic_transformed_url = add_transformation_parameters($poster_profile_pic
                             <div id="errors-container_custom-bio"></div>
                         </div>
                         <div class="text-end">
-                            <button type="submit" class="btn btn-primary fw-bold text-nowrap">Save</button>
+                            <button type="submit" class="btn btn-success fw-bold text-nowrap">Save</button>
                         </div>
                     </div>
                 </div>

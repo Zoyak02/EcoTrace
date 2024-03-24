@@ -24,6 +24,6 @@ unset(
 
 session_destroy();
 
-header('Location: ' . $base_url . 'login.php');
+header('Location: ' . $base_url . '../index.php');
 exit;
 ?>

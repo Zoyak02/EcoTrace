@@ -125,8 +125,6 @@ if (isset($_POST['signup-btn'])) {
     // Prepare SQL statement to insert user data into the database
     $sql = "INSERT INTO user (username, password, first_login, email, contactNumber, firstName, lastName, user_bio, user_display_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($con, $sql);
-
-
     // Bind parameters and execute the statement
     mysqli_stmt_bind_param($stmt, "ssissssss", $username, $hashed_password, $first_login, $email, $contactNumber, $firstName, $lastName, $user_bio, $user_display_name);
     $success = mysqli_stmt_execute($stmt);
@@ -137,6 +135,12 @@ if (isset($_POST['signup-btn'])) {
         $user_id = mysqli_insert_id($con);
         // Store user ID in session for future use
         $_SESSION['user_id'] = $user_id;
+
+        $defaultQuery = "INSERT INTO user_badges (userID, certified_eco_warrior, certified_eco_hero, carbon_reduction_rookie) VALUES (?, 0, 0, 0)";
+        $stmt = mysqli_prepare($con, $defaultQuery);
+        mysqli_stmt_bind_param($stmt, "i", $userID);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
 
         // send the default password to the user's email
         $subject = "Welcome to EcoTrace - Login Information";

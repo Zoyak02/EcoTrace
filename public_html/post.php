@@ -16,7 +16,7 @@ if (isset($_GET['post_id'])) {
     $pdo = connect_to_db();
     $post_id = $_GET['post_id'];
     $post_info = get_post($pdo, $post_id);
-    $poster_id = $post_info['user_id'];
+    $poster_id = $post_info['userID'];
     $post_image_dir = $post_info['image_dir'];
 
     $post_img_compression_settings = "w_1001/f_auto,q_auto:eco";
@@ -27,16 +27,16 @@ if (isset($_GET['post_id'])) {
         exit();
     }
 
-    $user_info = get_user_info($pdo, $post_info['user_id']);
+    $user_info = get_user_info($pdo, $post_info['userID']);
     $poster_profile_picture_path = $user_info['profile_picture_path'];
     $poster_profile_pic_copmression_settings = "w_201/f_auto,q_auto:eco";
     $poster_profile_pic_transformed_url = add_transformation_parameters($poster_profile_picture_path, $poster_profile_pic_copmression_settings);
 
-    $time_ago = get_formatted_time_ago($post_info['created_at']);
+    $time_ago = $post_info['created_at'];
 
-    $is_current_user = $_SESSION['user_id'] === $user_info['id'];
+    $is_current_user = $_SESSION['userID'] === $user_info['userID'];
 
-    $is_user_following_poster = does_row_exist($pdo, 'followers_table', 'follower_id', $_SESSION['user_id'], 'followed_id', $poster_id);
+    $is_user_following_poster = does_row_exist($pdo, 'followers_table', 'follower_id', $_SESSION['userID'], 'followed_id', $poster_id);
     $dropdown_menu_items = get_dropdown_menu_items($is_current_user, $post_id, true, $is_user_following_poster);
 } else {
     header('Location: ' . $base_url . 'index.php');
@@ -47,12 +47,14 @@ if (isset($_GET['post_id'])) {
 <html>
 
 <head>
-    <title>Momento</title>
+    <title>EcoHub</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha385-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@2.3.0/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" crossorigin="anonymous">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@6.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha385-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
@@ -61,18 +63,19 @@ if (isset($_GET['post_id'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/minisearch@7.1.0/dist/umd/index.min.js"></script>
 
-    <link rel="stylesheet" href="css/style3.css">
-    <script type="module" src="scripts/show-search-suggestions.js" defer></script>
+    <link rel="stylesheet" href="css/style5.css">
+    <script type="module" src="scripts/search-results.js" defer></script>
     <script type="module" src="scripts/post-modal-handler.js" defer></script>
     <script type="module" src="scripts/post-more-options-handler.js" defer></script>
     <script type="module" src="scripts/follow-handler.js" defer></script>
 </head>
 
-<body class="h-99 w-100 m-0 p-0">
+<body class="h-100 w-100 m-0 p-0">
     <?php include('partials/post_modal.php') ?>
     <?php include('partials/delete_post_modal.php') ?>
     <?php include('partials/toast.php') ?>
     <div class="w-99 h-100 body-container container-fluid m-0 p-0">
+    <?php require_once('post_display.php') ;?>
         <?php include('partials/header.php'); ?>
         <?php include('partials/sidebar.php'); ?>
         <main class="page-post d-flex flex-column h-99 bg-light p-5 align-items-center justify-content-center">
@@ -87,7 +90,7 @@ if (isset($_GET['post_id'])) {
                             <div class="post-user-info d-flex align-items-center justify-content-center">
                                 <img class="page-post-profile-picture me-2 flex-shrink-0"
                                     src="<?php echo $poster_profile_pic_transformed_url; ?>" alt="Sophia Adams" s=""
-                                    profile="" picture'="">
+                                    profile="" picture ="">
                                 <div class="ps0 d-flex flex-column">
                                     <p class="m1 fw-semibold text-body fs-5 post-poster-display-name">
                                         <?php echo $user_info['user_display_name']; ?>
@@ -129,5 +132,25 @@ if (isset($_GET['post_id'])) {
         <?php include('partials/footer.php'); ?>
     </div>
 </body>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded');
+    
+    // Check if chat icons are found
+    const chatIcons = document.querySelectorAll('.post-chat-icon');
+    console.log('Found chat icons:', chatIcons);
+
+    // Attach click event listener to each chat icon
+    chatIcons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            console.log('Chat icon clicked');
+            const commentContainer = icon.closest('.post').querySelector('.comment-container');
+            console.log('Comment container:', commentContainer);
+            commentContainer.style.display = commentContainer.style.display === 'none' ? 'block' : 'none';
+        });
+    });
+});
+</script>
 
 </html>

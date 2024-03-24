@@ -181,6 +181,214 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return false;
         }
     }
+
+    function fetchWeekCarbonFootprint($userID, $con, $weekNumber, $currentMonth) {
+        $userID = $_SESSION['userID'];
+    
+        // Query to fetch the total carbon footprint for the given week
+        $query = "SELECT SUM(totalCarbonFootprint) AS totalCarbonFootprint
+                FROM weeklylog 
+                WHERE userID = ? 
+                AND MONTH(date) = ?
+                AND weekNo = ?";
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "iii", $userID, $currentMonth, $weekNumber);
+        mysqli_stmt_execute($stmt);
+        
+        mysqli_stmt_bind_result($stmt, $carbonFootprint);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+        
+        // Return the fetched carbon footprint for the given week
+        return $carbonFootprint;
+    }
+    
+    
+
+
+    function evaluateCarbonReductionRookieBadge($userID, $con) {
+        // Get the current month name and week number
+    $currentMonth = date('n'); // Numeric representation of the current month
+    $currentWeek = ceil(date('d') / 7); // Calculate the week number within the current month
+
+    // Fetch carbon footprint for the current week and the previous week
+    $currentWeekCarbonFootprint = fetchWeekCarbonFootprint($userID, $con, $currentWeek, $currentMonth);
+    $previousWeekCarbonFootprint = fetchWeekCarbonFootprint($userID, $con, $currentWeek - 1, $currentMonth);
+
+    // If there's no data for the current or previous week, exit
+    if ($currentWeekCarbonFootprint === null || $previousWeekCarbonFootprint === null) {
+        return;
+    }
+
+    // Check if the carbon footprint for the current week is less than the previous week
+    if ($currentWeekCarbonFootprint < $previousWeekCarbonFootprint) {
+        // Update user's badge status to "achieved" for Carbon Reduction Rookie badge
+        $updateQuery = "UPDATE user_badges SET carbon_reduction_rookie = 1 WHERE userID = ?";
+        $stmt = mysqli_prepare($con, $updateQuery);
+        mysqli_stmt_bind_param($stmt, "i", $userID);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+}
+
+    
+
+   
+    function evaluateCertifiedEcoHeroBadge($userID, $con) {
+        // Check if the user has achieved the Carbon Reduction Rookie badge
+        $query = "SELECT carbon_reduction_rookie FROM user_badges WHERE userID = ?";
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "i", $userID);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $carbonReductionRookie);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    
+        // If the user has not achieved the Carbon Reduction Rookie badge, return
+        if ($carbonReductionRookie != 1) {
+            return;
+        }
+    
+        // Get the current month and year
+        $currentMonth = date('n'); 
+        $currentYear = date('Y'); 
+    
+        // Initialize variables to track if carbon footprint remains below the threshold for three months
+        $monthsBelowThreshold = 0;
+    
+        // Loop through the past three months
+        for ($i = 0; $i < 3; $i++) {
+            // Calculate the month and year for the current iteration
+            $month = $currentMonth - $i;
+            $year = $currentYear;
+    
+            // Adjust the year if the month is less than 1 (i.e., go back to the previous year)
+            if ($month < 1) {
+                $month += 12; // Add 12 months to get the correct month number
+                $year--; // Decrement the year
+            }
+    
+            // Initialize variable to track if all weeks in the month remain below the threshold
+            $weeksBelowThreshold = true;
+    
+            // Iterate through all weeks (1 to 4) in the current month
+            for ($week = 1; $week <= 4; $week++) {
+                // Query to fetch the total carbon footprint for the current week
+                $query = "SELECT SUM(totalCarbonFootprint) AS CarbonTotal
+                            FROM weeklylog 
+                            WHERE userID = ? 
+                            AND DATE_FORMAT(date, '%m') = ?  -- Extract the month from the date
+                            AND DATE_FORMAT(date, '%Y') = ?  -- Extract the year from the date
+                            AND weekNo = ?";
+                $stmt = mysqli_prepare($con, $query);
+                mysqli_stmt_bind_param($stmt, "iiii", $userID, $month, $year, $week);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_bind_result($stmt, $weeklyCarbonFootprint);
+                mysqli_stmt_fetch($stmt);
+                mysqli_stmt_close($stmt);
+    
+                // Check if the weekly carbon footprint exceeds the threshold
+                if ($weeklyCarbonFootprint > 10) {
+                    // If any week exceeds the threshold, break the loop and move to the next month
+                    $weeksBelowThreshold = false;
+                    break;
+                }
+            }
+    
+            // If all weeks in the month remained below the threshold, increment the count
+            if ($weeksBelowThreshold) {
+                $monthsBelowThreshold++;
+            }
+        }
+    
+        // If the user's carbon footprint remained below the threshold for three months, update badge status
+        if ($monthsBelowThreshold === 3) {
+            // Update user's badge status to "achieved" for Certified Eco Hero badge
+            $updateQuery = "UPDATE user_badges SET certified_eco_hero = 1 AND displayed = 0 WHERE userID = ?";
+            $stmt = mysqli_prepare($con, $updateQuery);
+            mysqli_stmt_bind_param($stmt, "i", $userID);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        }
+    }
+    
+   
+function  evaluateCertifiedEcoWarriorBadge($userID, $con) {
+    // Check if the user has already achieved the Eco Warrior badge
+    $query = "SELECT certified_eco_hero FROM user_badges WHERE userID = ?";
+    $stmt = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($stmt, "i", $userID);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $ecoHeroBadge);
+    mysqli_stmt_fetch($stmt);
+    mysqli_stmt_close($stmt);
+
+      // If the user has not achieved the Carbon Reduction Rookie badge, return
+      if ($ecoHeroBadge != 1) {
+        return;
+    }
+
+
+    // Get the current month and year
+    $currentMonth = date('n'); // Numeric representation of the current month (1 for January, 2 for February, etc.)
+    $currentYear = date('Y'); // Four-digit representation of the current year
+
+    // Iterate over the past six months
+    for ($i = 0; $i < 6; $i++) {
+        // Calculate the month and year for the current iteration
+        $month = $currentMonth - $i;
+        $year = $currentYear;
+
+        // Adjust the year if the month is less than 1 (i.e., go back to the previous year)
+        if ($month < 1) {
+            $month += 12; // Add 12 months to get the correct month number
+            $year--; // Decrement the year
+        }
+
+        // Iterate over the weeks (1 to 4) for the current month
+        for ($week = 1; $week <= 4; $week++) {
+            // Fetch the carbon footprint data for the current week in the current month
+            $query = "SELECT totalCarbonFootprint FROM weeklylog 
+                      WHERE userID = ? AND MONTH(date) = ? AND YEAR(date) = ? AND weekNo = ?";
+            $stmt = mysqli_prepare($con, $query);
+            mysqli_stmt_bind_param($stmt, "iiii", $userID, $month, $year, $week);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $currentCarbonFootprint);
+            mysqli_stmt_fetch($stmt);
+            mysqli_stmt_close($stmt);
+
+            // Calculate the week number and year for six months ago
+            $sixMonthsAgoWeek = $week;
+            $sixMonthsAgoYear = $year - ($i === 0 ? 1 : 0); // Adjust year if the current iteration is in the same year as the current month
+
+            // Fetch the carbon footprint data for the corresponding week six months ago
+            $query = "SELECT totalCarbonFootprint FROM weeklylog 
+                      WHERE userID = ? AND MONTH(date) = ? AND YEAR(date) = ? AND weekNo = ?";
+            $stmt = mysqli_prepare($con, $query);
+            mysqli_stmt_bind_param($stmt, "iiii", $userID, $sixMonthsAgoMonth, $sixMonthsAgoYear, $sixMonthsAgoWeek);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $sixMonthsAgoCarbonFootprint);
+            mysqli_stmt_fetch($stmt);
+            mysqli_stmt_close($stmt);
+
+            // Compare the current carbon footprint with the footprint from six months ago
+            if ($currentCarbonFootprint > $sixMonthsAgoCarbonFootprint) {
+                // Carbon footprint increased, break the loop and move to the next month
+                break;
+            }
+        }
+    }
+
+    // If the loop completes without any increase in carbon footprint, update badge status
+    if ($i === 6) {
+        $updateQuery = "UPDATE user_badges SET certified_eco_warrior = 1 AND displayed = 0 WHERE userID = ?";
+        $stmt = mysqli_prepare($con, $updateQuery);
+        mysqli_stmt_bind_param($stmt, "i", $userID);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+}
+  
     
 ?>
 

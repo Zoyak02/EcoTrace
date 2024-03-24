@@ -176,7 +176,7 @@ function get_user_post_count($pdo, $userID)
 
 function get_all_users($pdo)
 {
-    $sql = "SELECT id, username, user_display_name, profilePicture FROM user";
+    $sql = "SELECT userID as id, username, user_display_name, profilePicture FROM user";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
 
