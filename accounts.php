@@ -215,7 +215,6 @@ if (isset($_POST['newPass'])) {
         $errors[] = "The two passwords do not match"; //Not used
         header("location: index.php?alert=not_match");
 
-
     }
 
     if (empty($errors)) {
