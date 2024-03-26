@@ -262,6 +262,17 @@ $fetch_src = FETCH_SRC;
                               <i class="fas fa-bell" id="bell"></i>
                               <div class="box">
                                  <div class="display">
+                                 <?php if(checkCarbonFootprints($con)) : ?>
+                                        <div class="container" style= "padding-top:25px;">
+                                          <div class="row">
+                                             <div class="col-3">
+                                             <img class="icon" style="width:60px; margin-left:8px;" src="https://cdn-icons-png.flaticon.com/128/10308/10308693.png" alt="Update Weekly Log Icon">
+                                             </div>
+                                             <div class="col-8">
+                                             <div class="cent">Your carbon footprint has exceeded 1000. <a href="#" onclick="redirectToRecommendPage()">visit the recommended page</a>.</div>
+                                          </div>
+                                        </div>
+                                    <?php endif; ?>
                                     <?php if (weeklyLogUpToDate($con)) : ?>
                                        <div class="container" style= "padding-top:25px;">
                                           <div class="row">
@@ -283,18 +294,6 @@ $fetch_src = FETCH_SRC;
                                              </div>
                                           </div>
                                        </div>
-                                    <?php endif; ?>
-
-                                    <?php if(checkCarbonFootprints($con)) : ?>
-                                        <div class="container" style= "padding-top:25px;">
-                                          <div class="row">
-                                             <div class="col-3">
-                                             <img class="icon" style="width:60px; margin-left:8px;" src="https://cdn-icons-png.flaticon.com/128/8832/8832119.png" alt="Update Weekly Log Icon">
-                                             </div>
-                                             <div class="col-8">
-                                             <div class="cent">Your Carbon Footprint has exceed 1000, Please visit Recommend Page</div>
-                                          </div>
-                                        </div>
                                     <?php endif; ?>
 
                                  </div>
@@ -337,7 +336,7 @@ $fetch_src = FETCH_SRC;
           <!--Inner Header Start-->
           <section class="wf100 inner-header">
             <div class="container">
-               <h1>CarbonFootprint Dashboard</h1>
+               <h1>Recommend Page</h1>
             </div>
          </section>
          <!--Inner Header End--> 
@@ -789,7 +788,13 @@ $fetch_src = FETCH_SRC;
                 modal.find('#contentModalDescription').text(description);
             });
         });
-    </script>
+        </script>
+
+        <script type="text/javascript">
+            function redirectToRecommendPage() {
+                window.location.href = 'recommend2.php';
+            }
+        </script>
    </body>
     </head>
     </html>

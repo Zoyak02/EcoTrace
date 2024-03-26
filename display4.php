@@ -8,6 +8,42 @@ if (isset($_GET['success'])) {
     $success_message = $_GET['success'];
 }
 
+
+function checkCarbonFootprints($con) {
+    // Check if user is logged in
+    if (isLoggedIn()) {
+        // Query to retrieve total carbon footprint for the logged-in user
+        $carbonFootprintQuery = "SELECT SUM(totalCarbonFootprint) AS totalCarbonFootprint FROM weeklylog WHERE userID = '{$_SESSION['userID']}'";
+        $carbonFootprintResult = mysqli_query($con, $carbonFootprintQuery);
+
+        // Check if query was successful
+        if (!$carbonFootprintResult) {
+            // Handle query error
+            echo "Error: " . mysqli_error($con);
+            return false;
+        }
+
+        // Check if data is available
+        if (mysqli_num_rows($carbonFootprintResult) > 0) {
+            $carbonFootprintRow = mysqli_fetch_assoc($carbonFootprintResult);
+            $totalCarbonFootprint = $carbonFootprintRow['totalCarbonFootprint'];
+
+            // Check if total carbon footprint exceeds 1000
+            if ($totalCarbonFootprint > 1000) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            // Handle no data found
+            return false;
+        }
+    } else {
+        // Handle not logged in
+        return false;
+    }
+}
+
 // Number of items per page
 $itemsPerPage = 6;
 
@@ -130,6 +166,17 @@ function weeklyLogUpToDate($con) {
                               <i class="fas fa-bell" id="bell"></i>
                               <div class="box">
                                  <div class="display">
+                                 <?php if(checkCarbonFootprints($con)) : ?>
+                                        <div class="container" style= "padding-top:25px;">
+                                          <div class="row">
+                                             <div class="col-3">
+                                             <img class="icon" style="width:60px; margin-left:8px;" src="https://cdn-icons-png.flaticon.com/128/10308/10308693.png" alt="Update Weekly Log Icon">
+                                             </div>
+                                             <div class="col-8">
+                                             <div class="cent">Your carbon footprint has exceeded 1000. <a href="#" onclick="redirectToRecommendPage()">visit the recommended page</a>.</div>
+                                          </div>
+                                        </div>
+                                    <?php endif; ?>
                                     <?php if (weeklyLogUpToDate($con)) : ?>
                                        <div class="container" style= "padding-top:25px;">
                                           <div class="row">
@@ -413,6 +460,12 @@ function weeklyLogUpToDate($con) {
         });
     </script>
     <!-- JS Files End -->
+
+    <script type="text/javascript">
+            function redirectToRecommendPage() {
+                window.location.href = 'recommend2.php';
+            }
+    </script>
 </body>
 
 </html>
