@@ -10,6 +10,43 @@ function isLoggedIn()
         }
 }
 
+function checkCarbonFootprints($con) {
+    // Check if user is logged in
+    if (isLoggedIn()) {
+        // Query to retrieve total carbon footprint for the logged-in user
+        $carbonFootprintQuery = "SELECT SUM(totalCarbonFootprint) AS totalCarbonFootprint FROM weeklylog WHERE userID = '{$_SESSION['userID']}'";
+        $carbonFootprintResult = mysqli_query($con, $carbonFootprintQuery);
+
+        // Check if query was successful
+        if (!$carbonFootprintResult) {
+            // Handle query error
+            echo "Error: " . mysqli_error($con);
+            return false;
+        }
+
+        // Check if data is available
+        if (mysqli_num_rows($carbonFootprintResult) > 0) {
+            $carbonFootprintRow = mysqli_fetch_assoc($carbonFootprintResult);
+            $totalCarbonFootprint = $carbonFootprintRow['totalCarbonFootprint'];
+
+            // Check if total carbon footprint exceeds 1000
+            if ($totalCarbonFootprint > 1000) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            // Handle no data found
+            return false;
+        }
+    } else {
+        // Handle not logged in
+        return false;
+    }
+}
+
+
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -233,8 +270,8 @@ $fetch_src = FETCH_SRC;
                                              </div>
                                              <div class="col-8">
                                              <div class="cent">You're all caught up!</div>
-                                            </div>
                                           </div>
+                                        </div>
                                     <?php else : ?>
                                        <div class="container" style= "padding-top:22px;">
                                           <div class="row">
@@ -247,6 +284,19 @@ $fetch_src = FETCH_SRC;
                                           </div>
                                        </div>
                                     <?php endif; ?>
+
+                                    <?php if(checkCarbonFootprints($con)) : ?>
+                                        <div class="container" style= "padding-top:25px;">
+                                          <div class="row">
+                                             <div class="col-3">
+                                             <img class="icon" style="width:60px; margin-left:8px;" src="https://cdn-icons-png.flaticon.com/128/8832/8832119.png" alt="Update Weekly Log Icon">
+                                             </div>
+                                             <div class="col-8">
+                                             <div class="cent">Your Carbon Footprint has exceed 1000, Please visit Recommend Page</div>
+                                          </div>
+                                        </div>
+                                    <?php endif; ?>
+
                                  </div>
                               </div>
                               </div>
