@@ -261,6 +261,9 @@ function weeklyLogUpToDate($con) {
                      <li class="nav-item">
                            <a class="nav-link" href="activity_log.php">Activity Log</a>
                      </li>
+                     <li class="nav-item">
+                            <a class="nav-link" href="history.php">History</a>
+                        </li>
                      <?php endif; ?>
                      <li class="nav-item">
                            <a class="nav-link" href="carbon_dash.php">Dashboard</a>
@@ -268,14 +271,6 @@ function weeklyLogUpToDate($con) {
                      <li class="nav-item">
                            <a class="nav-link" href="display4.php">Learn</a>
                      </li>
-                     <!--
-                     <li class="nav-item">
-                           <a class="nav-link" href="#">Pages</a>
-                     </li>
-                     <li class="nav-item">
-                           <a class="nav-link" href="contact.html">Contact</a>
-                     </li>
-                     --->
                   </ul>
                   <?php if (isLoggedIn()): ?>
                      <!-- If user is logged in, show profile circle -->
@@ -337,16 +332,13 @@ function weeklyLogUpToDate($con) {
                         </ul>
                      </li>
 
-               <?php else: ?>
-                     <li class="nav-item" style="list-style: none;">
-                        <a class="login-btn" href="login.php" role="button"> Login </a>
-                     </li>
-               <?php endif; ?>
-               
-         </div>
-         
+                  <?php else: ?>
+                        <li class="nav-item" style="list-style: none;">
+                           <a class="login-btn" href="login.php" role="button"> Login </a>
+                        </li>
+                  <?php endif; ?>
+               </div>
          </nav>
-         
       </header>
       <!-- Header End -->
       <!--Inner Header Start-->

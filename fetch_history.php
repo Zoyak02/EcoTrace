@@ -1,64 +1,52 @@
 <?php
 // Include the file containing database connection code
-include("accounts.php");
-
-// Function to check if the user is logged in
-function isLoggedIn()
-{
-    if (isset($_SESSION['userID'])) {
-        return true;
-    } else {
-        return false;
-    }
-}
+include("carbon_calc.php");
 
 // Check if the user is logged in
 if (isLoggedIn()) {
-    // Check if the required parameters are set
-    if (isset($_POST['startDate']) && isset($_POST['endDate'])) {
+    // Check if the required parameters (month and week) are set
+    if (isset($_POST['selectedMonth']) && isset($_POST['selectedWeek'])) {
         // Retrieve user ID from session
         $userID = $_SESSION['userID'];
         
-        // Sanitize and validate input dates
-        $startDate = mysqli_real_escape_string($con, $_POST['startDate']);
-        $endDate = mysqli_real_escape_string($con, $_POST['endDate']);
+        // Sanitize and validate input month and week
+        $selectedMonth = mysqli_real_escape_string($con, $_POST['selectedMonth']);
+        $selectedWeek = mysqli_real_escape_string($con, $_POST['selectedWeek']);
 
-        // Query to fetch historical data based on the selected date range
+        // Query to fetch historical data based on the selected month and week
         $sql = "SELECT
-                    date,
                     carbonFootprintTransport,
                     carbonFootprintFood,
                     carbonFootprintEnergy,
                     totalCarbonFootprint
                 FROM weeklyLog
                 WHERE userID = $userID
-                AND date BETWEEN '$startDate' AND '$endDate'
-                ORDER BY date";
+                AND MONTH(date) = $selectedMonth
+                AND WeekNo = $selectedWeek";
 
         $result = mysqli_query($con, $sql);
 
-        // Initialize array to store historical data
+        // Initialize array to store fetched data
         $historyData = array();
 
         // Fetch data and store in array
-        while ($row = mysqli_fetch_assoc($result)) {
-            $historyData[] = array(
-                'date' => $row['date'],
+        if ($row = mysqli_fetch_assoc($result)) {
+            $historyData = array(
                 'carbonFootprintTransport' => $row['carbonFootprintTransport'],
                 'carbonFootprintFood' => $row['carbonFootprintFood'],
                 'carbonFootprintEnergy' => $row['carbonFootprintEnergy'],
                 'totalCarbonFootprint' => $row['totalCarbonFootprint']
             );
+        } else {
+            // No data found for the selected week
+            $historyData['error'] = 'No data found for the selected week.';
         }
 
-        // Close database connection
-        mysqli_close($con);
-
-        // Return historical data in JSON format
+        // Return fetched data in JSON format
         echo json_encode($historyData);
     } else {
-        // Parameters not set
-        echo json_encode(array('error' => 'Parameters not set.'));
+        // Required parameters not set
+        echo json_encode(array('error' => 'Please select both month and week.'));
     }
 } else {
     // User not logged in
