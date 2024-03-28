@@ -32,7 +32,7 @@ if (isset($_GET['post_id'])) {
     $poster_profile_pic_copmression_settings = "w_201/f_auto,q_auto:eco";
     $poster_profile_pic_transformed_url = add_transformation_parameters($poster_profile_picture_path, $poster_profile_pic_copmression_settings);
 
-    $time_ago = $post_info['created_at'];
+    $time_ago = calculate_time_ago($created_at);
 
     $is_current_user = $_SESSION['userID'] === $user_info['userID'];
 
@@ -63,7 +63,7 @@ if (isset($_GET['post_id'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/minisearch@7.1.0/dist/umd/index.min.js"></script>
 
-    <link rel="stylesheet" href="css/style5.css">
+    <link rel="stylesheet" href="css/style6.css">
     <script type="module" src="scripts/search-results.js" defer></script>
     <script type="module" src="scripts/post-modal-handler.js" defer></script>
     <script type="module" src="scripts/post-more-options-handler.js" defer></script>
@@ -79,11 +79,11 @@ if (isset($_GET['post_id'])) {
         <?php include('partials/header.php'); ?>
         <?php include('partials/sidebar.php'); ?>
         <main class="page-post d-flex flex-column h-99 bg-light p-5 align-items-center justify-content-center">
-            <div class="post row w-99 h-100 bg-white py-4 px-4 border" data-post-id="<?php echo $post_id ?>"
+            <div class="post row w-100 h-100 bg-white py-4 px-4 border" data-post-id="<?php echo $post_id ?>"
                 data-poster-id="<?php echo $poster_id ?>">
                 <img class="post-page-image col-7 p-0" src="<?php echo $post_img_transformed_url; ?>" alt="Post Image">
 
-                <div class="post-sidebar col-3 d-flex flex-column gap-4 px-5 py-3">
+                <div class="post-sidebar col-4 d-flex flex-column gap-4 px-5 py-3">
                     <div class="pt1 d-flex align-items-center justify-content-between">
                         <a href="<?php echo $base_url . 'user_profile.php?user_id=' . $user_info['id'] ?>"
                             class="text-decoration-none">

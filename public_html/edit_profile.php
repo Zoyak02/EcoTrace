@@ -29,7 +29,7 @@ $profile_pic_transformed_url = add_transformation_parameters($poster_profile_pic
 
 
 
-    <link rel="stylesheet" href="css/style5.css">
+    <link rel="stylesheet" href="css/style6.css">
 
     <script type="module" src="scripts/validate-profile-setup.js" defer></script>
     <script type="module" src="scripts/search-results.js" defer></script>

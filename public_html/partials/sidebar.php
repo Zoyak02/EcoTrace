@@ -156,10 +156,10 @@ $overallQuery = "SELECT SUM(totalCarbonFootprint) AS totalOverall FROM weeklylog
                     <img class="home-navbar-user-profile-picture mb-2" src="<?php echo $profile_pic_transformed_url; ?>"
                         alt="User profile picture">
                     <div class="home-navbar-user-profile-info-container d-flex flex-column justify-content-center">
-                        <p class="user-profile-name fs-5 fw-bold p-0 m-0 text-nowrap text-body">
+                        <p class="user-profile-name fs-4 fw-bold p-0 m-0 text-nowrap text-body">
                             <?php echo $_SESSION['user_display_name']; ?>
                         </p>
-                        <p class="user-profile-username text-secondary fs-6 p-0 m-0 text-nowrap">
+                        <p class="user-profile-username text-secondary fs-6 p-2 m-0 text-nowrap">
                             <?php echo '@' . $_SESSION['username']; ?>
                         </p>
                     </div>

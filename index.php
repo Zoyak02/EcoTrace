@@ -167,6 +167,7 @@ function weeklyLogUpToDate($con) {
                                           </div>
                                        </div>
                                     <?php endif; ?>
+                                    
                                  </div>
                               </div>
                               </div>
