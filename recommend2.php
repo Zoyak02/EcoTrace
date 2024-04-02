@@ -254,7 +254,7 @@ $fetch_src = FETCH_SRC;
                      <!-- If user is not logged in, show login button -->
                      <div class="notification" >
                         <div class="notBtn" href="#">
-                           <?php if (weeklyLogUpToDate($con)) : ?>
+                           <?php if (weeklyLogUpToDate($con) && !checkCarbonFootprints($con))  : ?>
                               <div class="number"></div>
                            <?php else : ?>
                               <div class="number">1</div>
