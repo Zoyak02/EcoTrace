@@ -1,5 +1,6 @@
 <?php
 include("carbon_calc.php");
+include("fetch_history.php");
 
 function isLoggedIn()
 {
@@ -9,7 +10,6 @@ function isLoggedIn()
                 return false;
         }
 }
-
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -25,7 +25,7 @@ ini_set('display_errors', 1);
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />   
 	   <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
       <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, width=320" />
-      <title>CarbonFootprint Dashboard</title> 
+      <title>Historical Tracking</title> 
       <link href='https://fonts.googleapis.com/css?family=Anton&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
       <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous">
@@ -200,27 +200,18 @@ ini_set('display_errors', 1);
    </head>
    <body>
       <div class="wrapper home2">
-         <!--Header Start-->
-      <header class="header-style-2">
-         <nav class="navbar navbar-expand-lg">
+        <!--Header Start-->
+        <header class="header-style-2">
+            <nav class="navbar navbar-expand-lg">
                <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px; margin-left:30px;"></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-                     <li class="nav-item">
+                   <ul class="navbar-nav mr-auto">
+                       <li class="nav-item">
                            <a class="nav-link active" href="index.php">Home</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="events.php">Events</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="carbonCalculator.php">Calculator</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="carbon_dash.php">Dashboard</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="display4.php">Learn</a>
+                           <a class="nav-link" href="#about">About</a>
                        </li>
                        <?php if (isLoggedIn()): ?>
                        <li class="nav-item">
@@ -230,8 +221,22 @@ ini_set('display_errors', 1);
                            <a class="nav-link" href="history.php">History</a>
                        </li>
                        <?php endif; ?>
-                  </ul>
-                  <?php if (isLoggedIn()): ?>
+                       <li class="nav-item">
+                           <a class="nav-link" href="carbon_dash.php">Dashboard</a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="display4.php">Learn</a>
+                       </li>
+                       <!--
+                       <li class="nav-item">
+                           <a class="nav-link" href="#">Pages</a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="contact.html">Contact</a>
+                       </li>
+                       --->
+                   </ul>
+                   <?php if (isLoggedIn()): ?>
                      <!-- If user is logged in, show profile circle -->
                      <li class="nav-item" style="list-style: none;">
                      <!-- If user is not logged in, show login button -->
@@ -276,18 +281,6 @@ ini_set('display_errors', 1);
                         <img src="images/profile.jpg" class="profile" />
                         <ul class="profile-menu">
                            <li class="sub-item">
-                               <a href="socialInt(chat).php" style="display: flex; align-items: center; text-decoration: none;">
-                                  <span class="material-icons-outlined"> manage_accounts </span>
-                                  <p>Chat Room</p>
-                               </a>
-                           </li>
-                           <li class="sub-item">
-                               <a href="socialInt(shareAchivement).php" style="display: flex; align-items: center; text-decoration: none;">
-                                  <span class="material-icons-outlined"> manage_accounts </span>
-                                  <p>Share Achievements</p>
-                               </a>
-                           </li>
-                           <li class="sub-item">
                                <a href="profile.php" style="display: flex; align-items: center; text-decoration: none;">
                                   <span class="material-icons-outlined"> manage_accounts </span>
                                   <p>Update Profile</p>
@@ -309,11 +302,11 @@ ini_set('display_errors', 1);
                      </li>
                <?php endif; ?>
                
-         </div>
+            </div>
          
-         </nav>
-         
-      </header>
+            </nav>
+            
+         </header>
       <!-- Header End -->
 
           <!--Inner Header Start-->
@@ -323,8 +316,6 @@ ini_set('display_errors', 1);
             </div>
          </section>
          <!--Inner Header End--> 
-
-         
 
          <?php if (isLoggedIn()): ?>
             <?php
@@ -442,7 +433,6 @@ ini_set('display_errors', 1);
                     echo "Database connection is not established or is invalid.";
                 }
 
-
                     // LINE GRAPH CALCULATION 
                     // Retrieve historical carbon footprint data for the logged-in user for the current month
                     $latestMonthDataQuery = "SELECT DISTINCT month FROM weeklylog WHERE userID = '$userID' ORDER BY date DESC LIMIT 1";
@@ -543,7 +533,7 @@ ini_set('display_errors', 1);
                 <!--Dashboard card start--> 
                 <div class="container flex items-center justify-center p-5">
                 <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl">
-                    <div class=" dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-teal-400 to-green-500 rounded-md overflow-hidden">
+                    <div class=" dashboard-card food-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-teal-400 to-green-500 rounded-md overflow-hidden">
                     <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
                         <?php echo number_format($totalFood,2) ?>
                         <span class="text-sm">kgCO2e</span>
@@ -553,7 +543,7 @@ ini_set('display_errors', 1);
                     </div>
                 
 
-                    <div class=" dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md overflow-hidden">
+                    <div class=" dashboard-card energy-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md overflow-hidden">
                     <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
                         <?php echo number_format($totalEnergy,2) ?>
                         <span class="text-sm">kgCO2e</span>
@@ -563,7 +553,7 @@ ini_set('display_errors', 1);
                     </div>
                     
 
-                    <div class=" dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-red-400 to-red-600 rounded-md overflow-hidden">
+                    <div class=" dashboard-card transport-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-red-400 to-red-600 rounded-md overflow-hidden">
                     <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
                         <?php echo number_format($totalTransport,2) ?> 
                         <span class="text-sm">kgCO2e</span>
@@ -572,7 +562,7 @@ ini_set('display_errors', 1);
                     <i class="transport_icon"> <img src="https://cdn-icons-png.flaticon.com/128/1723/1723597.png"></i>
                     </div>
                     
-                    <div class=" dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md overflow-hidden">
+                    <div class=" dashboard-card ocerall-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md overflow-hidden">
                     <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
                         <?php echo number_format($totalOverall,2) ?> 
                         <span class="text-sm">kgCO2e</span>
@@ -586,7 +576,6 @@ ini_set('display_errors', 1);
             </section>
         </div>
         <!--Dashboard card end--> 
-
 
             <div class="container mt-9">
                 <div class="row">
@@ -609,61 +598,9 @@ ini_set('display_errors', 1);
                     </div>
                 </div>
             </div>
-            
-            <?php endif; ?>
-        <?php else: ?>
-                <section class="page404 wf100 p80">
-                <div class="container">
-                <div class="row ">
-                    <div class="col-lg-5 col-md-6 col-sm-6" style="padding-bottom:20px;">
-                        <img src="images/log.jpg"  style = "height:75%; margin-right:50px;"alt="">
-                    </div>
-                    <div class="col-lg-7 col-md-6 pt40 col-sm-16">
-                    <div class="h2-dashboard-txt">
-                        <h3><b>Hello There!</b></h3>
-                        <h6>We see that you want to make a change by tracking your Carbon Footprint</h6>
-                        <p> To get started, the <b>1st step</b> is to create an account. Click on the <b>"Login"</b> button on the Navigation bar at the top or the <b>"Sign up"</b> button below and provide the necessary information to set up your EcoTrace account. Creating an account will allow you to log and track your daily activities, making it easier to monitor and reduce your carbon footprint.</p>
-                        <a class="aboutus" href="login.php">Sign up</a> 
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-7 col-md-6 col-sm-16" style="padding-left:20px;">
-                    <div class="h2-dashboard-txt">
-                        <h3><b>Ready to Make a Difference?</b></h3>
-                        <h6>Log Your Daily Activities for Precise Carbon Tracking.</h6>
-                        <p> Now that you have an account, proceed to the <b>"Activity Log"</b> page on the nav. Here, you can log various aspects of your daily routine, including transportation, energy usage, and food consumption. <b>Don't worry;</b> it's a straightforward process that contributes significantly to your commitment to sustainability.</p>
-                    </div>
-                    </div>
-                    <div class="col-lg-5 col-md-6 col-sm-6" style="margin-top:20px;">
-                        <img src="https://media.tenor.com/MlHKXX_Uh40AAAAj/klick-click.gif" style=" width:40px;position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); z-index: 2;">
-                        <!-- Image to be Clicked -->
-                        <img class="navPic" src="images/activitynav.png" style="height: 40%;" alt="">     
-                    </div>
-                </div>
-                <div class="row ">
-                    <div class="col-lg-5 col-md-6 col-sm-6">
-                        <img src="images/dash.jpg"  style = "height:78%; margin-right:50px;"alt="">
-                    </div>
-                    <div class="col-lg-7 col-md-6 col-sm-16">
-                    <div class="h2-dashboard-txt pt40" style="margin-top:15px;">
-                        <h3><b>Track and Analyze Your Carbon Footprint</b></h3>
-                        <h6>Unlock Powerful Insights for a Greener Lifestyle.</h6>
-                        <p> <b>Congratulations</b> on logging your activities! Head over to the <b>"Dashboard"</b> page in the navigation while logged into your account to visualize your carbon footprint. Here, you can <b>track your weekly and overall monthly carbon footprint </b>. The intuitive charts and graphs provide valuable insights into your environmental impact. Use this information to make informed decisions and explore ways to reduce your carbon footprint further.</p>
-                    </div>
-                    </div> 
-                </div>
-                <div class="h2-dashboard-txt wf100" style="text-align: center;">
-                        <a href="index.php"><i class="fas fa-home"></i> Go Home </a>
-                    </div>
-                </div>
-                    
-            </section>
             <?php endif; ?>
             </div>
-            
-
-
+            <?php endif; ?>             
          <!--Footer Section Start--> 
          <?php if (isLoggedIn()): ?>  
          <div class="ftco-section wf100 pt80">
@@ -931,28 +868,29 @@ ini_set('display_errors', 1);
                 $(document).ready(function() {
                     // Event listener for the "Show Activity" button click
                     $('#showActivityBtn').click(function() {
+                        // Fetch the selected month and week from the dropdowns
                         var selectedMonth = $('#monthDropdown').val();
                         var selectedWeek = $('#weekDropdown').val();
 
-                        // Make an AJAX request to fetch the updated data
+                        // Perform AJAX request to fetch data for the selected month and week
                         $.ajax({
                             url: "fetch_history.php",
                             method: "POST",
                             dataType: "json",
-                            data: { selectedMonth: selectedMonth, selectedWeek: selectedWeek },
+                            data: {
+                                selectedMonth: selectedMonth,
+                                selectedWeek: selectedWeek
+                            },
                             success: function(response) {
-                                if (response.success) {
-                                    // Update the dashboard cards
-                                    updateDashboardCards(response.dashboardData);
+                                console.log(response);// Log the response to the console
+                                // Update the dashboard cards
+                                updateDashboardCards(response.dashboardData);
 
-                                    // Update the doughnut chart
-                                    updateDonutChart(response.donutChartData);
+                                // Update the doughnut chart
+                                updateDonutChart(response.donutChartData);
 
-                                    // Update the line chart
-                                    updateLineChart(response.lineChartData);
-                                } else {
-                                    console.error("Error: " + response.message);
-                                }
+                                // Update the line chart
+                                updateLineChart(response.lineChartData);
                             },
                             error: function(xhr, status, error) {
                                 console.error("AJAX Error: " + status, error);
@@ -963,8 +901,6 @@ ini_set('display_errors', 1);
 
                 // Function to update the dashboard cards
                 function updateDashboardCards(data) {
-                    // Assuming data is an object containing the updated values for dashboard cards
-                    // Update the content of dashboard cards with the received data
                     $('.food-card .value').text(data.totalFood);
                     $('.energy-card .value').text(data.totalEnergy);
                     $('.transport-card .value').text(data.totalTransport);
@@ -973,10 +909,8 @@ ini_set('display_errors', 1);
 
                 // Function to update the doughnut chart
                 function updateDonutChart(data) {
-                    // Assuming data is an array containing the updated values for the doughnut chart
-                    // Update the doughnut chart with the received data
                     var chartData = {
-                        labels: ['Transportation', 'Food', 'Energy'],
+                        labels: ['Transportation', 'Food', 'Energy',],
                         datasets: [{
                             data: data,
                             backgroundColor: ['#FF4F4B', '#4CAF50', '#2196F3']
@@ -990,8 +924,6 @@ ini_set('display_errors', 1);
 
                 // Function to update the line chart
                 function updateLineChart(data) {
-                    // Assuming data is an object containing the updated values for the line chart
-                    // Update the line chart with the received data
                     var chartData = {
                         labels: data.weekLabels,
                         datasets: [{
@@ -1008,7 +940,7 @@ ini_set('display_errors', 1);
                     lineChart.update();
                 }
 
-            </script>
+</script>
    </body>
     </head>
     </html>

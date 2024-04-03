@@ -1,9 +1,9 @@
 <?php
-// Include database connection or any necessary functions
 require("connection.php");
 
-// Check if the selected month is set and not empty
+// Check if selected month is set and not empty
 if(isset($_POST['selectedMonth']) && !empty($_POST['selectedMonth'])) {
+
     // Sanitize and prepare the selected month value
     $selectedMonth = mysqli_real_escape_string($con, $_POST['selectedMonth']); // Assuming $con is your database connection
 
@@ -32,7 +32,7 @@ if(isset($_POST['selectedMonth']) && !empty($_POST['selectedMonth'])) {
         // Error handling if query fails
         $response = array(
             'success' => false,
-            'message' => 'Failed to fetch weeks from the database.'
+            'message' => 'Failed to fetch weeks from the database: ' . mysqli_error($con)
         );
         echo json_encode($response);
     }
@@ -51,9 +51,9 @@ if(isset($_POST['selectedMonth']) && !empty($_POST['selectedMonth'])) {
 
         // Prepare data for dashboard cards and doughnut chart
         $dashboardData = array(
-            'totalTransport' => $row['carbonFootprintTransport'],
             'totalFood' => $row['carbonFootprintFood'],
             'totalEnergy' => $row['carbonFootprintEnergy'],
+            'totalTransport' => $row['carbonFootprintTransport'],
             'totalOverall' => $row['totalCarbonFootprint']
         );
 
@@ -68,15 +68,17 @@ if(isset($_POST['selectedMonth']) && !empty($_POST['selectedMonth'])) {
             $weekLabels[] = 'Week ' . $lineRow['weekNo'];
         }
 
-        // Prepare JSON response
-        $response = array(
-            'success' => true,
+        // Prepare data for doughnut chart
+        $donutChartData = array(
+            $row['carbonFootprintFood'],
+            $row['carbonFootprintEnergy'],
+            $row['carbonFootprintTransport'],
+        );
+
+        // Prepare newData object to hold all the data
+        $newData = array(
             'dashboardData' => $dashboardData,
-            'donutChartData' => array(
-                $row['carbonFootprintTransport'],
-                $row['carbonFootprintFood'],
-                $row['carbonFootprintEnergy']
-            ),
+            'donutChartData' => $donutChartData,
             'lineChartData' => array(
                 'weekLabels' => $weekLabels,
                 'totalFootprintData' => $lineChartData
@@ -84,12 +86,12 @@ if(isset($_POST['selectedMonth']) && !empty($_POST['selectedMonth'])) {
         );
 
         // Output JSON response
-        echo json_encode($response);
+        echo json_encode($newData);
     } else {
         // Error handling if query fails
         $response = array(
             'success' => false,
-            'message' => 'Failed to fetch data from the database.'
+            'message' => 'Failed to fetch data from the database: ' . mysqli_error($con)
         );
         echo json_encode($response);
     }
@@ -101,5 +103,4 @@ if(isset($_POST['selectedMonth']) && !empty($_POST['selectedMonth'])) {
     );
     echo json_encode($response);
 }
-
 ?>
