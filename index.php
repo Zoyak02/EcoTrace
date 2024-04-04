@@ -99,7 +99,7 @@ function weeklyLogUpToDate($con) {
    <body>
       <div class="wrapper home2">
          <!--Header Start-->
-         <header class="header-style-2">
+         <header class="header-style-2"> 
 
          <?php include("nav.php") ?>
          
