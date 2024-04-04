@@ -1,35 +1,37 @@
 <nav class="navbar navbar-expand-lg">
-               <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px; margin-left:30px;"></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                   <ul class="navbar-nav mr-auto">
-                       <li class="nav-item">
-                           <a class="nav-link active" href="index.php">Home</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="index.php#about">About</a>
-                       </li>
-                       <?php if (isLoggedIn()): ?>
-                       <li class="nav-item">
-                           <a class="nav-link" href="activity_log.php">Activity Log</a>
-                       </li>
-                       <?php endif; ?>
-                       <li class="nav-item">
-                           <a class="nav-link" href="carbon_dash.php">Dashboard</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="display4.php">Learn</a>
-                       </li>
-                       <!--
-                       <li class="nav-item">
-                           <a class="nav-link" href="#">Pages</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="contact.html">Contact</a>
-                       </li>
-                       --->
-                   </ul>
-                   <?php if (isLoggedIn()): ?>
+            <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px; margin-left:30px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php#about">About</a>
+                    </li>
+                    <?php if (isLoggedIn()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="activity_log.php">Activity Log</a>
+                    </li>
+                    <?php endif; ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carbon_dash.php">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="display4.php">Learn</a>
+                    </li>
+                    <?php if (isLoggedIn()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recommend2.php">Recommendations</a>
+                    </li>
+                    <?php endif; ?>
+                    <!--
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    --->
+                </ul>
+                <?php if (isLoggedIn()): ?>
                      <!-- If user is logged in, show profile circle -->
                      <li class="nav-item" style="list-style: none;">
                      <!-- If user is not logged in, show login button -->
@@ -43,6 +45,17 @@
                               <i class="fas fa-bell" id="bell"></i>
                               <div class="box">
                                  <div class="display">
+                                 <?php if(checkCarbonFootprints($con)) : ?>
+                                        <div class="container" style= "padding-top:25px;">
+                                          <div class="row">
+                                             <div class="col-3">
+                                             <img class="icon" style="width:60px; margin-left:8px;" src="https://cdn-icons-png.flaticon.com/128/10308/10308693.png" alt="Update Weekly Log Icon">
+                                             </div>
+                                             <div class="col-8">
+                                             <div class="cent">Your carbon footprint has exceeded 1000. <a href="#" onclick="redirectToRecommendPage()">visit the recommended page</a>.</div>
+                                          </div>
+                                        </div>
+                                    <?php endif; ?>
                                     <?php if (weeklyLogUpToDate($con)) : ?>
                                        <div class="container" style= "padding-top:25px;">
                                           <div class="row">
@@ -94,7 +107,7 @@
                         <a class="login-btn" href="login.php" role="button"> Login </a>
                      </li>
                <?php endif; ?>
-               
-            </div>
-         
-            </nav>
+            
+        </div>
+        
+        </nav>
