@@ -186,26 +186,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $userID = $_SESSION['userID'];
     
         // Query to fetch the total carbon footprint for the given week
-        $query = "SELECT SUM(totalCarbonFootprint) AS totalCarbonFootprint
-                FROM weeklylog 
-                WHERE userID = ? 
-                AND MONTH(date) = ?
-                AND weekNo = ?";
-        $stmt = mysqli_prepare($con, $query);
-        mysqli_stmt_bind_param($stmt, "iii", $userID, $currentMonth, $weekNumber);
+        $query = "SELECT totalCarbonFootprint
+            FROM weeklylog 
+            WHERE userID = ? 
+            AND MONTH(date) = ?
+            AND weekNo = ?";
+            $stmt = mysqli_prepare($con, $query);
+            mysqli_stmt_bind_param($stmt, "iii", $userID, $currentMonth, $weekNumber);
+            mysqli_stmt_execute($stmt);
+            
+            mysqli_stmt_bind_result($stmt, $carbonFootprint);
+            mysqli_stmt_fetch($stmt);
+            mysqli_stmt_close($stmt);
+            
+            // Return the fetched carbon footprint for the given week
+            return $carbonFootprint;
+        }
+    
+    
+
+    function evaluateCarbonReductionRookieBadge($userID, $con) {
+        // Get the current month name and week number
+        $currentMonth = date('n'); // Numeric representation of the current month
+        $currentWeek = ceil(date('d') / 7); // Calculate the week number within the current month
+    
+        // Check if the month has all 4 weeks
+        if ($currentWeek < 4) {
+            return; // Exit if the month doesn't have all 4 weeks
+        }
+    
+        // Fetch carbon footprint for each week of the month
+        $carbonFootprints = [];
+        for ($week = 1; $week <= 4; $week++) {
+            // Fetch carbon footprint for the current week
+            $weekCarbonFootprint = fetchWeekCarbonFootprint($userID, $con, $week, $currentMonth);
+            
+            // If there's no data for any week, exit
+            if ($weekCarbonFootprint === null) {
+                return;
+            }
+            
+            // Store the carbon footprint for each week
+            $carbonFootprints[$week] = $weekCarbonFootprint;
+        }
+
+        // Check if the carbon footprint decreases week by week throughout the month
+        for ($week = 2; $week <= 4; $week++) {
+            // Check if the current week's carbon footprint is less than the previous week's
+            if ($carbonFootprints[$week] >= $carbonFootprints[$week - 1]) {
+                return; // Exit if the current week's carbon footprint is not less than the previous week's
+            }
+        }
+
+        // If the carbon footprint decreases week by week throughout the month, update user's badge status to "achieved" for Carbon Reduction Rookie badge
+        $updateQuery = "UPDATE user_badges SET carbon_reduction_rookie = 1 WHERE userID = ?";
+        $stmt = mysqli_prepare($con, $updateQuery);
+        mysqli_stmt_bind_param($stmt, "i", $userID);
         mysqli_stmt_execute($stmt);
-        
-        mysqli_stmt_bind_result($stmt, $carbonFootprint);
-        mysqli_stmt_fetch($stmt);
         mysqli_stmt_close($stmt);
-        
-        // Return the fetched carbon footprint for the given week
-        return $carbonFootprint;
     }
     
     
 
 
+    /*
     function evaluateCarbonReductionRookieBadge($userID, $con) {
         // Get the current month name and week number
     $currentMonth = date('n'); // Numeric representation of the current month
@@ -229,7 +273,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
     }
-}
+}*/
 
     
 

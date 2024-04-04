@@ -66,5 +66,3 @@ if ($result) {
     exit;
 }
 ?>
-
-?>

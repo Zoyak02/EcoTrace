@@ -62,6 +62,18 @@ if (isset($_POST['login-btn'])) {
         if ($first_login == 1) {
             // It's the user's first login, set the first_login session variable
             $_SESSION['first_login'] = 1;
+               // Registration successful
+                // Retrieve the last inserted user ID
+                $user_id = mysqli_insert_id($con);
+                // Store user ID in session for future use
+                $_SESSION['user_id'] = $user_id;
+
+                $defaultQuery = "INSERT INTO user_badges (userID, certified_eco_warrior, certified_eco_hero, carbon_reduction_rookie) VALUES (?, 0, 0, 0)";
+                $stmt = mysqli_prepare($con, $defaultQuery);
+                mysqli_stmt_bind_param($stmt, "i", $userID);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+
         }
 
         // User is a regular user, redirect to index.php
@@ -130,18 +142,6 @@ if (isset($_POST['signup-btn'])) {
     $success = mysqli_stmt_execute($stmt);
 
     if ($success) {
-        // Registration successful
-        // Retrieve the last inserted user ID
-        $user_id = mysqli_insert_id($con);
-        // Store user ID in session for future use
-        $_SESSION['user_id'] = $user_id;
-
-        $defaultQuery = "INSERT INTO user_badges (userID, certified_eco_warrior, certified_eco_hero, carbon_reduction_rookie) VALUES (?, 0, 0, 0)";
-        $stmt = mysqli_prepare($con, $defaultQuery);
-        mysqli_stmt_bind_param($stmt, "i", $userID);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-
         // send the default password to the user's email
         $subject = "Welcome to EcoTrace - Login Information";
         $message = "Hello $firstName $lastName,<br><br>Your account has been successfully created.<br>

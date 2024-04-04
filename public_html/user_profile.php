@@ -30,7 +30,6 @@ if (isset($_GET['userID']) && !empty($_GET['userID'])) {
 
     $is_followed_by_user = does_row_exist($pdo, 'followers_table', 'follower_id', $userID, 'followed_id', $current_userID);
     $follow_button_checked_attribute = $is_followed_by_user ? '' : 'checked';
-    $followed = follow_user($pdo, $userID, $current_userID);
 }
 ?>
 
@@ -55,7 +54,7 @@ if (isset($_GET['userID']) && !empty($_GET['userID'])) {
 
     <link rel="stylesheet" href="css/style6.css">
     <script src="scripts/handle-scroll-to.js" defer></script>
-    <script type="module" src="scripts/search-results.js" defer></script>
+    <script type="module" src="scripts/search-result.js" defer></script>
     <script src="scripts/lazy-load.js" defer></script>
 
     <script type="module" src="scripts/post-modal-handler.js" defer></script>
@@ -91,11 +90,11 @@ if (isset($_GET['userID']) && !empty($_GET['userID'])) {
                             </div>
                             <div>
                                 <?php echo $is_logged_in_user_profile ? '
-                                    <a href="edit_profile.php" class="btn btn-success" role="button">Edit Profile</a>
+                                    <a href="edit_profile.php" class="btn btn-outline-secondary" role="button">Edit Profile</a>
                                     ' : '
                                     <input type="checkbox" class="btn-check" id="user-profile-follow-button" autocomplete="off" ' . $follow_button_checked_attribute . '>
                                     <label class="btn btn-outline-primary" for="user-profile-follow-button">
-                                        <span class="follow-text fw-medium">Follow'.$followed.'</span>
+                                        <span class="follow-text fw-medium">Follow</span>
                                         <span class="unfollow-text">Unfollow</span>
                                     </label>
                                 '; ?>

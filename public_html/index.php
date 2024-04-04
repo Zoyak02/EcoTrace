@@ -26,7 +26,7 @@ session_start();
 
     <link rel="stylesheet" href="css/style6.css">
 
-    <script type="module" src="scripts/search-results.js" defer></script>
+    <script type="module" src="scripts/search-result.js" defer></script>
     <script src="scripts/lazy-load.js" defer></script>
 
     <script type="module" src="scripts/post-modal-handler.js" defer></script>
@@ -68,8 +68,6 @@ session_start();
 
                         headerPostModalTrigger.click();
 
-
-                           
                         const badgeImageUrl = '../{$_GET['badgeImageUrl']}';
                         const postModalImage = document.getElementById('post-modal-image');
                         const postModalImagePicker = document.getElementById('post-modal-image-picker');

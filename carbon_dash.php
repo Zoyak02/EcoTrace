@@ -614,10 +614,6 @@ img#badgeImage {
 
 
 
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#badgeModal">
-  Launch Congradulations Modal
-</button> -->
-
                  <script>
                     document.addEventListener('DOMContentLoaded', function() {
                     // Call the PHP function to check and display badge modal
@@ -632,7 +628,7 @@ img#badgeImage {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="badgeModalLabel"> Congratulations! You Earned the <?php echo $badgeName ?> Badge! 🌟</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" id="closeBtn" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -1012,9 +1008,13 @@ img#badgeImage {
             <script>
                 const badgeModal = document.getElementById('badgeModal');
                 const shareBtn = document.getElementById('shareBtn');
+                const closeBtn = document.getElementById('closeBtn');
 
                 let badgeImageUrl;
                
+                closeBtn.addEventListener('click', () => {
+                    $('#badgeModal').modal('hide'); // Hide the modal when the close button is clicked
+                });
                 
                 function updateBadgeModal(badgeName, imgsrc) {
                     // Set badge image source based on badgeName
