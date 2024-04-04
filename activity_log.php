@@ -173,7 +173,6 @@ if (isset($_GET['success'])) {
 <div class="wrapper home2">
          <!--Header Start-->
          <header class="header-style-2">
-             
          <?php include("nav.php") ?>
             
          </header>
