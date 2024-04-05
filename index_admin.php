@@ -129,14 +129,6 @@ else if(isset($_GET['success']))
     </div>
     alert;
   }
-  if($_GET['success']=='set')
-  {
-    echo<<<alert
-    <div class="container alert alert-success alert-dismissible text-center" id="success-msg" role="alert">
-      <strong>New Password Set Successfully</strong>
-    </div>
-    alert;
-  }
 }
 ?>
 
