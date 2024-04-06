@@ -1,0 +1,793 @@
+{
+  "id": "f42ae394-4d6f-4201-b37d-844e387b891e",
+  "version": "2.0",
+  "name": "EcoTrace Iteration 2",
+  "url": "http://localhost",
+  "tests": [{
+    "id": "6dfc8439-4815-4646-b10c-a4017b865948",
+    "name": "Iteration 2",
+    "commands": [{
+      "id": "7154f830-a571-4f5f-9f40-fd4fc08c1fd1",
+      "comment": "",
+      "command": "open",
+      "target": "/GitHub/EcoTrace/index.php",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "314caae4-0022-4ad1-9d2b-c87354341ecc",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1296x821",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bcdaa55e-b8cd-4caf-9da7-ce34f7352e57",
+      "comment": "",
+      "command": "click",
+      "target": "css=.navbar-nav > .nav-item:nth-child(3) > .nav-link",
+      "targets": [
+        ["css=.navbar-nav > .nav-item:nth-child(3) > .nav-link", "css:finder"],
+        ["xpath=//a[contains(text(),'Activity Log')]", "xpath:link"],
+        ["xpath=//div[@id='navbarSupportedContent']/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'activity_log.php')]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2b45e1dd-28ad-4a5f-addb-51d78e4b9667",
+      "comment": "",
+      "command": "click",
+      "target": "name=car_kilometers",
+      "targets": [
+        ["name=car_kilometers", "name"],
+        ["css=#car_owner_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='car_kilometers']", "xpath:attributes"],
+        ["xpath=//div[@id='car_owner_questions']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5389f2af-737e-4c6b-ab0f-458840bd36d7",
+      "comment": "",
+      "command": "click",
+      "target": "name=car_kilometers",
+      "targets": [
+        ["name=car_kilometers", "name"],
+        ["css=#car_owner_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='car_kilometers']", "xpath:attributes"],
+        ["xpath=//div[@id='car_owner_questions']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9224cb16-ac5f-43a7-830e-720e1d0d4e26",
+      "comment": "",
+      "command": "click",
+      "target": "name=car_kilometers",
+      "targets": [
+        ["name=car_kilometers", "name"],
+        ["css=#car_owner_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='car_kilometers']", "xpath:attributes"],
+        ["xpath=//div[@id='car_owner_questions']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3511c6b5-c065-41ed-bac7-7948a15523e5",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "name=car_kilometers",
+      "targets": [
+        ["name=car_kilometers", "name"],
+        ["css=#car_owner_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='car_kilometers']", "xpath:attributes"],
+        ["xpath=//div[@id='car_owner_questions']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "26522bd5-cf30-4c83-ac3c-5a1c41703541",
+      "comment": "",
+      "command": "type",
+      "target": "name=car_kilometers",
+      "targets": [
+        ["name=car_kilometers", "name"],
+        ["css=#car_owner_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='car_kilometers']", "xpath:attributes"],
+        ["xpath=//div[@id='car_owner_questions']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "377db909-22c0-4e00-890a-d699b41a10ef",
+      "comment": "",
+      "command": "click",
+      "target": "name=carpool_instances",
+      "targets": [
+        ["name=carpool_instances", "name"],
+        ["css=#car_owner_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='carpool_instances']", "xpath:attributes"],
+        ["xpath=//div[@id='car_owner_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d7f3217e-aea2-4066-9352-0aef3d684355",
+      "comment": "",
+      "command": "click",
+      "target": "name=carpool_instances",
+      "targets": [
+        ["name=carpool_instances", "name"],
+        ["css=#car_owner_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='carpool_instances']", "xpath:attributes"],
+        ["xpath=//div[@id='car_owner_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1f61fb30-3843-4cfa-9477-e59938c57ecc",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "name=carpool_instances",
+      "targets": [
+        ["name=carpool_instances", "name"],
+        ["css=#car_owner_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='carpool_instances']", "xpath:attributes"],
+        ["xpath=//div[@id='car_owner_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "04a5a083-ad7f-457e-8881-394dda502333",
+      "comment": "",
+      "command": "type",
+      "target": "name=carpool_instances",
+      "targets": [
+        ["name=carpool_instances", "name"],
+        ["css=#car_owner_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='carpool_instances']", "xpath:attributes"],
+        ["xpath=//div[@id='car_owner_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "9a2934f2-ea1f-46bc-9b9a-db45e5d2a87f",
+      "comment": "",
+      "command": "click",
+      "target": "name=public_transportation_times",
+      "targets": [
+        ["name=public_transportation_times", "name"],
+        ["css=#public_transportation_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='public_transportation_times']", "xpath:attributes"],
+        ["xpath=//div[@id='public_transportation_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8b495579-e386-44d2-96fa-0cbea0f18032",
+      "comment": "",
+      "command": "click",
+      "target": "name=public_transportation_times",
+      "targets": [
+        ["name=public_transportation_times", "name"],
+        ["css=#public_transportation_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='public_transportation_times']", "xpath:attributes"],
+        ["xpath=//div[@id='public_transportation_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "65052504-8b22-4c4d-a877-9bbc315b4703",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "name=public_transportation_times",
+      "targets": [
+        ["name=public_transportation_times", "name"],
+        ["css=#public_transportation_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='public_transportation_times']", "xpath:attributes"],
+        ["xpath=//div[@id='public_transportation_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3476c378-4310-4fc3-b3cb-530dee7d615e",
+      "comment": "",
+      "command": "type",
+      "target": "name=public_transportation_times",
+      "targets": [
+        ["name=public_transportation_times", "name"],
+        ["css=#public_transportation_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='public_transportation_times']", "xpath:attributes"],
+        ["xpath=//div[@id='public_transportation_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "370c625a-848c-465a-b811-32950893375f",
+      "comment": "",
+      "command": "click",
+      "target": "name=bicycle_times",
+      "targets": [
+        ["name=bicycle_times", "name"],
+        ["css=#public_transportation_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='bicycle_times']", "xpath:attributes"],
+        ["xpath=//div[@id='public_transportation_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9ecf73cf-60b8-42ef-9813-5709fc87f9f4",
+      "comment": "",
+      "command": "click",
+      "target": "name=bicycle_times",
+      "targets": [
+        ["name=bicycle_times", "name"],
+        ["css=#public_transportation_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='bicycle_times']", "xpath:attributes"],
+        ["xpath=//div[@id='public_transportation_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c2b550c0-a69f-409f-8c84-402fac0c38e0",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "name=bicycle_times",
+      "targets": [
+        ["name=bicycle_times", "name"],
+        ["css=#public_transportation_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='bicycle_times']", "xpath:attributes"],
+        ["xpath=//div[@id='public_transportation_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4cef9af6-1426-4e68-909c-601e01d9a406",
+      "comment": "",
+      "command": "type",
+      "target": "name=bicycle_times",
+      "targets": [
+        ["name=bicycle_times", "name"],
+        ["css=#public_transportation_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='bicycle_times']", "xpath:attributes"],
+        ["xpath=//div[@id='public_transportation_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/input[2]", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "983248b1-128e-4c42-86dd-6476bc39e9f3",
+      "comment": "",
+      "command": "click",
+      "target": "name=active_commuter_days",
+      "targets": [
+        ["name=active_commuter_days", "name"],
+        ["css=#active_commuter_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='active_commuter_days']", "xpath:attributes"],
+        ["xpath=//div[@id='active_commuter_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3cb59720-a21a-4d9e-9047-96a1de63c9aa",
+      "comment": "",
+      "command": "type",
+      "target": "name=active_commuter_days",
+      "targets": [
+        ["name=active_commuter_days", "name"],
+        ["css=#active_commuter_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='active_commuter_days']", "xpath:attributes"],
+        ["xpath=//div[@id='active_commuter_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "bde616dc-f919-4ef2-b10f-22a50cf68c63",
+      "comment": "",
+      "command": "click",
+      "target": "name=electric_scooter_days",
+      "targets": [
+        ["name=electric_scooter_days", "name"],
+        ["css=#active_commuter_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='electric_scooter_days']", "xpath:attributes"],
+        ["xpath=//div[@id='active_commuter_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7e6b5888-cbdf-46dc-ae64-b0ba1185fb1d",
+      "comment": "",
+      "command": "type",
+      "target": "name=electric_scooter_days",
+      "targets": [
+        ["name=electric_scooter_days", "name"],
+        ["css=#active_commuter_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='electric_scooter_days']", "xpath:attributes"],
+        ["xpath=//div[@id='active_commuter_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/input[2]", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "cfc74a9b-260d-49de-8f1f-b3619097871a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.next-step:nth-child(1)",
+      "targets": [
+        ["css=.next-step:nth-child(1)", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='activity-log-form']/div/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Next')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6536a2ab-8d1d-4319-9025-d01417db3f71",
+      "comment": "",
+      "command": "click",
+      "target": "name=red_meat_servings",
+      "targets": [
+        ["name=red_meat_servings", "name"],
+        ["css=#meat_lover_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='red_meat_servings']", "xpath:attributes"],
+        ["xpath=//div[@id='meat_lover_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "50e36e0e-ffaa-43b9-81d5-12f17351b856",
+      "comment": "",
+      "command": "type",
+      "target": "name=red_meat_servings",
+      "targets": [
+        ["name=red_meat_servings", "name"],
+        ["css=#meat_lover_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='red_meat_servings']", "xpath:attributes"],
+        ["xpath=//div[@id='meat_lover_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "eef403d1-b34b-49cc-b5f5-36401dd60c66",
+      "comment": "",
+      "command": "click",
+      "target": "name=poultry_servings",
+      "targets": [
+        ["name=poultry_servings", "name"],
+        ["css=#meat_lover_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='poultry_servings']", "xpath:attributes"],
+        ["xpath=//div[@id='meat_lover_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "76ff869c-2172-49fa-b8e1-ad44ed61f2f5",
+      "comment": "",
+      "command": "type",
+      "target": "name=poultry_servings",
+      "targets": [
+        ["name=poultry_servings", "name"],
+        ["css=#meat_lover_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='poultry_servings']", "xpath:attributes"],
+        ["xpath=//div[@id='meat_lover_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input[2]", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "1d50dd59-df0e-4743-bac9-b387bec50265",
+      "comment": "",
+      "command": "click",
+      "target": "name=fish_servings",
+      "targets": [
+        ["name=fish_servings", "name"],
+        ["css=#meat_lover_questions > .form-control:nth-child(6)", "css:finder"],
+        ["xpath=//input[@name='fish_servings']", "xpath:attributes"],
+        ["xpath=//div[@id='meat_lover_questions']/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "55406a39-f8c0-4e78-98af-9648dc04e6da",
+      "comment": "",
+      "command": "type",
+      "target": "name=fish_servings",
+      "targets": [
+        ["name=fish_servings", "name"],
+        ["css=#meat_lover_questions > .form-control:nth-child(6)", "css:finder"],
+        ["xpath=//input[@name='fish_servings']", "xpath:attributes"],
+        ["xpath=//div[@id='meat_lover_questions']/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "5dda9797-d5e1-42fb-a1bf-04fec5e5796a",
+      "comment": "",
+      "command": "click",
+      "target": "name=plant_based_meals",
+      "targets": [
+        ["name=plant_based_meals", "name"],
+        ["css=#vegetarian_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='plant_based_meals']", "xpath:attributes"],
+        ["xpath=//div[@id='vegetarian_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4741b9b9-f843-4db4-8233-03df95f452fd",
+      "comment": "",
+      "command": "type",
+      "target": "name=plant_based_meals",
+      "targets": [
+        ["name=plant_based_meals", "name"],
+        ["css=#vegetarian_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='plant_based_meals']", "xpath:attributes"],
+        ["xpath=//div[@id='vegetarian_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "2159348f-50c1-4b18-9eb9-44eda16fc218",
+      "comment": "",
+      "command": "click",
+      "target": "name=plant_protein_servings",
+      "targets": [
+        ["name=plant_protein_servings", "name"],
+        ["css=#vegetarian_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='plant_protein_servings']", "xpath:attributes"],
+        ["xpath=//div[@id='vegetarian_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7e559cbe-cee8-483f-9c4f-7174148bb4ef",
+      "comment": "",
+      "command": "type",
+      "target": "name=plant_protein_servings",
+      "targets": [
+        ["name=plant_protein_servings", "name"],
+        ["css=#vegetarian_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='plant_protein_servings']", "xpath:attributes"],
+        ["xpath=//div[@id='vegetarian_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input[2]", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "ec0e2c03-8cf4-4bba-be95-bda19df2276f",
+      "comment": "",
+      "command": "click",
+      "target": "id=mixed_diet_questions",
+      "targets": [
+        ["id=mixed_diet_questions", "id"],
+        ["css=#mixed_diet_questions", "css:finder"],
+        ["xpath=//div[@id='mixed_diet_questions']", "xpath:attributes"],
+        ["xpath=//form[@id='activity-log-form']/div[2]/div[3]", "xpath:idRelative"],
+        ["xpath=//form/div[2]/div[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "23a8d2e2-adb6-498c-b7c6-a700e025f580",
+      "comment": "",
+      "command": "click",
+      "target": "name=mixed_diet_meals",
+      "targets": [
+        ["name=mixed_diet_meals", "name"],
+        ["css=#mixed_diet_questions > .form-control", "css:finder"],
+        ["xpath=//input[@name='mixed_diet_meals']", "xpath:attributes"],
+        ["xpath=//div[@id='mixed_diet_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "291d4a08-d643-48d9-889a-f857d31a807d",
+      "comment": "",
+      "command": "type",
+      "target": "name=mixed_diet_meals",
+      "targets": [
+        ["name=mixed_diet_meals", "name"],
+        ["css=#mixed_diet_questions > .form-control", "css:finder"],
+        ["xpath=//input[@name='mixed_diet_meals']", "xpath:attributes"],
+        ["xpath=//div[@id='mixed_diet_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[3]/input", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "a24a3e4a-81e4-4365-b16a-0dba78c166cf",
+      "comment": "",
+      "command": "click",
+      "target": "css=.next-step:nth-child(2)",
+      "targets": [
+        ["css=.next-step:nth-child(2)", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//form[@id='activity-log-form']/div[2]/div[4]/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fb5e735a-0ee1-4e53-934b-aea1c58ce415",
+      "comment": "",
+      "command": "click",
+      "target": "name=heating_hours",
+      "targets": [
+        ["name=heating_hours", "name"],
+        ["css=#heating_cooling_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='heating_hours']", "xpath:attributes"],
+        ["xpath=//div[@id='heating_cooling_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8f7f68e2-004c-41f5-885f-f3f9e7f013fd",
+      "comment": "",
+      "command": "type",
+      "target": "name=heating_hours",
+      "targets": [
+        ["name=heating_hours", "name"],
+        ["css=#heating_cooling_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='heating_hours']", "xpath:attributes"],
+        ["xpath=//div[@id='heating_cooling_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "b1d373d0-b736-4243-85a4-d6d367d40cfd",
+      "comment": "",
+      "command": "click",
+      "target": "name=ac_hours",
+      "targets": [
+        ["name=ac_hours", "name"],
+        ["css=#heating_cooling_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='ac_hours']", "xpath:attributes"],
+        ["xpath=//div[@id='heating_cooling_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "76cd3504-234d-4c4d-aed0-16d7ddaea6a7",
+      "comment": "",
+      "command": "type",
+      "target": "name=ac_hours",
+      "targets": [
+        ["name=ac_hours", "name"],
+        ["css=#heating_cooling_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='ac_hours']", "xpath:attributes"],
+        ["xpath=//div[@id='heating_cooling_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input[2]", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "81568cee-5ba3-4980-ab04-c0ee44bb9862",
+      "comment": "",
+      "command": "click",
+      "target": "name=laundry_loads",
+      "targets": [
+        ["name=laundry_loads", "name"],
+        ["css=#appliances_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='laundry_loads']", "xpath:attributes"],
+        ["xpath=//div[@id='appliances_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8b565020-346f-46ef-8843-c5b7870a78f1",
+      "comment": "",
+      "command": "type",
+      "target": "name=laundry_loads",
+      "targets": [
+        ["name=laundry_loads", "name"],
+        ["css=#appliances_questions > .form-control:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='laundry_loads']", "xpath:attributes"],
+        ["xpath=//div[@id='appliances_questions']/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "ff6f033e-1292-436a-aa66-daa03c3cc095",
+      "comment": "",
+      "command": "click",
+      "target": "name=dryer_hours",
+      "targets": [
+        ["name=dryer_hours", "name"],
+        ["css=#appliances_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='dryer_hours']", "xpath:attributes"],
+        ["xpath=//div[@id='appliances_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "02771f2b-3f98-4c40-aa6e-d2b8858952c7",
+      "comment": "",
+      "command": "type",
+      "target": "name=dryer_hours",
+      "targets": [
+        ["name=dryer_hours", "name"],
+        ["css=#appliances_questions > .form-control:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='dryer_hours']", "xpath:attributes"],
+        ["xpath=//div[@id='appliances_questions']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input[2]", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "d6425a9e-c471-4ccd-aa15-d14d93bc02c0",
+      "comment": "",
+      "command": "click",
+      "target": "name=dishwasher_loads",
+      "targets": [
+        ["name=dishwasher_loads", "name"],
+        ["css=#appliances_questions > .form-control:nth-child(6)", "css:finder"],
+        ["xpath=//input[@name='dishwasher_loads']", "xpath:attributes"],
+        ["xpath=//div[@id='appliances_questions']/input[3]", "xpath:idRelative"],
+        ["xpath=//div[2]/input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1f895e2f-a58b-4318-b277-f73d2df5dc80",
+      "comment": "",
+      "command": "type",
+      "target": "name=dishwasher_loads",
+      "targets": [
+        ["name=dishwasher_loads", "name"],
+        ["css=#appliances_questions > .form-control:nth-child(6)", "css:finder"],
+        ["xpath=//input[@name='dishwasher_loads']", "xpath:attributes"],
+        ["xpath=//div[@id='appliances_questions']/input[3]", "xpath:idRelative"],
+        ["xpath=//div[2]/input[3]", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "fa2d14e8-3c65-4048-8d99-8798853004e7",
+      "comment": "",
+      "command": "click",
+      "target": "name=electronic_hours",
+      "targets": [
+        ["name=electronic_hours", "name"],
+        ["css=.form-control:nth-child(8)", "css:finder"],
+        ["xpath=//input[@name='electronic_hours']", "xpath:attributes"],
+        ["xpath=//div[@id='appliances_questions']/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "98acef82-830a-4e1d-8da1-c426570be2aa",
+      "comment": "",
+      "command": "type",
+      "target": "name=electronic_hours",
+      "targets": [
+        ["name=electronic_hours", "name"],
+        ["css=.form-control:nth-child(8)", "css:finder"],
+        ["xpath=//input[@name='electronic_hours']", "xpath:attributes"],
+        ["xpath=//div[@id='appliances_questions']/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "200"
+    }, {
+      "id": "58c6d4c2-b5e3-490c-b6b0-78a3492c65ac",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col-md-12:nth-child(4) > .btn:nth-child(2)",
+      "targets": [
+        ["css=.col-md-12:nth-child(4) > .btn:nth-child(2)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='activity-log-form']/div[3]/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a6a13c3d-aec2-4fcb-be21-19ed029f1dd9",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=visit the recommended page",
+      "targets": [
+        ["linkText=visit the recommended page", "linkText"],
+        ["css=.cent > a", "css:finder"],
+        ["xpath=//a[contains(text(),'visit the recommended page')]", "xpath:link"],
+        ["xpath=//div[@id='navbarSupportedContent']/li/div/div/div[2]/div/div/div/div[2]/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, 'recommend2.php')])[2]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'visit the recommended page')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e28d2f20-2990-4cc2-a524-c4b6e5bb04fd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.dbutton",
+      "targets": [
+        ["css=.dbutton", "css:finder"],
+        ["xpath=//a[contains(text(),'View More')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "44959fdd-49ae-4aaf-aafa-eaea2de86a43",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.dbutton",
+      "targets": [
+        ["css=.dbutton", "css:finder"],
+        ["xpath=//a[contains(text(),'View More')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b786d0b0-59bc-4a96-a4d2-dbb672c2e503",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.dbutton",
+      "targets": [
+        ["css=.dbutton", "css:finder"],
+        ["xpath=//a[contains(text(),'View More')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b295d4fb-2ac0-4a19-8ad1-623ef68ff87d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.close > span",
+      "targets": [
+        ["css=.close > span", "css:finder"],
+        ["xpath=//div[@id='contentModal']/div/div/div/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'×')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "97187b17-2f12-4ab5-aafc-58ec3d17bfa5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.nav-item:nth-child(4) > .nav-link",
+      "targets": [
+        ["css=.nav-item:nth-child(4) > .nav-link", "css:finder"],
+        ["xpath=//a[contains(text(),'History')]", "xpath:link"],
+        ["xpath=//div[@id='navbarSupportedContent']/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'history.php')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "79eaa975-1205-4ab6-962e-76247176c3d9",
+      "comment": "",
+      "command": "click",
+      "target": "id=month",
+      "targets": [
+        ["id=month", "id"],
+        ["name=month", "name"],
+        ["css=#month", "css:finder"],
+        ["xpath=//select[@id='month']", "xpath:attributes"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ba52e444-4028-499f-a6e8-9a80e25e28c9",
+      "comment": "",
+      "command": "select",
+      "target": "id=month",
+      "targets": [],
+      "value": "label=March"
+    }, {
+      "id": "799bde5c-2e57-4db6-ae29-ab231acf94e2",
+      "comment": "",
+      "command": "click",
+      "target": "id=showActivityBtn",
+      "targets": [
+        ["id=showActivityBtn", "id"],
+        ["css=#showActivityBtn", "css:finder"],
+        ["xpath=//button[@id='showActivityBtn']", "xpath:attributes"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Show Activity')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "b9c3a950-8e0a-4177-91f7-bbf921b64f44",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost/"],
+  "plugins": []
+}
