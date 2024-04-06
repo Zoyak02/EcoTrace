@@ -12,7 +12,81 @@ function isLoggedIn()
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+$userID = $_SESSION['userID'];
+
+
+evaluateCarbonReductionRookieBadge($userID, $con);
+
+evaluateCertifiedEcoHeroBadge($userID, $con);
+
+evaluateCertifiedEcoWarriorBadge($userID, $con);
+
+
+    // PHP function to update the badge status
+function updateBadgeStatus($con, $userID, $badgeName) {
+        $updateQuery = "UPDATE user_badges SET displayed = 1 WHERE userID = ?";
+        $stmt = mysqli_prepare($con, $updateQuery);
+        mysqli_stmt_bind_param($stmt, "i", $userID);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+ }
+
+
+
+ function checkAndDisplayBadgeModal($userID, $con) {
+    // Query to fetch badge status for the current user
+    $query = "SELECT * FROM user_badges WHERE userID = ?";
+    $stmt = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($stmt, "i", $userID);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
+
+    if (!empty($row)) {
+        // Check if the certified_eco_warrior badge is earned and not displayed
+        if ($row['certified_eco_warrior'] == 1 //&& $row['displayed'] == 0
+        ) {
+            // Set badge name and image source
+            $badgeName = "Certified Eco Warrior";
+            $imgsrc = "images/certified_eco_warrior.png";
+            // Update badge modal
+            echo "updateBadgeModal('$badgeName', '$imgsrc');";
+            // Update badge status
+            updateBadgeStatus($con, $userID, 'certified_eco_warrior');
+        } elseif ($row['certified_eco_hero'] == 1 //&& $row['displayed'] == 0
+        ) {
+            // Set badge name and image source
+            $badgeName = "Certified Eco Hero";
+            $imgsrc = "images/certified_eco_hero.png";
+            // Update badge modal
+            echo "updateBadgeModal('$badgeName', '$imgsrc');";
+            // Update badge status
+            updateBadgeStatus($con, $userID, 'certified_eco_hero');
+        } elseif ($row['carbon_reduction_rookie'] == 1 //&& $row['displayed'] == 0
+        ) {
+            // Set badge name and image source
+            $badgeName = "Carbon Footprint Rookie";
+            $imgsrc = "images/carbon_reduction_rookie.png";
+            // Update badge modal
+            echo "updateBadgeModal('$badgeName', '$imgsrc');";
+            // Update badge status
+            updateBadgeStatus($con, $userID, 'carbon_reduction_rookie');
+        } else {
+            // Debugging: Print a message if no badge is earned or already displayed
+            echo "No badge earned or already displayed.";
+        }
+    } else {
+        // Debugging: Print a message if no row is fetched
+        echo "No row fetched from the database.";
+    }
+}
+
+
+
 ?>
+
 
 <html>
 <meta charset="utf-8">
@@ -28,6 +102,10 @@ ini_set('display_errors', 1);
       <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.8.13/tailwind.min.css" rel='stylesheet'>
+      
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -192,6 +270,83 @@ ini_set('display_errors', 1);
                 color: #fff;
             }
 
+    
+    /* Badge Bootstrap Modal Styles */
+
+/* Modal Background Overlay */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal Content */
+.modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Modal Header */
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: none;
+    padding: 20px;
+    text-align: center;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #343a40;
+    margin: 0;
+}
+
+.close {
+    color: #6c757d;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 20px;
+}
+
+.imgBox {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+img#badgeImage {
+    max-width: 100%;
+    max-height: 200px;
+}
+
+#badgeDescription {
+    font-size: 16px;
+    color: #6c757d;
+    text-align: center;
+}
+
+/* Modal Footer */
+.modal-footer {
+    background-color: #f8f9fa;
+    border-top: none;
+    padding: 20px;
+    text-align: center;
+}
+
+#claimBtn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+}
+
+#claimBtn:hover {
+    background-color: #0056b3;
+}
+
+
+
     </style>
 
       
@@ -201,8 +356,107 @@ ini_set('display_errors', 1);
          <!--Header Start-->
          <!--Header Start-->
          <header class="header-style-2">
+            <nav class="navbar navbar-expand-lg">
+               <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px; margin-left:30px;"></a>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                   <ul class="navbar-nav mr-auto">
+                       <li class="nav-item">
+                           <a class="nav-link active" href="index.php">Home</a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="about.html">About</a>
+                       </li>
+                       <?php if (isLoggedIn()): ?>
+                       <li class="nav-item">
+                           <a class="nav-link" href="activity_log.php">Activity Log</a>
+                       </li>
+                       <?php endif; ?>
+                       <li class="nav-item">
+                           <a class="nav-link" href="carbon_dash.php">Dashboard</a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="display4.php">Learn</a>
+                       </li>
+                       <!--
+                       <li class="nav-item">
+                           <a class="nav-link" href="#">Pages</a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="contact.html">Contact</a>
+                       </li>
+                       --->
+                   </ul>
+                   <?php if (isLoggedIn()): ?>
+                     <!-- If user is logged in, show profile circle -->
+                     <li class="nav-item" style="list-style: none;">
+                     <!-- If user is not logged in, show login button -->
+                     <div class="notification" >
+                        <div class="notBtn" href="#">
+                           <?php if (weeklyLogUpToDate($con)) : ?>
+                              <div class="number"></div>
+                           <?php else : ?>
+                              <div class="number">1</div>
+                           <?php endif; ?>
+                              <i class="fas fa-bell" id="bell"></i>
+                              <div class="box">
+                                 <div class="display">
+                                    <?php if (weeklyLogUpToDate($con)) : ?>
+                                       <div class="container" style= "padding-top:25px;">
+                                          <div class="row">
+                                             <div class="col-3">
+                                             <img class="icon" style="width:60px; margin-left:8px;" src="https://cdn-icons-png.flaticon.com/128/8832/8832119.png" alt="Update Weekly Log Icon">
+                                             </div>
+                                             <div class="col-8">
+                                             <div class="cent">You're all caught up!</div>
+                                            </div>
+                                          </div>
+                                    <?php else : ?>
+                                       <div class="container" style= "padding-top:22px;">
+                                          <div class="row">
+                                             <div class="col-3">
+                                                   <img class="icon" style="width:50px;" src="https://cdn-icons-png.flaticon.com/128/10308/10308693.png" alt="Update Weekly Log Icon">
+                                             </div>
+                                             <div class="col-8">
+                                                   <div class="cent">Please update your weekly log for this week</div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    <?php endif; ?>
+                                 </div>
+                              </div>
+                              </div>
+                        </div>
+                     </li>
+                     <li class="nav-item profile-dropdown">
+                        <img src="images/profile.jpg" class="profile" />
+                        <ul class="profile-menu">
+                           <li class="sub-item">
+                               <a href="profile.php" style="display: flex; align-items: center; text-decoration: none;">
+                                  <span class="material-icons-outlined"> manage_accounts </span>
+                                  <p>Update Profile</p>
+                               </a>
+                           </li>
+                           <!-- Other profile-related items -->
+                           <li class="sub-item">
+                                 <a href="index.php?logout=true" style="display: flex; align-items: center; text-decoration: none;"> <!-- Log out link -->
+                                    <span class="material-icons-outlined"> logout </span>
+                                    <p>Logout</p>
+                                 </a>
+                           </li>
+                        </ul>
+                     </li>
 
-         <?php include("nav.php") ?>
+               <?php else: ?>
+                     <li class="nav-item" style="list-style: none;">
+                        <a class="login-btn" href="login.php" role="button"> Login </a>
+                     </li>
+               <?php endif; ?>
+               
+               
+            </div>
+         
+            </nav>
             
          </header>
          <!--Header End-->
@@ -215,7 +469,6 @@ ini_set('display_errors', 1);
          </section>
          <!--Inner Header End--> 
 
-         
 
          <?php if (isLoggedIn()): ?>
             <?php
@@ -358,6 +611,43 @@ ini_set('display_errors', 1);
                         }
 
                     ?>
+
+
+
+                 <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                    // Call the PHP function to check and display badge modal
+                    <?php checkAndDisplayBadgeModal($_SESSION['userID'], $con); ?>
+                    });
+                
+                </script>
+
+        <!-- Badge Bootstrap Modal -->
+            <div class="modal fade" id="badgeModal" tabindex="-1" role="dialog" aria-labelledby="badgeModalLabel" aria-hidden="false">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="badgeModalLabel"> Congratulations! You Earned the <?php echo $badgeName ?> Badge! 🌟</h5>
+                            <button type="button" class="close" id="closeBtn" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="imgBox">
+                                <img id="badgeImage" src="<?php echo $imgsrc ?>" alt="Badge Image" />
+                            </div>
+                            <p id="badgeDescription"></p>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="shareBtn">Share Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                  
+
+
        
         <?php if($row['totalRecords'] <= 0): ?>
             <!-- Display pop-up alert for new users -->
@@ -646,31 +936,7 @@ ini_set('display_errors', 1);
                                     stepSize: 10,
                                     suggestedMin: 0,
                                     suggestedMax: 200,
-                                    maxTicksLimit: 5,
-                                    title: {
-                                        display: true,
-                                        text: 'Total Carbon Footprint',
-                                        padding: {
-                                            bottom: 15 // Adjust this value as needed
-                                        },
-                                        font: {
-                                            weight: 'bold'
-                                        }
-                                    }
-                                },
-
-                                x:{
-                                    title: {
-                                        display: true,
-                                        text: 'Weeks',
-                                        padding: {
-                                            top: 10 // Adjust this value as needed
-                                        },
-                                        font: {
-                                            weight: 'bold'
-                                        }
-
-                                    }
+                                    maxTicksLimit: 5
                                 }
                         },
                         plugins: {
@@ -679,7 +945,8 @@ ini_set('display_errors', 1);
                                 text: 'Carbon Footprint Trend for ' + month,
                                 color:'#66bb6a',
                                 font: {
-                                    size: 16, 
+                                    size: 18, 
+                                   
                                 }
                             }
                         },
@@ -736,6 +1003,66 @@ ini_set('display_errors', 1);
             }
 
             </script>
-   </body>
-    </head>
-    </html>
+
+
+            <script>
+                const badgeModal = document.getElementById('badgeModal');
+                const shareBtn = document.getElementById('shareBtn');
+                const closeBtn = document.getElementById('closeBtn');
+
+                let badgeImageUrl;
+               
+                closeBtn.addEventListener('click', () => {
+                    $('#badgeModal').modal('hide'); // Hide the modal when the close button is clicked
+                });
+                
+                function updateBadgeModal(badgeName, imgsrc) {
+                    // Set badge image source based on badgeName
+                    document.getElementById('badgeImage').src = imgsrc;
+
+                    // Set badge title based on badgeName
+                    document.getElementById('badgeModalLabel').textContent = `Congratulations! You Earned the ${badgeName} Badge! 🌟`;
+
+                    shareBtn.addEventListener('click', shareBadge)
+
+                    badgeImageUrl = imgsrc;
+
+                    function shareBadge() {
+                        // Redirect the user to the destination page with the badge image URL as a query parameter
+                        window.location.href = 'public_html/index.php?badgeImageUrl=' + (badgeImageUrl);
+                    }
+
+                    // Show the modal
+                    $('#badgeModal').modal('show');
+
+                    // Confetti animation
+                    const startit = () => {
+                        setTimeout(function () {
+                            confetti.start();
+                        }, 1000);
+                    };
+
+                    const stopit = () => {
+                        setTimeout(function () {
+                            confetti.stop();
+                        }, 5000);
+                    };
+
+                    // Trigger confetti animation
+                    startit();
+                    stopit();
+                };
+            </script>
+
+
+            <script src="js/confetti.min.js"></script>   
+            <script src="js/jquery-3.3.1.min.js"></script> 
+            <script src="js/jquery-migrate-1.4.1.min.js"></script> 
+            <script src="js/popper.min.js"></script> 
+            <script src="js/bootstrap.min.js"></script> 
+
+
+
+    </body>
+  </head>
+</html>
