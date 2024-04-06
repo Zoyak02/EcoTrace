@@ -76,9 +76,6 @@ function checkCarbonFootprints($con) {
                        <li class="nav-item">
                            <a class="nav-link" href="activity_log.php">Activity Log</a>
                        </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="history.php">History</a>
-                       </li>
                        <?php endif; ?>
                        <li class="nav-item">
                            <a class="nav-link" href="carbon_dash.php">Dashboard</a>
@@ -86,11 +83,6 @@ function checkCarbonFootprints($con) {
                        <li class="nav-item">
                            <a class="nav-link" href="display4.php">Learn</a>
                        </li>
-                       <?php if (isLoggedIn()): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="recommend2.php">Recommendations</a>
-                        </li>
-                    <?php endif; ?>
                    </ul>
                    <?php if (isLoggedIn()): ?>
                     <li class="nav-item" style="list-style: none;">
