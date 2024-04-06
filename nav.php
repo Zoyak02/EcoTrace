@@ -61,7 +61,7 @@ function checkCarbonFootprints($con) {
 }
 ?>
 
-<nav class="navbar navbar-expand-lg">
+         <nav class="navbar navbar-expand-lg">
                <a class="logo" href="index.html"><img src="images/EcoTrace Logo.png" alt="" style="height: 100px; margin-left:30px;"></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
