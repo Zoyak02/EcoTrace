@@ -1,5 +1,29 @@
 <?php 
 
+$userID = $_SESSION['userID'];
+
+// Fetch user data from the database
+$sql = "SELECT * FROM user WHERE userID = ?";
+$stmt = mysqli_prepare($con, $sql);
+mysqli_stmt_bind_param($stmt, "i", $userID);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+
+// Check if execute() was successful
+if (!$result) {
+    // Handle error if execute() fails
+    echo "Failed to execute the SQL statement.";
+    exit();
+}
+
+// Fetch user data as an associative array
+$user = mysqli_fetch_assoc($result);
+
+$profilePicture = $user['profilePicture'];
+
+
+
 function checkCarbonFootprints($con) {
     // Check if user is logged in
     if (isLoggedIn()) {
