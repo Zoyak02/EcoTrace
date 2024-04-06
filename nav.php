@@ -1,5 +1,30 @@
 <?php 
 
+if (isLoggedIn()) {
+    $userID = $_SESSION['userID'];
+    
+    // Fetch user data from the database
+    $sql = "SELECT * FROM user WHERE userID = ?";
+    $stmt = mysqli_prepare($con, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $userID);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    
+    // Check if execute() was successful
+    if (!$result) {
+        // Handle error if execute() fails
+        echo "Failed to execute the SQL statement.";
+        exit();
+    }
+    
+    // Fetch user data as an associative array
+    $user = mysqli_fetch_assoc($result);
+    
+    $profilePicture = $user['profilePicture'];
+    }
+    
+
 function checkCarbonFootprints($con) {
     // Check if user is logged in
     if (isLoggedIn()) {
@@ -68,6 +93,9 @@ function checkCarbonFootprints($con) {
                     <?php endif; ?>
                    </ul>
                    <?php if (isLoggedIn()): ?>
+                    <li class="nav-item" style="list-style: none;">
+                        <a class="login-btn" href="public_html/index.php" role="button">EcoHub</a>
+                   </li>
                      <!-- If user is logged in, show profile circle -->
                      <li class="nav-item" style="list-style: none;">
                      <!-- If user is not logged in, show login button -->
@@ -120,7 +148,7 @@ function checkCarbonFootprints($con) {
                         </div>
                      </li>
                      <li class="nav-item profile-dropdown">
-                        <img src="images/profile.jpg" class="profile" />
+                     <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile" style= "height:60px;"/>
                         <ul class="profile-menu">
                            <li class="sub-item">
                                <a href="profile.php" style="display: flex; align-items: center; text-decoration: none;">
@@ -135,6 +163,20 @@ function checkCarbonFootprints($con) {
                                     <p>Logout</p>
                                  </a>
                            </li>
+                           <li class="sub-item">
+                                <a href="recommend2.php" style="display: flex; align-items: center; text-decoration: none;">
+                                    <span class="material-icons-outlined">thumb_up</span>
+                                    <p>Recommendations</p>
+                                </a>
+                            </li>
+                           
+                            <li class="sub-item">
+                                <a href="history.php" style="display: flex; align-items: center; text-decoration: none;">
+                                    <span class="material-icons-outlined">history</span>
+                                    <p>History</p>
+                                </a>
+                            </li>
+
                         </ul>
                      </li>
 
