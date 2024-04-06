@@ -8,15 +8,6 @@ if (!$con) {
     exit();
 }
 
-// function isLoggedIn()
-// {
-//         if (isset($_SESSION['userID'])) {
-//                 return true;
-//         }else{
-//                 return false;
-//         }
-// }
-
 // Retrieve user ID from the session after successful login
 if (!isset($_SESSION['userID'])) {
     // Redirect to login page if user is not logged in
@@ -255,8 +246,9 @@ function weeklyLogUpToDate($con) {
    <div class="wrapper">
       <!--Header Start-->
       <header class="header-style-2">
+
       <?php include("nav.php") ?>
-         
+
       </header>
       <!-- Header End -->
       <!--Inner Header Start-->
