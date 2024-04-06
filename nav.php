@@ -1,5 +1,6 @@
 <?php 
 
+if (isLoggedIn()) {
 $userID = $_SESSION['userID'];
 
 // Fetch user data from the database
@@ -21,7 +22,7 @@ if (!$result) {
 $user = mysqli_fetch_assoc($result);
 
 $profilePicture = $user['profilePicture'];
-
+}
 
 
 function checkCarbonFootprints($con) {
@@ -75,9 +76,6 @@ function checkCarbonFootprints($con) {
                        <li class="nav-item">
                            <a class="nav-link" href="activity_log.php">Activity Log</a>
                        </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="history.php">History</a>
-                       </li>
                        <?php endif; ?>
                        <li class="nav-item">
                            <a class="nav-link" href="carbon_dash.php">Dashboard</a>
@@ -85,11 +83,6 @@ function checkCarbonFootprints($con) {
                        <li class="nav-item">
                            <a class="nav-link" href="display4.php">Learn</a>
                        </li>
-                       <?php if (isLoggedIn()): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="recommend2.php">Recommendations</a>
-                        </li>
-                    <?php endif; ?>
                    </ul>
                    <?php if (isLoggedIn()): ?>
                      <!-- If user is logged in, show profile circle -->
@@ -144,7 +137,7 @@ function checkCarbonFootprints($con) {
                         </div>
                      </li>
                      <li class="nav-item profile-dropdown">
-                        <img src="images/profile.jpg" class="profile" />
+                        <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile" />
                         <ul class="profile-menu">
                            <li class="sub-item">
                                <a href="profile.php" style="display: flex; align-items: center; text-decoration: none;">
@@ -159,6 +152,20 @@ function checkCarbonFootprints($con) {
                                     <p>Logout</p>
                                  </a>
                            </li>
+                           <li class="sub-item">
+                                <a href="recommend2.php" style="display: flex; align-items: center; text-decoration: none;">
+                                    <span class="material-icons-outlined">thumb_up</span>
+                                    <p>Recommendations</p>
+                                </a>
+                            </li>
+                           
+                            <li class="sub-item">
+                                <a href="history.php" style="display: flex; align-items: center; text-decoration: none;">
+                                    <span class="material-icons-outlined">history</span>
+                                    <p>History</p>
+                                </a>
+                            </li>
+
                         </ul>
                      </li>
 
