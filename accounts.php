@@ -100,36 +100,27 @@ if (isset($_POST['login-btn'])) {
 
 // Check if form is submitted
 if (isset($_POST['signup-btn'])) {
-    //Retrieve form data
-    $firstName = $_POST["firstName"];
-    $lastName = $_POST["lastName"];
-    $username = $_POST["username"];
-    $contactNumber = $_POST["contactNumber"];
-    $email = $_POST["email"];
-    $profilePicture = "images/profile.jpg";
-    $first_login = 1;
+    // Retrieve and sanitize form data
+    $firstName = sanitizeInput($_POST["firstName"]);
+    $lastName = sanitizeInput($_POST["lastName"]);
+    $username = sanitizeInput($_POST["username"]);
+    $contactNumber = sanitizeInput($_POST["contactNumber"]);
+    $email = sanitizeInput($_POST["email"]);
 
-
-    // Check if username already exists
-    $check_username_sql = "SELECT * FROM user WHERE username = ?";
-    $check_username_stmt = mysqli_prepare($con, $check_username_sql);
-    mysqli_stmt_bind_param($check_username_stmt, "s", $username);
-    mysqli_stmt_execute($check_username_stmt);
-    $result = mysqli_stmt_get_result($check_username_stmt);
-
-    if (mysqli_num_rows($result) > 0) {
-        // Username already exists, show error message
-        echo '<script type="text/javascript">
-            alert("Username is already taken. Please choose another username.");
-            window.location.href = "login.php"; // Close the modal or redirect to the desired page
-            </script>';
-        exit;
+    // Validate form data
+    if (!isValidName($firstName) || !isValidName($lastName)) {
+        handleError("Invalid first name or last name.");
+    }
+    if (!isValidUsername($username)) {
+        handleError("Invalid username. Username must contain only letters, numbers, and underscores.");
+    }
+    if (!isValidEmail($email)) {
+        handleError("Invalid email address.");
+    }
+    if (!isValidContactNumber($contactNumber)) {
+        handleError("Invalid contact number.");
     }
 
-      // Set default values for bio and display name
-      $user_bio = "Hello, I am " . $username; // Default bio
-      $user_display_name = $username; // Default display name
-    
     // Generate a default password and hash it
     $default_password = generateRandomPassword();
     $hashed_password = password_hash($default_password, PASSWORD_DEFAULT);
@@ -194,6 +185,48 @@ if (isset($_POST['signup-btn'])) {
 
     // Close the statement
     mysqli_stmt_close($stmt);
+}
+
+// Function to sanitize input data
+function sanitizeInput($data) {
+    return htmlspecialchars(trim($data));
+}
+
+// Function to validate first name and last name
+function isValidName($name) {
+    // Implement your validation rules here
+    // For example, check if the name contains only letters and spaces
+    return preg_match('/^[a-zA-Z\s]+$/', $name);
+}
+
+// Function to validate username
+function isValidUsername($username) {
+    // Implement your validation rules here
+    // For example, check if the username contains only letters, numbers, and underscores
+    return preg_match('/^[a-zA-Z0-9_]+$/', $username);
+}
+
+// Function to validate email address
+function isValidEmail($email) {
+    // Implement your validation rules here
+    // You can use PHP's built-in filter_var function for email validation
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
+// Function to validate contact number
+function isValidContactNumber($contactNumber) {
+    // Implement your validation rules here
+    // For example, check if the contact number contains only digits and optional symbols like +, -, etc.
+    return preg_match('/^\+?\d{1,}$/',$contactNumber);
+}
+
+// Function to handle errors
+function handleError($errorMessage) {
+    echo '<script type="text/javascript">
+        alert("' . $errorMessage . '");
+        window.location.href = "login.php"; // Redirect to the desired page
+        </script>';
+    exit;
 }
 
 
@@ -385,4 +418,8 @@ if (isset($_POST['editPicture-btn'])) {
 
 
 ?>
+
+
+
+
 

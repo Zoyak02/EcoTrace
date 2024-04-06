@@ -384,7 +384,7 @@ ini_set('display_errors', 1);
         <?php if($row['totalRecords'] <= 0): ?>
             <!-- Display pop-up alert for new users -->
         <script>
-            alert("Welcome! Please go to the activity log and fill it up to see your dashboard.");
+            alert("Welcome! Please go to the activity log and fill it up to see your historical data.");
             window.location.href = 'activity_log.php';
         </script>
                 <?php else: ?>
