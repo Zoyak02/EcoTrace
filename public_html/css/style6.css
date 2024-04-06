@@ -163,7 +163,7 @@ body.preload * {
 
 .likes-text-container {
   z-index: 101;
-  padding :2px;
+  padding :4px;
 }
 
 /* Post like button */

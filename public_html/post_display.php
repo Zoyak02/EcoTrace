@@ -1,5 +1,6 @@
 <style>
 
+
 .comment {
   display: grid;
   gap: 14px;
@@ -127,6 +128,7 @@ function get_post_comments($pdo, $post_id) {
     return $comments;
 }
 
+
 function calculate_time_ago($created_at) {
     // Convert comment creation time to a Unix timestamp
     $comment_timestamp = strtotime($created_at);
@@ -157,6 +159,7 @@ function calculate_time_ago($created_at) {
     // Return the time ago string
     return "$difference $periods[$j] ago";
 }
+
 
 
 
@@ -205,6 +208,7 @@ function display_posts($pdo, $posts)
         $dropdown_menu_items = get_dropdown_menu_items($is_current_user, $post_id, false, $is_user_following_poster);
 
         $likes_text = get_likes_text($pdo, $post_id);
+        $comments_count = count(get_post_comments($pdo, $post_id));
 
         $caption_html = $caption === "" ? "" :
             "
@@ -219,7 +223,7 @@ function display_posts($pdo, $posts)
             </div>
             ";
 
-        echo "<div class='post d-flex w-100  bg-white p-4 border' data-post-id='{$post_id}' data-poster-id='{$poster_id}'>
+        echo "<div class='post d-flex w-100  bg-white p-4 border mb-4' data-post-id='{$post_id}' data-poster-id='{$poster_id}'>
                 <div class='w-100 d-flex flex-column align-items-start gap-3'>
                     <div class='px-2 post-top d-flex align-items-center w-100 justify-content-between'>
                         <a href='{$user_profile_link}' class='text-decoration-none'>
@@ -266,17 +270,17 @@ function display_posts($pdo, $posts)
                                         </div>   
                                     </div>
 
-                                <div class='con-check cursor-pointer'>
-                                  <input type='checkbox' class='check cursor-pointer'>
-                                    <div class='checkmark'>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' fill='currentColor' class='bi bi-chat  outline cursor-pointer post-chat-icon'  viewBox='0 0 16 16'>
-                                            <path d='M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z'/>
-                                        </svg>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chat-fill filled text-primary cursor-pointer post-chat-icon' id='icon' viewBox='0 0 16 16' >
-                                            <path fill-rule='evenodd' d='M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9 9 0 0 0 8 15'/>
-                                        </svg>
-                                    </div>   
-                                </div>
+                                    <div class='con-check cursor-pointer'>
+                                        <input type='checkbox' class='check cursor-pointer'>
+                                        <div class='checkmark'>
+                                            <svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' fill='currentColor' class='bi bi-chat  outline cursor-pointer post-chat-icon'  viewBox='0 0 16 16'>
+                                                <path d='M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z'/>
+                                            </svg>
+                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chat-fill filled text-primary cursor-pointer post-chat-icon' id='icon' viewBox='0 0 16 16' >
+                                                <path fill-rule='evenodd' d='M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9 9 0 0 0 8 15'/>
+                                            </svg>
+                                        </div>   
+                                    </div>
 
                                     <svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' fill='currentColor' class='bi bi-send cursor-pointer' viewBox='0 0 16 16'>
                                         <path d='M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z'/>
@@ -288,75 +292,83 @@ function display_posts($pdo, $posts)
                                 </svg>
                             </div>
 
+
                             <div class='likes-text-container'>
                                 <a type='button'
                                     class='like-text p-1 m-0 fw-semibold cursor-pointer text-decoration-none text-dark'
                                     data-toggle='modal' data-target='#post-likes-modal' id='post-likes-modal-trigger'>
                                     {$likes_text}
                                 </a>
+
+                                <a type='button' type='button' class='like-text p-1 m-0 fw-semibold cursor-pointer text-decoration-none text-dark'>
+                                    {$comments_count} comments
+                                    </a>
                             </div>
+
+                                    
 
                             {$caption_html}
 
                             <p class='post-creation-date text-secondary flex-shrink-0 pt-1 m-0'><small>{$time_ago}</small></p>
                         </div>
-                        ";
+                    </div>";
 
-
-                        $comments = get_post_comments($pdo, $post_id);
-
-                        echo " <div class='post-comment-section'>
+                    echo "<div class='comment-container' style='display: none;'>
+                    <div class='post-comment-section' style='width:460px';>
                         <hr> <!-- Border after the caption -->
-                        <h5><b>Comments</b></h5> <!-- Heading for comments -->";
-
-                        foreach ($comments as $comment) {
-                            $comment_content = $comment['content'];
-                            $comment_created_at = $comment['created_at'];
-
-                            // Calculate time ago for the comment
-                            $comment_time_ago = calculate_time_ago($comment_created_at); // You need to define this function
-
-                            echo "
-                                <div class='comment'>
-                                    <div class='user-banner'>
-                                        <div class='user'>
-                                            <div class='avatar'>
-                                                <img src='{$user_profile_picture}'>
-                                            </div>  
-                                            <h6 style='margin-bottom:2px; font-size:15px;'>{$user_username}</h6>                        
-                                        </div>
-                                        <span class='is-mute'>{$comment_time_ago}</span> 
-                                    </div>
-                                    <div class='content'>
-                                        <small>{$comment_content}</small>
-                                    </div>
-                                </div>";
-                        }
-                        echo "</div>"; 
-
-                    
-                      echo"<div class='comment-container' style='display: none;'>
-                            <form class='form-inline' role='form' action='../core/comments.php' method='post'>
-
-                               <input type='hidden' name='post_id' value='{$post_id}'>
-
-                                <div class='input-group'>
-                                    <input class='form-control' type='text' placeholder='Your comments' name='content'/>
-                                    <div class='input-group-append'>
-                                        <button class='btn btn-success' type='submit'>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-arrow-up-short' viewBox='0 0 16 16'>
-                                        <path fill-rule='evenodd' d='M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5'/>
-                                        </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        
-                    </div>
-                </div>
-              </div>";
+                        <h5><b>Comments</b></h5>"; // Heading for comments
+          
+          // Retrieve comments for the current post
+          $comments = get_post_comments($pdo, $post_id);
+          
+          // Loop through each comment and display it
+          foreach ($comments as $comment) {
+              $comment_content = $comment['content'];
+              $comment_created_at = $comment['created_at'];
+          
+              // Calculate time ago for the comment
+              $comment_time_ago = calculate_time_ago($comment_created_at); // You need to define this function
+          
+              echo "<div class='comment'>
+                      <div class='user-banner'>
+                          <div class='user'>
+                              <div class='avatar'>
+                                  <img src='{$user_profile_picture}'>
+                              </div>  
+                              <h6 style='margin-bottom:2px; font-size:15px;'>{$user_username}</h6>                        
+                          </div>
+                          <span class='is-mute'>{$comment_time_ago}</span> 
+                      </div>
+                      <div class='content'>
+                          <small>{$comment_content}</small>
+                      </div>
+                    </div>";
+          }
+          
+          // Close the post-comment-section div
+          echo "</div>";
+          
+          // Display the comment input form
+          echo "<form class='form-inline' role='form' action='../core/comments.php' method='post' >
+                  <input type='hidden' name='post_id' value='{$post_id}'>
+                  <div class='input-group' style='margin-top:25px;'>
+                      <input class='form-control' type='text' placeholder='Your comments' name='content'/>
+                      <div class='input-group-append'>
+                          <button class='btn btn-success' type='submit'>
+                              <svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-arrow-up-short' viewBox='0 0 16 16'>
+                                  <path fill-rule='evenodd' d='M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5'/>
+                              </svg>
+                          </button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>";
     }
 }
+
 
 function display_all_posts()
 {

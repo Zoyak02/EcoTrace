@@ -138,7 +138,7 @@ if (isset($_GET['userID']) && !empty($_GET['userID'])) {
                 </div>
                 <div
                     class="d-flex feed-container flex-column align-items-start align-items-center justify-content-center">
-                    <div class="feed-top w-100 mb-4">
+                    <div class="feed-top w-100 mb-4" style="margin-right:90px;">
                         <h4 id="user-profile-posts" class="fw-semibold">Posts</h4>
                     </div>
                     <div

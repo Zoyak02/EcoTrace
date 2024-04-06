@@ -67,7 +67,7 @@ function updateBadgeStatus($con, $userID, $badgeName) {
         } elseif ($row['carbon_reduction_rookie'] == 1 //&& $row['displayed'] == 0
         ) {
             // Set badge name and image source
-            $badgeName = "Carbon Footprint Rookie";
+            $badgeName = "Carbon Reduction Rookie";
             $imgsrc = "images/carbon_reduction_rookie.png";
             // Update badge modal
             echo "updateBadgeModal('$badgeName', '$imgsrc');";
@@ -305,17 +305,17 @@ function updateBadgeStatus($con, $userID, $badgeName) {
 
 /* Modal Body */
 .modal-body {
-    padding: 20px;
+    padding: 15px;
 }
 
 .imgBox {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom:-30px
 }
 
 img#badgeImage {
-    max-width: 100%;
-    max-height: 200px;
+    width:250px;
+    height:250px;
 }
 
 #badgeDescription {
@@ -356,7 +356,6 @@ img#badgeImage {
          <!--Header Start-->
          <!--Header Start-->
          <header class="header-style-2">
-            
          <?php include("nav.php") ?>
 
          </header>
@@ -528,7 +527,7 @@ img#badgeImage {
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="badgeModalLabel"> Congratulations! You Earned the <?php echo $badgeName ?> Badge! 🌟</h5>
+                            <h5 class="modal-title" id="badgeModalLabel"></h5>
                             <button type="button" class="close" id="closeBtn" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -921,8 +920,10 @@ img#badgeImage {
                     // Set badge image source based on badgeName
                     document.getElementById('badgeImage').src = imgsrc;
 
-                    // Set badge title based on badgeName
-                    document.getElementById('badgeModalLabel').textContent = `Congratulations! You Earned the ${badgeName} Badge! 🌟`;
+                    // Set badge title and description based on badgeName
+                    document.getElementById('badgeModalLabel').textContent = "Badge Received 🌟";
+                    document.getElementById('badgeDescription').innerHTML = `Congratulations! <br> You have just received the <strong
+                    style="color: #1b5e20;">${badgeName}</strong> Badge. Share your achievement with your friends!`;
 
                     shareBtn.addEventListener('click', shareBadge)
 
@@ -930,7 +931,7 @@ img#badgeImage {
 
                     function shareBadge() {
                         // Redirect the user to the destination page with the badge image URL as a query parameter
-                        window.location.href = 'public_html/index.php?badgeImageUrl=' + (badgeImageUrl);
+                        window.location.href = 'public_html/index.php?badgeImageUrl=' + badgeImageUrl;
                     }
 
                     // Show the modal
