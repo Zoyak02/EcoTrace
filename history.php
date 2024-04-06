@@ -1,6 +1,5 @@
 <?php
 include("carbon_calc.php");
-include("fetch_history.php");
 
 function isLoggedIn()
 {
@@ -13,19 +12,19 @@ function isLoggedIn()
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
 ?>
 
-<html>
-<meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="description" content="">
       <meta name="author" content="">
       <link rel="icon" href="images/EcoTrace Logo.png" style="width: 50px;">
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />   
 	   <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
       <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, width=320" />
-      <title>Historical Tracking</title> 
+      <title>History</title> 
       <link href='https://fonts.googleapis.com/css?family=Anton&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
       <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous">
@@ -33,6 +32,7 @@ ini_set('display_errors', 1);
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
       rel="stylesheet"/>
@@ -195,11 +195,9 @@ ini_set('display_errors', 1);
             }
 
     </style>
-
-      
-   </head>
-   <body>
-      <div class="wrapper home2">
+</head>
+<body>
+    <div class="wrapper home2">
         <!--Header Start-->
         <header class="header-style-2">
             <nav class="navbar navbar-expand-lg">
@@ -211,14 +209,11 @@ ini_set('display_errors', 1);
                            <a class="nav-link active" href="index.php">Home</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="#about">About</a>
+                           <a class="nav-link" href="about.html">About</a>
                        </li>
                        <?php if (isLoggedIn()): ?>
                        <li class="nav-item">
                            <a class="nav-link" href="activity_log.php">Activity Log</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="history.php">History</a>
                        </li>
                        <?php endif; ?>
                        <li class="nav-item">
@@ -227,14 +222,6 @@ ini_set('display_errors', 1);
                        <li class="nav-item">
                            <a class="nav-link" href="display4.php">Learn</a>
                        </li>
-                       <!--
-                       <li class="nav-item">
-                           <a class="nav-link" href="#">Pages</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="contact.html">Contact</a>
-                       </li>
-                       --->
                    </ul>
                    <?php if (isLoggedIn()): ?>
                      <!-- If user is logged in, show profile circle -->
@@ -302,69 +289,68 @@ ini_set('display_errors', 1);
                      </li>
                <?php endif; ?>
                
+               
             </div>
          
             </nav>
             
          </header>
-      <!-- Header End -->
-
-          <!--Inner Header Start-->
-          <section class="wf100 inner-header">
-            <div class="container">
-               <h1>Historical Tracking</h1>
-            </div>
+         <!--Header End-->
+        <!--Inner Header Start-->
+            <section class="wf100 inner-header">
+                <div class="container">
+                    <h1>Historical Tracking</h1>
+                </div>
          </section>
-         <!--Inner Header End--> 
-
-         <?php if (isLoggedIn()): ?>
+        <!--Inner Header End--> 
+        
+        <div class="container">
+            <!-- 'Your Past Activity' Section Start -->
+            <div class="row justify-content-center" style="padding-top: 45px">
+                <div class="h2-about-txt">
+                    <h3 class="mb-0"><b>Your Past Activity</b></h3>
+                </div>
+            </div>
+            <div class="row justify-content-center" style="padding-top: 20px">
+                <div>
+                    <select id="month" name="month" class="form-control">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div style="margin-left: 30px;">
+                    <button id="showActivityBtn" class="btn btn-success px-4">Show Activity</button>
+                </div>
+            </div>  
             <?php
 
                 $userID = $_SESSION['userID'];
 
                 // Check if $con is defined and is a valid mysqli connection
                 if (isset($con) && $con instanceof mysqli && !$con->connect_error) {
-   
+                    
                     $latestWeekEntered = weeklyLogUpToDate($con);
 
-                    // SELECTED MONTH AND WEEK
-                    // Define current month and week
-                    $currentMonth = date('F'); // Current month
-                    $currentWeek = 'Week ' . ceil(date('j') / 7); // Calculate the week based on the current day
-                    
-                    // Function to fetch months for which the user has data
-                    function getMonthsWithData($userID, $con) {
-                        $sql = "SELECT DISTINCT MONTHNAME(date) AS month FROM weeklyLog WHERE userID = $userID";
-                        $result = mysqli_query($con, $sql);
-                        $months = [];
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $months[] = $row['month'];
-                        }
-                        return $months;
-                    }
-
-                    // Function to fetch weeks for the selected month and for which the user has data
-                    function getWeeksWithData($userID, $selectedMonth, $con) {
-                        $sql = "SELECT DISTINCT weekNo FROM weeklyLog WHERE userID = $userID AND MONTHNAME(date) = '$selectedMonth'";
-                        $result = mysqli_query($con, $sql);
-                        $weeks = [];
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $weeks[] = 'Week ' . $row['weekNo'];
-                        }
-                        return $weeks;
-                    }
-                    
                     // DASHBOARD CARD CALCULATION 
-                    // Query to calculate cumulative total for food based on selected month and week
+                    // Query to calculate cumulative total for food
                     $foodQuery = "SELECT SUM(carbonFootprintFood) AS totalFood FROM weeklylog WHERE userID = '$userID'";
                     $foodResult = mysqli_query($con, $foodQuery);
-                    $totalfood = 0;
+                    $totalFood = 0;
 
                     if ($foodResult && mysqli_num_rows($foodResult) > 0) {
                         $totalFoodRow = mysqli_fetch_assoc($foodResult);
                         $totalFood = $totalFoodRow['totalFood'];
                     }
-
 
                     // Query to calculate cumulative total for transport
                     $transportQuery = "SELECT SUM(carbonFootprintTransport) AS totalTransport FROM weeklylog WHERE userID = '$userID'";
@@ -394,7 +380,6 @@ ini_set('display_errors', 1);
                         $totalOverallRow = mysqli_fetch_assoc($overallResult);
                         $totalOverall = $totalOverallRow['totalOverall'];
                     }
-
 
                     // DOUGHNUT CHART CALCULATION 
                    
@@ -432,6 +417,7 @@ ini_set('display_errors', 1);
                     // Handle the case where $con is not defined or is not a valid mysqli connection
                     echo "Database connection is not established or is invalid.";
                 }
+
 
                     // LINE GRAPH CALCULATION 
                     // Retrieve historical carbon footprint data for the logged-in user for the current month
@@ -493,454 +479,288 @@ ini_set('display_errors', 1);
             alert("Welcome! Please go to the activity log and fill it up to see your dashboard.");
             window.location.href = 'activity_log.php';
         </script>
-        <?php else: ?>
+                <?php else: ?>
+                    <!--Dashboard card start--> 
+                    <div class="container flex items-center justify-center p-5">
+                        <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl">
+                            <!-- Card for total food -->
+                            <div class="dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-teal-400 to-green-500 rounded-md overflow-hidden">
+                                <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
+                                    <span id="totalFood"> <!-- ID for total food -->
+                                        <?php echo number_format($totalFood, 2) ?>
+                                    </span>
+                                    <span class="text-sm">kgCO2e</span>
+                                </div>
+                                <div class="relative z-10 text-green-200 leading-none font-semibold">Food</div>
+                                <i class="food_icon"> <img src="https://cdn-icons-png.flaticon.com/128/308/308556.png"></i>
+                            </div>
+                            
+                            <!-- Card for total energy -->
+                            <div class="dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md overflow-hidden">
+                                <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
+                                    <span id="totalEnergy"> <!-- ID for total energy -->
+                                        <?php echo number_format($totalEnergy, 2) ?>
+                                    </span>
+                                    <span class="text-sm">kgCO2e</span>
+                                </div>
+                                <div class="relative z-10 text-blue-200 leading-none font-semibold">Energy</div>
+                                <i class="energy_icon"> <img src="https://cdn-icons-png.flaticon.com/128/1835/1835596.png"></i>
+                            </div>
+                            
+                            <!-- Card for total transport -->
+                            <div class="dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-red-400 to-red-600 rounded-md overflow-hidden">
+                                <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
+                                    <span id="totalTransport"> <!-- ID for total transport -->
+                                        <?php echo number_format($totalTransport, 2) ?>
+                                    </span>
+                                    <span class="text-sm">kgCO2e</span>
+                                </div>
+                                <div class="relative z-10 text-red-200 leading-none font-semibold">Transport</div>
+                                <i class="transport_icon"> <img src="https://cdn-icons-png.flaticon.com/128/1723/1723597.png"></i>
+                            </div>
+                            
+                            <!-- Card for total overall -->
+                            <div class="dashboard-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md overflow-hidden">
+                                <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
+                                    <span id="totalOverall"> <!-- ID for total overall -->
+                                        <?php echo number_format($totalOverall, 2) ?>
+                                    </span>
+                                    <span class="text-sm">kgCO2e</span>
+                                </div>
+                                <div class="relative z-10 text-yellow-200 leading-none font-semibold">Total Footprint</div>
+                                <i class="add_icon"> <img src="https://cdn-icons-png.flaticon.com/128/992/992651.png"></i>
+                            </div>
+                        </section>
+                    </div>
+                    <!--Dashboard card end-->
 
-            <!-- 'Your Past Activity' Section Start -->
-            <div class="container">
-                <div class="row justify-content-center" style="padding-top: 45px">
-                    <div class="h2-about-txt">
-                        <h3 class="mb-0"><b>Your Past Activity</b></h3>
-                    </div>
-                </div>
-                <!-- Select Month and Week -->
-                <div class="row justify-content-center" style="padding-top: 20px">
-                    <div>
-                        <select id="monthDropdown" name="month" class="form-control">
-                            <?php
-                            $monthsWithData = getMonthsWithData($userID, $con);
-                            foreach ($monthsWithData as $month) {
-                                echo "<option value='$month' " . ($month == $currentMonth ? 'selected' : '') . ">$month</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div style="padding-left: 10px;">
-                        <select id="weekDropdown" name="week" class="form-control">
-                            <?php
-                            $currentMonthWeeks = getWeeksWithData($userID, $currentMonth, $con);
-                            foreach ($currentMonthWeeks as $week) {
-                                echo "<option value='$week' " . ($week == $currentWeek ? 'selected' : '') . ">$week</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div style="margin-left: 30px;">
-                        <button id="showActivityBtn" class="btn btn-success px-4">Show Activity</button>
-                    </div>
-                </div>
-                <!-- Select Month and Week End -->
-
-                <!--Dashboard card start--> 
-                <div class="container flex items-center justify-center p-5">
-                <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl">
-                    <div class=" dashboard-card food-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-teal-400 to-green-500 rounded-md overflow-hidden">
-                    <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
-                        <?php echo number_format($totalFood,2) ?>
-                        <span class="text-sm">kgCO2e</span>
-                    </div>
-                    <div class="relative z-10 text-green-200 leading-none font-semibold">Food</div>
-                    <i class="food_icon"> <img src="https://cdn-icons-png.flaticon.com/128/308/308556.png"></i>
-                    </div>
-                
-
-                    <div class=" dashboard-card energy-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md overflow-hidden">
-                    <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
-                        <?php echo number_format($totalEnergy,2) ?>
-                        <span class="text-sm">kgCO2e</span>
-                    </div>
-                    <div class="relative z-10 text-blue-200 leading-none font-semibold">Energy</div>
-                    <i class="energy_icon"> <img src="https://cdn-icons-png.flaticon.com/128/1835/1835596.png"></i>
-                    </div>
-                    
-
-                    <div class=" dashboard-card transport-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-red-400 to-red-600 rounded-md overflow-hidden">
-                    <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
-                        <?php echo number_format($totalTransport,2) ?> 
-                        <span class="text-sm">kgCO2e</span>
-                    </div>
-                    <div class="relative z-10 text-red-200 leading-none font-semibold">Transport</div>
-                    <i class="transport_icon"> <img src="https://cdn-icons-png.flaticon.com/128/1723/1723597.png"></i>
-                    </div>
-                    
-                    <div class=" dashboard-card ocerall-card relative p-5 flex flex-col items-left justify-center h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md overflow-hidden">
-                    <div class="relative z-10 mb-2 text-white text-2xl leading-none font-semibold">
-                        <?php echo number_format($totalOverall,2) ?> 
-                        <span class="text-sm">kgCO2e</span>
-                    </div>
-                    <div class="relative z-10 text-yellow-200 leading-none font-semibold">Total Footprint</div>
-                    <i class="add_icon"> <img src="https://cdn-icons-png.flaticon.com/128/992/992651.png"></i>
-                    </div>
-                
-                
-                </div>
-            </section>
-        </div>
-        <!--Dashboard card end--> 
 
             <div class="container mt-9">
-                <div class="row">
-                    <!-- Donut Chart Card -->
-                    <div class="col-md-12 col-lg-4 mb-3 mb-md-0">
-                        <div class="card custom-box-shadow">
-                            <div class="card-body">
-                                <canvas id="donutChart"></canvas>
-                            </div>
+            <div class="row">
+                <!-- Donut Chart Card -->
+                <div class="col-md-12 col-lg-4 mb-3 mb-md-0">
+                    <div class="card custom-box-shadow">
+                        <div class="card-body">
+                            <canvas id="donutChart"></canvas>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Line Chart Card -->
-                    <div class="col-md-12 col-lg-8">
-                        <div class="card custom-box-shadow">
-                            <div class="card-body">
-                                <canvas id="lineChart"></canvas>
-                            </div>
+                <!-- Line Chart Card -->
+                <div class="col-md-12 col-lg-8">
+                    <div class="card custom-box-shadow">
+                        <div class="card-body">
+                            <canvas id="lineChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-            <?php endif; ?>
-            </div>
-            <?php endif; ?>             
-         <!--Footer Section Start--> 
-         <?php if (isLoggedIn()): ?>  
-         <div class="ftco-section wf100 pt80">
-         <?php else: ?>
-        <div class="ftco-section wf100">
+        </div>
         <?php endif; ?>
-            <footer class="footer">
-              <svg class="footer-wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">
-                <path class="footer-wave-path" d="M851.8,100c125,0,288.3-45,348.2-64V0H0v44c3.7-1,7.3-1.9,11-2.9C80.7,22,151.7,10.8,223.5,6.3C276.7,2.9,330,4,383,9.8 c52.2,5.7,103.3,16.2,153.4,32.8C623.9,71.3,726.8,100,851.8,100z"></path>
-              </svg>
-            </section>
-            <footer class="footer-03">
-               <div class="container">
-                   <div class="row">
-                       <div class="col-md-6">
-                           <div class="d-flex align-items-center justify-content-between mb-4">
-                               
-                              <div class="logo-space">
-                                  <img src="images/EcoTrace Logo.png" alt="Eco Trace Logo" class="logo-img">
-                              </div>
-                          </div>
-              
-                           <div class="row">
-                               <div class="col-md-6 mb-md-0 mb-4">
-                                   <h2 class="footer-heading">Carbon Calculator</h2>
-                                   <ul class="list-unstyled">
-                                       <li><a href="#" class="py-1 d-block">How it Works</a></li>
-                                       <li><a href="#" class="py-1 d-block">Log Your Activities</a></li>
-                                       <li><a href="#" class="py-1 d-block">Reduce Your Footprint</a></li>
-                                   </ul>
-                               </div>
-                               <div class="col-md-4 mb-md-0 mb-4">
-                                   <h2 class="footer-heading">Resources</h2>
-                                   <ul class="list-unstyled">
-                                       <li><a href="#" class="py-1 d-block">Blog</a></li>
-                                       <li><a href="#" class="py-1 d-block">Educational Materials</a></li>
-                                       <li><a href="#" class="py-1 d-block">FAQs</a></li>
-                                   </ul>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="col-md-6">
-                           <div class="row justify-content-end">
-                               <div class="col-md-12 col-lg-11 mb-md-0 mb-4">
-                                   
-                                   <h2 class="footer-heading mt-5">Connect With Us</h2>
-                                   <ul class="ftco-footer-social p-0">
-                                       <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                       <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fab fa-facebook"></i></a></li>
-                                       <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-                                       <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
-                                   </ul>
-                                   <h2 class="footer-heading mt-5">Subscribe to Our Newsletter</h2>
-                                   <form action="#" class="subscribe-form">
-                                       <div class="form-group d-flex">
-                                           <input type="text" class="form-control rounded-left" placeholder="Enter your email address">
-                                           <input type="submit" value="Subscribe" class="form-control submit px-3 rounded-right">
-                                       </div>
-                                   </form>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-                   <div class="row mt-5 pt-4 border-top">
-                       <div class="col-md-6 col-lg-8">
-                           <p class="copyright">© <script>document.write(new Date().getFullYear());</script> All rights reserved | EcoTrace - Track and Reduce Your Carbon Footprint</p>
-                       </div>
-                       <div class="col-md-6 col-lg-4 text-md-right">
-                           <p class="mb-0 list-unstyled">
-                               <a class="mr-md-3" href="#">Terms &amp; Conditions</a>
-                               <a class="mr-md-3" href="#">Privacy Policy</a>
-                           </p>
-                       </div>
-                   </div>
-               </div>
-           </footer>
-      </div>      
-      <!--Footer Section End-->  
 
-            <!-- JAVASCRIPT FOR SELECT MONTH AND WEEK -->
-            <!-- Add jQuery library -->
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    // Get the carbon footprint data from PHP
+    var transportationData = <?php echo $carbonFootprintData['transport']; ?>;
+    var foodData = <?php echo $carbonFootprintData['food']; ?>;
+    var energyData = <?php echo $carbonFootprintData['energy']; ?>;
+    var week = <?php echo $latestWeekNumber; ?>;
+    var weekLabels = <?php echo json_encode($weeklyLabels); ?>;
+    var totalFootprintData = <?php echo json_encode($totalFootprintData); ?>;
+    var month = <?php echo json_encode($currentMonth); ?>;
+    
 
-            <script>
-                $(document).ready(function() {
-                    // Event listener for month dropdown change
-                    $('select[name="month"]').change(function() {
-                        var selectedMonth = $(this).val();
-                        // Fetch weeks for the selected month via AJAX
-                        $.ajax({
-                            url: "fetch_history.php",
-                            method: "POST",
-                            dataType: "json",
-                            data: { selectedMonth: selectedMonth },
-                            success: function(response) {
-                                // Sort the weeks array in ascending order
-                                response.weeks.sort();
+    // Create a donut chart
+    var donutCtx = document.getElementById('donutChart').getContext('2d');
+    var donutChart = new Chart(donutCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Transportation', 'Food', 'Energy'],
+            datasets: [{
+                data: [transportationData, foodData, energyData],
+                backgroundColor: ['#FF4F4B', '#4CAF50', '#2196F3']
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: ' Week ' + week,
+                    color:'#66bb6a',
+                    font: {
+                        size: 18, 
+                        
+                    }
+                }
+            },
+            legend: {
+                display: true,
+                position: 'top'
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
 
-                                // Update week dropdown options
-                                $('select[name="week"]').empty();
-                                $.each(response.weeks, function(index, week) {
-                                    $('select[name="week"]').append('<option value="' + week + '">' + week + '</option>');
-                                });
-                            },
-                            error: function(xhr, status, error) {
-                                console.error("AJAX Error: " + status, error);
-                            }
-                        });
-                    });
-                });
-                
-            </script>
-
-
-            <script>
-                
-                // Get the carbon footprint data from PHP
-                var transportationData = <?php echo $carbonFootprintData['transport']; ?>;
-                var foodData = <?php echo $carbonFootprintData['food']; ?>;
-                var energyData = <?php echo $carbonFootprintData['energy']; ?>;
-                var week = <?php echo $latestWeekNumber; ?>;
-                var weekLabels = <?php echo json_encode($weeklyLabels); ?>;
-                var totalFootprintData = <?php echo json_encode($totalFootprintData); ?>;
-                var month = <?php echo json_encode($currentMonth); ?>;
-            
-
-                // Create a donut chart
-                var donutCtx = document.getElementById('donutChart').getContext('2d');
-                var donutChart = new Chart(donutCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Transportation', 'Food', 'Energy'],
-                        datasets: [{
-                            data: [transportationData, foodData, energyData],
-                            backgroundColor: ['#FF4F4B', '#4CAF50', '#2196F3']
-                        }]
+    // Create a line chart
+    var delayed = false;
+    var lineCtx = document.getElementById('lineChart').getContext('2d');
+    var lineChart = new Chart(lineCtx, {
+        type: 'line',
+        data: {
+            labels: weekLabels,
+            datasets: [{
+                label: 'Total Carbon Footprint',
+                borderColor: '#FFD700',
+                backgroundColor :'rgba(255, 215, 0, 0.5)',
+                pointRadius: 5,
+                data: totalFootprintData
+            }]
+        },
+        options: {
+            animation: {
+                    onComplete: () => {
+                        delayed = true;
                     },
-                    options: {
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: ' Week ' + week,
-                                color:'#66bb6a',
-                                font: {
-                                    size: 18, 
-                                    
-                                }
-                            }
-                        },
-                        legend: {
-                            display: true,
-                            position: 'top'
-                        },
-                        responsive: true,
-                        maintainAspectRatio: false,
-                    }
-                });
-
-                // Create a line chart
-                var delayed = false;
-                var lineCtx = document.getElementById('lineChart').getContext('2d');
-                var lineChart = new Chart(lineCtx, {
-                    type: 'line',
-                    data: {
-                        labels: weekLabels,
-                        datasets: [{
-                            label: 'Total Carbon Footprint',
-                            borderColor: '#FFD700',
-                            backgroundColor :'rgba(255, 215, 0, 0.5)',
-                            pointRadius: 5,
-                            data: totalFootprintData
-                        }]
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                        delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                        }
+                        return delay;
                     },
-                    options: {
-                        animation: {
-                                onComplete: () => {
-                                    delayed = true;
-                                },
-                                delay: (context) => {
-                                    let delay = 0;
-                                    if (context.type === 'data' && context.mode === 'default' && !delayed) {
-                                    delay = context.dataIndex * 300 + context.datasetIndex * 100;
-                                    }
-                                    return delay;
-                                },
-                        },
-                        scales: {
+            },
+            scales: {
 
-                                y: {
-                                    beginAtZero: true,
-                                    stepSize: 10,
-                                    suggestedMin: 0,
-                                    suggestedMax: 200,
-                                    maxTicksLimit: 5
-                                }
-                        },
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Carbon Footprint Trend for ' + month,
-                                color:'#66bb6a',
-                                font: {
-                                    size: 18, 
-                                   
-                                }
-                            }
-                        },
-                        legend: {
-                            display: true,
-                            position: 'bottom'
-                        },
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        onClick: handleLineChartClick
+                    y: {
+                        beginAtZero: true,
+                        stepSize: 10,
+                        suggestedMin: 0,
+                        suggestedMax: 200,
+                        maxTicksLimit: 5
                     }
-                });
-
-                var preloadedData = {};
-                <?php
-                // Loop through each week's data and add it to the preloadedData object
-                foreach ($weeklyLabels as $index => $label) {
-                    $transport = $transportationData[$index];
-                    $food = $foodData[$index];
-                    $energy = $energyData[$index];
-
-                    // Use json_encode to ensure correct representation in JavaScript
-                    echo "preloadedData['$label'] = " . json_encode(['transport' => $transport, 'food' => $food, 'energy' => $energy]) . ";\n";
-                }
-                ?>
-
-                function handleLineChartClick(event, elements) {
-                    if (elements.length > 0) {
-                        // Get the clicked index
-                        var clickedIndex = elements[0].index;
-
-                        // Update doughnut chart data for the clicked week
-                        updateDonutChart(clickedIndex);
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Carbon Footprint Trend for ' + month,
+                    color:'#66bb6a',
+                    font: {
+                        size: 18, 
+                       
                     }
                 }
+            },
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            onClick: handleLineChartClick
+        }
+    });
 
-                // Update the doughnut chart based on the clicked week
-            function updateDonutChart(clickedIndex) {
-                // Get the clicked week label
-                var clickedWeekLabel = weekLabels[clickedIndex];
+    var preloadedData = {};
+    <?php
+    // Loop through each week's data and add it to the preloadedData object
+    foreach ($weeklyLabels as $index => $label) {
+        $transport = $transportationData[$index];
+        $food = $foodData[$index];
+        $energy = $energyData[$index];
 
-                // Get the preloaded data for the clicked week
-                var clickedWeekData = preloadedData[clickedWeekLabel];
+        // Use json_encode to ensure correct representation in JavaScript
+        echo "preloadedData['$label'] = " . json_encode(['transport' => $transport, 'food' => $food, 'energy' => $energy]) . ";\n";
+    }
+    ?>
 
-                // Update the doughnut chart
-                donutChart.data.labels = ['Transportation', 'Food', 'Energy'];
-                donutChart.data.datasets[0].data = [clickedWeekData.transport, clickedWeekData.food, clickedWeekData.energy];
+    function handleLineChartClick(event, elements) {
+        if (elements.length > 0) {
+            // Get the clicked index
+            var clickedIndex = elements[0].index;
 
-                // Update the title of the doughnut chart to display the clicked week
-                donutChart.options.plugins.title.text = clickedWeekLabel;
+            // Update doughnut chart data for the clicked week
+            updateDonutChart(clickedIndex);
+        }
+    }
 
-                // Finally, update the doughnut chart
-                donutChart.update();
-            }
+    // Update the doughnut chart based on the clicked week
+    function updateDonutChart(clickedIndex) {
+        // Get the clicked week label
+        var clickedWeekLabel = weekLabels[clickedIndex];
 
-            </script>
+        // Get the preloaded data for the clicked week
+        var clickedWeekData = preloadedData[clickedWeekLabel];
 
+        // Update the doughnut chart
+        donutChart.data.labels = ['Transportation', 'Food', 'Energy'];
+        donutChart.data.datasets[0].data = [clickedWeekData.transport, clickedWeekData.food, clickedWeekData.energy];
 
-            <!-- JavaScript to update dashboard cards, doughnut chart and line chart -->
-            <script>
-                $(document).ready(function() {
-                    // Event listener for the "Show Activity" button click
-                    $('#showActivityBtn').click(function() {
-                        // Fetch the selected month and week from the dropdowns
-                        var selectedMonth = $('#monthDropdown').val();
-                        var selectedWeek = $('#weekDropdown').val();
+        // Update the title of the doughnut chart to display the clicked week
+        donutChart.options.plugins.title.text = clickedWeekLabel;
 
-                        // Perform AJAX request to fetch data for the selected month and week
-                        $.ajax({
-                            url: "fetch_history.php",
-                            method: "POST",
-                            dataType: "json",
-                            data: {
-                                selectedMonth: selectedMonth,
-                                selectedWeek: selectedWeek
-                            },
-                            success: function(response) {
-                                console.log(response);// Log the response to the console
-                                // Update the dashboard cards
-                                updateDashboardCards(response.dashboardData);
-
-                                // Update the doughnut chart
-                                updateDonutChart(response.donutChartData);
-
-                                // Update the line chart
-                                updateLineChart(response.lineChartData);
-                            },
-                            error: function(xhr, status, error) {
-                                console.error("AJAX Error: " + status, error);
-                            }
-                        });
-                    });
-                });
-
-                // Function to update the dashboard cards
-                function updateDashboardCards(data) {
-                    $('.food-card .value').text(data.totalFood);
-                    $('.energy-card .value').text(data.totalEnergy);
-                    $('.transport-card .value').text(data.totalTransport);
-                    $('.overall-card .value').text(data.totalOverall);
-                }
-
-                // Function to update the doughnut chart
-                function updateDonutChart(data) {
-                    var chartData = {
-                        labels: ['Transportation', 'Food', 'Energy',],
-                        datasets: [{
-                            data: data,
-                            backgroundColor: ['#FF4F4B', '#4CAF50', '#2196F3']
-                        }]
-                    };
-
-                    // Assuming donutChart is the variable holding the doughnut chart instance
-                    donutChart.data = chartData;
-                    donutChart.update();
-                }
-
-                // Function to update the line chart
-                function updateLineChart(data) {
-                    var chartData = {
-                        labels: data.weekLabels,
-                        datasets: [{
-                            label: 'Total Carbon Footprint',
-                            borderColor: '#FFD700',
-                            backgroundColor: 'rgba(255, 215, 0, 0.5)',
-                            pointRadius: 5,
-                            data: data.totalFootprintData
-                        }]
-                    };
-
-                    // Assuming lineChart is the variable holding the line chart instance
-                    lineChart.data = chartData;
-                    lineChart.update();
-                }
+        // Finally, update the doughnut chart
+        donutChart.update();
+    }
 
 </script>
-   </body>
-    </head>
-    </html>
+
+<script>
+// JavaScript to handle user interaction and update data based on selected month
+document.getElementById('showActivityBtn').addEventListener('click', function() {
+    // Get the selected month value
+    var selectedMonth = document.getElementById('month').value;
+
+    console.log("Selected month:", selectedMonth); // Log selected month
+
+    // Send an AJAX request to fetch updated data for the selected month
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+            console.log("Raw response:", xhr.responseText); // Log raw response
+            // Parse the JSON response
+            var responseData = JSON.parse(xhr.responseText);
+
+                console.log("Response data:", responseData); // Log response data
+
+                // Update dashboard cards with the received data
+                document.getElementById('totalFood').innerText = responseData.totalFood;
+                document.getElementById('totalEnergy').innerText = responseData.totalEnergy;
+                document.getElementById('totalTransport').innerText = responseData.totalTransport;
+                document.getElementById('totalOverall').innerText = responseData.totalOverall;
+
+                // Update charts with the received data
+                updateLineChart(responseData.weeklyLabels, responseData.totalFootprintData);
+                updateDonutChart(responseData.carbonFootprintData);
+            } else {
+                // Handle error
+                console.error('Failed to fetch data:', xhr.statusText);
+            }
+        }
+    };
+
+    // Prepare and send the AJAX request
+    xhr.open('GET', 'fetch_history.php?month=' + selectedMonth, true);
+    xhr.send();
+});
+
+// Function to update the line chart with new data
+function updateLineChart(labels, data) {
+    console.log("Updating line chart with data:", labels, data); // Log updated data
+    lineChart.data.labels = labels;
+    lineChart.data.datasets[0].data = data;
+    lineChart.update();
+}
+
+// Function to update the donut chart with new data
+function updateDonutChart(data) {
+    console.log("Updating donut chart with data:", data); // Log updated data
+    donutChart.data.datasets[0].data = [data.transport, data.food, data.energy];
+    donutChart.update();
+}
+
+</script>
+
+
+</body>
+</html>

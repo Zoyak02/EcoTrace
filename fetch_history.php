@@ -1,106 +1,78 @@
 <?php
+// fetch_data.php
+session_start();
 require("connection.php");
+$userID = $_SESSION['userID'] ;
+// Assuming your database connection code is included here or already exists
 
-// Check if selected month is set and not empty
-if(isset($_POST['selectedMonth']) && !empty($_POST['selectedMonth'])) {
+// Get the selected month from the request
+$selectedMonth = $_GET['month'];
 
-    // Sanitize and prepare the selected month value
-    $selectedMonth = mysqli_real_escape_string($con, $_POST['selectedMonth']); // Assuming $con is your database connection
+// Initialize response data array
+$responseData = array();
 
-    // Fetch weeks for the selected month from the database
-    $sql = "SELECT DISTINCT weekNo FROM weeklyLog WHERE MONTHNAME(date) = '$selectedMonth'";
-    $result = mysqli_query($con, $sql);
+// Query to calculate cumulative total for food
+$foodQuery = "SELECT SUM(carbonFootprintFood) AS totalFood FROM weeklylog WHERE userID = '$userID' AND month = '$selectedMonth'";
+$foodResult = mysqli_query($con, $foodQuery);
+$totalFood = 0;
 
-    if($result) {
-        // Initialize an array to store the weeks
-        $weeks = array();
-
-        // Fetch and store the weeks in the array
-        while($row = mysqli_fetch_assoc($result)) {
-            $weeks[] = 'Week ' . $row['weekNo'];
-        }
-
-        // Prepare JSON response
-        $response = array(
-            'success' => true,
-            'weeks' => $weeks
-        );
-
-        // Output JSON response
-        echo json_encode($response);
-    } else {
-        // Error handling if query fails
-        $response = array(
-            'success' => false,
-            'message' => 'Failed to fetch weeks from the database: ' . mysqli_error($con)
-        );
-        echo json_encode($response);
-    }
-} else if(isset($_POST['selectedMonth']) && !empty($_POST['selectedMonth']) && isset($_POST['selectedWeek']) && !empty($_POST['selectedWeek'])) {
-    // Sanitize and prepare the selected month and week values
-    $selectedMonth = mysqli_real_escape_string($con, $_POST['selectedMonth']); // Assuming $con is your database connection
-    $selectedWeek = mysqli_real_escape_string($con, $_POST['selectedWeek']);
-
-    // Fetch relevant data from the database based on selected month and week
-    $sql = "SELECT * FROM weeklyLog WHERE MONTHNAME(date) = '$selectedMonth' AND weekNo = '$selectedWeek'";
-    $result = mysqli_query($con, $sql);
-
-    if($result) {
-        // Fetch the first row (assuming there's only one entry for each week)
-        $row = mysqli_fetch_assoc($result);
-
-        // Prepare data for dashboard cards and doughnut chart
-        $dashboardData = array(
-            'totalFood' => $row['carbonFootprintFood'],
-            'totalEnergy' => $row['carbonFootprintEnergy'],
-            'totalTransport' => $row['carbonFootprintTransport'],
-            'totalOverall' => $row['totalCarbonFootprint']
-        );
-
-        // Prepare data for line chart (fetch all weeks' data for the selected month)
-        $sqlLineChart = "SELECT weekNo, totalCarbonFootprint FROM weeklyLog WHERE MONTHNAME(date) = '$selectedMonth'";
-        $resultLineChart = mysqli_query($con, $sqlLineChart);
-
-        $lineChartData = array();
-        $weekLabels = array();
-        while ($lineRow = mysqli_fetch_assoc($resultLineChart)) {
-            $lineChartData[] = $lineRow['totalCarbonFootprint'];
-            $weekLabels[] = 'Week ' . $lineRow['weekNo'];
-        }
-
-        // Prepare data for doughnut chart
-        $donutChartData = array(
-            $row['carbonFootprintFood'],
-            $row['carbonFootprintEnergy'],
-            $row['carbonFootprintTransport'],
-        );
-
-        // Prepare newData object to hold all the data
-        $newData = array(
-            'dashboardData' => $dashboardData,
-            'donutChartData' => $donutChartData,
-            'lineChartData' => array(
-                'weekLabels' => $weekLabels,
-                'totalFootprintData' => $lineChartData
-            )
-        );
-
-        // Output JSON response
-        echo json_encode($newData);
-    } else {
-        // Error handling if query fails
-        $response = array(
-            'success' => false,
-            'message' => 'Failed to fetch data from the database: ' . mysqli_error($con)
-        );
-        echo json_encode($response);
-    }
-} else {
-    // Error handling if selected month or week is missing or empty
-    $response = array(
-        'success' => false,
-        'message' => 'Selected month or week is missing or empty.'
-    );
-    echo json_encode($response);
+if ($foodResult && mysqli_num_rows($foodResult) > 0) {
+    $totalFoodRow = mysqli_fetch_assoc($foodResult);
+    $totalFood = $totalFoodRow['totalFood'];
 }
+
+// Query to calculate cumulative total for transport
+$transportQuery = "SELECT SUM(carbonFootprintTransport) AS totalTransport FROM weeklylog WHERE userID = '$userID' AND month = '$selectedMonth'";
+$transportResult = mysqli_query($con, $transportQuery);
+$totalTransport = 0;
+
+if ($transportResult && mysqli_num_rows($transportResult) > 0) {
+    $totalTransportRow = mysqli_fetch_assoc($transportResult);
+    $totalTransport = $totalTransportRow['totalTransport'];
+}
+
+// Query to calculate cumulative total for energy
+$energyQuery = "SELECT SUM(carbonFootprintEnergy) AS totalEnergy FROM weeklylog WHERE userID = '$userID' AND month = '$selectedMonth'";
+$energyResult = mysqli_query($con, $energyQuery);
+$totalEnergy = 0;
+
+if ($energyResult && mysqli_num_rows($energyResult) > 0) {
+    $totalEnergyRow = mysqli_fetch_assoc($energyResult);
+    $totalEnergy = $totalEnergyRow['totalEnergy'];
+}
+
+$overallQuery = "SELECT SUM(totalCarbonFootprint) AS totalOverall FROM weeklylog WHERE userID = '$userID' AND month = '$selectedMonth'";
+$overallResult = mysqli_query($con, $overallQuery);
+$totalOverall = 0;
+
+if ($overallResult && mysqli_num_rows($overallResult) > 0) {
+    $totalOverallRow = mysqli_fetch_assoc($overallResult);
+    $totalOverall = $totalOverallRow['totalOverall'];
+}
+
+// Fetching historical data for line chart
+$historicalDataQuery = "SELECT weekNo, carbonFootprintTransport, carbonFootprintFood, carbonFootprintEnergy, totalCarbonFootprint FROM weeklylog WHERE userID = '$userID' AND month = '$selectedMonth' ORDER BY weekNo";
+$historicalResult = mysqli_query($con, $historicalDataQuery);
+
+$weeklyLabels = [];
+$totalFootprintData = [];
+
+if ($historicalResult && mysqli_num_rows($historicalResult) > 0) {
+    while ($row = mysqli_fetch_assoc($historicalResult)) {
+        $weeklyLabels[] = "Week " . $row['weekNo'];
+        $totalFootprintData[] = $row['totalCarbonFootprint'];
+    }
+}
+
+// Construct the response data
+$responseData['totalFood'] = $totalFood;
+$responseData['totalEnergy'] = $totalEnergy;
+$responseData['totalTransport'] = $totalTransport;
+$responseData['totalOverall'] = $totalOverall;
+$responseData['weeklyLabels'] = $weeklyLabels;
+$responseData['totalFootprintData'] = $totalFootprintData;
+
+// Send the response as JSON
+header('Content-Type: application/json');
+echo json_encode($responseData);
 ?>
