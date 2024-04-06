@@ -137,15 +137,15 @@ function weeklyLogUpToDate($con) {
                  </div>
                  <div class="col-lg-4">
                     <div class="login-box">
-                       <h3>Login Account</h3>
-                       <form method="post" action="accounts.php">
-                          <div class="input-group">
-                             <input type="text" class="form-control"  name="username"placeholder="Username" required>
-                          </div>
-                          <div class="input-group">
-                             <input type="password" class="form-control"  name="password" placeholder="Password" required>
-                          </div>
-                          <div class="container">
+                        <h3>Login Account</h3>
+                        <form method="post" action="accounts.php">
+                            <div class="input-group">
+                                <input type="text" class="form-control"  name="username"placeholder="Username" required>
+                            </div>
+                            <div class="input-group">
+                                <input type="password" class="form-control"  name="password" placeholder="Password" required>
+                            </div>
+                            <div class="container">
                             <?php
                             if(isset($_GET['alert']) && $_GET['alert'] == 'wrong_password') {
                                 echo <<<alert
@@ -157,15 +157,15 @@ function weeklyLogUpToDate($con) {
                             ?>
                         </div>
 
-                          <div class="input-group form-check">
-                             <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                             <label class="form-check-label" for="exampleCheck2">Remember Me</label>
-                             <a href="#" class="fp">Forgot Password</a> 
-                          </div>
-                          <div class="input-group">
-                             <button class="login-btn" name="login-btn">Login</button>
-                          </div>
-                       </form>
+                            <div class="input-group form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                                <label class="form-check-label" for="exampleCheck2">Remember Me</label>
+                                <a href="#" class="fp">Forgot Password</a> 
+                            </div>
+                            <div class="input-group">
+                                <button class="login-btn" name="login-btn">Login</button>
+                            </div>
+                        </form>
                     </div>
                  </div>
               </div>
