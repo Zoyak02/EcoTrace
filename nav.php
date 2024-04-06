@@ -85,6 +85,9 @@ function checkCarbonFootprints($con) {
                        </li>
                    </ul>
                    <?php if (isLoggedIn()): ?>
+                    <li class="nav-item" style="list-style: none;">
+                        <a class="login-btn" href="public_html/index.php" role="button">EcoHub</a>
+                   </li>
                      <!-- If user is logged in, show profile circle -->
                      <li class="nav-item" style="list-style: none;">
                      <!-- If user is not logged in, show login button -->
@@ -136,11 +139,8 @@ function checkCarbonFootprints($con) {
                               </div>
                         </div>
                      </li>
-                     <li class="nav-item" style="list-style: none;">
-                        <a class="login-btn" href="public_html/index.php" role="button">EcoHub</a>
-                     </li>
                      <li class="nav-item profile-dropdown">
-                        <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile" />
+                        <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile" style= "height:60px;"/>
                         <ul class="profile-menu">
                            <li class="sub-item">
                                <a href="profile.php" style="display: flex; align-items: center; text-decoration: none;">
