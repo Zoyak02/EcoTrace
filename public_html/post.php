@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 session_start();
 
 require_once('../core/utility_functions.php');
-
+require_once('post_display.php') ;
 
 $base_url = get_base_url();
 if (isset($_GET['post_id'])) {
@@ -63,7 +63,7 @@ if (isset($_GET['post_id'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/minisearch@7.1.0/dist/umd/index.min.js"></script>
 
-    <link rel="stylesheet" href="css/style6.css">
+    <link rel="stylesheet" href="css/style7.css">
     <script type="module" src="scripts/search-result.js" defer></script>
     <script type="module" src="scripts/post-modal-handler.js" defer></script>
     <script type="module" src="scripts/post-more-options-handler.js" defer></script>
@@ -75,7 +75,6 @@ if (isset($_GET['post_id'])) {
     <?php include('partials/delete_post_modal.php') ?>
     <?php include('partials/toast.php') ?>
     <div class="w-99 h-100 body-container container-fluid m-0 p-0">
-    <?php require_once('post_display.php') ;?>
         <?php include('partials/header.php'); ?>
         <?php include('partials/sidebar.php'); ?>
         <main class="page-post d-flex flex-column h-99 bg-light p-5 align-items-center justify-content-center">

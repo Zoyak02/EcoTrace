@@ -24,7 +24,7 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" crossorigin="anonymous">
 
 
-    <link rel="stylesheet" href="css/style6.css">
+    <link rel="stylesheet" href="css/style7.css">
 
     <script type="module" src="scripts/search-result.js" defer></script>
     <script src="scripts/lazy-load.js" defer></script>

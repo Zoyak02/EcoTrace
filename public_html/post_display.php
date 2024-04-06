@@ -383,12 +383,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Attach click event listener to each chat icon
     chatIcons.forEach(icon => {
         icon.addEventListener('click', () => {
-
             console.log('Chat icon clicked');
             const commentContainer = icon.closest('.post').querySelector('.comment-container');
             console.log('Comment container:', commentContainer);
-            commentContainer.style.display = commentContainer.style.display === 'none' ? 'block' : 'none';
+            
+            // Check current visibility state and toggle accordingly
+            if (commentContainer.style.display === 'none' || commentContainer.style.display === '') {
+                commentContainer.style.display = 'block';
+            } else {
+                commentContainer.style.display = 'none';
+            }
         });
     });
 });
+
 </script>
