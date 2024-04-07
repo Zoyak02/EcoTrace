@@ -148,13 +148,6 @@ function checkCarbonFootprints($con) {
                                   <p>Update Profile</p>
                                </a>
                            </li>
-                           <!-- Other profile-related items -->
-                           <li class="sub-item">
-                                 <a href="index.php?logout=true" style="display: flex; align-items: center; text-decoration: none;"> <!-- Log out link -->
-                                    <span class="material-icons-outlined"> logout </span>
-                                    <p>Logout</p>
-                                 </a>
-                           </li>
                            <li class="sub-item">
                                 <a href="recommend2.php" style="display: flex; align-items: center; text-decoration: none;">
                                     <span class="material-icons-outlined">thumb_up</span>
@@ -168,6 +161,13 @@ function checkCarbonFootprints($con) {
                                     <p>History</p>
                                 </a>
                             </li>
+
+                            <li class="sub-item">
+                                 <a href="index.php?logout=true" style="display: flex; align-items: center; text-decoration: none;"> <!-- Log out link -->
+                                    <span class="material-icons-outlined"> logout </span>
+                                    <p>Logout</p>
+                                 </a>
+                           </li>
 
                         </ul>
                      </li>
