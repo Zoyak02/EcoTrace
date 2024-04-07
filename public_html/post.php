@@ -99,7 +99,7 @@ if (isset($_GET['post_id'])) {
     <script type="module" src="scripts/search-result.js" defer></script>
     <script type="module" src="scripts/post-modal-handler.js" defer></script>
     <script type="module" src="scripts/post-more-options-handler.js" defer></script>
-    <script type="module" src="scripts/follow-handler.js" defer></script>
+    <script type="module" src="scripts/follow-handlers.js" defer></script>
 </head>
 
 <body class="h-100 w-100 m-0 p-0">

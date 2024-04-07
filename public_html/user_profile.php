@@ -61,7 +61,7 @@ if (isset($_GET['userID']) && !empty($_GET['userID'])) {
     <script type="module" src="scripts/post-more-options-handler.js" defer></script>
     <script type="module" src="scripts/post-likes-modal-handler.js" defer></script>
     <script type="module" src="scripts/post-interactions-handler.js" defer></script>
-    <script type="module" src="scripts/follow-handler.js" defer></script>
+    <script type="module" src="scripts/follow-handlers.js" defer></script>
 </head>
 
 <body class="h-100 w-100 m-0 p-0">
