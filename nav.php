@@ -140,7 +140,7 @@ function checkCarbonFootprints($con) {
                         </div>
                      </li>
                      <li class="nav-item profile-dropdown">
-                     <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile" style= "height:60px;"/>
+                     <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile" style= "height:50px; width:50;"/>
                         <ul class="profile-menu">
                            <li class="sub-item">
                                <a href="profile.php" style="display: flex; align-items: center; text-decoration: none;">
