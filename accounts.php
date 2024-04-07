@@ -106,6 +106,7 @@ if (isset($_POST['signup-btn'])) {
     $username = sanitizeInput($_POST["username"]);
     $contactNumber = sanitizeInput($_POST["contactNumber"]);
     $email = sanitizeInput($_POST["email"]);
+    $first_login = 1;
 
     // Validate form data
     if (!isValidName($firstName) || !isValidName($lastName)) {
