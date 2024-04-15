@@ -14,8 +14,8 @@
 <nav class="header navbar navbar-light fixed-top bg-white w-100 border-bottom-1 m-0 p-0 border-bottom flex-nowrap">
     <div class="container-fluid d-flex justify-content-between w-100 pt-2 pe-5 pb-2 ps-5">
         <a class="navbar-brand d-flex align-items-center justify-content-center align-self-start gap-2"
-            href="index.php">
-            <img src="../images/EcoTrace Logo.png" width="45" height="45" class="d-inline-block align-top" alt="">
+            href="../index.php">
+            <img src="../images/EcoTrace Logo.png" width="50" height="50" class="d-inline-block align-top" alt="">
             <p class="h4 m-0 p-0">EcoHub</p>
         </a>
 

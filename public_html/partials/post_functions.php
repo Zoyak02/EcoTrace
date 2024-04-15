@@ -1,29 +1,4 @@
 <?php
-function get_formatted_time_ago($created_at)
-{
-    $created_timestamp = strtotime($created_at);
-    $current_timestamp = time();
-    $time_diff = $current_timestamp - $created_timestamp;
-
-
-    if ($time_diff < 60) {
-        $time_ago = ($time_diff == 1) ? "1 second ago" : $time_diff . " seconds ago";
-    } elseif ($time_diff < 3600) {
-        $minutes = floor($time_diff / 60);
-        $time_ago = ($minutes == 1) ? "1 minute ago" : $minutes . " minutes ago";
-    } elseif ($time_diff < 86400) {
-        $hours = floor($time_diff / 3600);
-        $time_ago = ($hours == 1) ? "1 hour ago" : $hours . " hours ago";
-    } elseif ($time_diff < (86400 * 7)) {
-        $days = floor($time_diff / 86400);
-        $time_ago = ($days == 1) ? "1 day ago" : $days . " days ago";
-    } else {
-        $time_ago = date("F j, Y", $created_timestamp);
-    }
-
-    return $time_ago;
-   
-}
 
 function get_dropdown_menu_item($icon_class, $text, $post_id)
 {

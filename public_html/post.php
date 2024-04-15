@@ -6,6 +6,38 @@ error_reporting(E_ALL);
 session_start();
 
 require_once('../core/utility_functions.php');
+require_once('post_display.php') ;
+
+function calculate_time_ago($created_at) {
+    // Convert comment creation time to a Unix timestamp
+    $comment_timestamp = strtotime($created_at);
+
+    // Get the current Unix timestamp
+    $current_timestamp = time();
+
+    // Calculate the difference in seconds
+    $difference = $current_timestamp - $comment_timestamp;
+
+    // Define time periods in seconds
+    $periods = array("second", "minute", "hour", "day", "week", "month", "year", "decade");
+    $lengths = array("60", "60", "24", "7", "4.35", "12", "10");
+
+    // Loop through each period
+    for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths)-1; $j++) {
+        $difference /= $lengths[$j];
+    }
+
+    // Round the difference to the nearest whole number
+    $difference = round($difference);
+
+    // Add "s" if the difference is greater than 1
+    if ($difference != 1) {
+        $periods[$j] .= "s";
+    }
+
+    // Return the time ago string
+    return "$difference $periods[$j] ago";
+}
 
 
 $base_url = get_base_url();
@@ -63,11 +95,11 @@ if (isset($_GET['post_id'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/minisearch@7.1.0/dist/umd/index.min.js"></script>
 
-    <link rel="stylesheet" href="css/style6.css">
+    <link rel="stylesheet" href="css/style7.css">
     <script type="module" src="scripts/search-result.js" defer></script>
     <script type="module" src="scripts/post-modal-handler.js" defer></script>
     <script type="module" src="scripts/post-more-options-handler.js" defer></script>
-    <script type="module" src="scripts/follow-handler.js" defer></script>
+    <script type="module" src="scripts/follow-handlers.js" defer></script>
 </head>
 
 <body class="h-100 w-100 m-0 p-0">
@@ -75,10 +107,9 @@ if (isset($_GET['post_id'])) {
     <?php include('partials/delete_post_modal.php') ?>
     <?php include('partials/toast.php') ?>
     <div class="w-99 h-100 body-container container-fluid m-0 p-0">
-    <?php require_once('post_display.php') ;?>
         <?php include('partials/header.php'); ?>
         <?php include('partials/sidebar.php'); ?>
-        <main class="page-post d-flex flex-column h-99 bg-light p-5 align-items-center justify-content-center">
+        <main class="page-post d-flex flex-column h-99 bg-light p-5 pt-5 align-items-center justify-content-center">
             <div class="post row w-100 h-100 bg-white py-4 px-4 border" data-post-id="<?php echo $post_id ?>"
                 data-poster-id="<?php echo $poster_id ?>">
                 <img class="post-page-image col-7 p-0" src="<?php echo $post_img_transformed_url; ?>" alt="Post Image">

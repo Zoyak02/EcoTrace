@@ -102,12 +102,24 @@ body.preload * {
 .page-user-profile,
 .page-post,
 .page-settings {
-  margin-top: -10px !important;
+  margin-top: -5px !important;
 }
 
 .home-navbar-user-profile-picture {
   width: 90px;
   height: 90px;
+  opacity: 1;
+  border-radius: 100%;
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+  transition: opacity 0.7s ease 0s;
+  box-shadow: none;
+}
+
+.profile-info .img{
+  width: 70px;
+  height: 70px;
   opacity: 1;
   border-radius: 100%;
   object-fit: cover;
@@ -301,8 +313,8 @@ body.preload * {
 
 /* User profile */
 .user-profile-profile-picture {
-  width: 177px;
-  height: 177px;
+  width: 120px;
+  height: 120px;
   opacity: 1;
   border-radius: 100%;
   object-fit: cover;

@@ -105,7 +105,9 @@ if (isset($_POST['signup-btn'])) {
     $lastName = sanitizeInput($_POST["lastName"]);
     $username = sanitizeInput($_POST["username"]);
     $contactNumber = sanitizeInput($_POST["contactNumber"]);
-    $email = sanitizeInput($_POST["email"]);
+    $email = sanitizeInput($_POST["email"]); 
+    $profilePicture = "images/profile.jpg";
+    $first_login = 1;
 
     // Validate form data
     if (!isValidName($firstName) || !isValidName($lastName)) {
@@ -121,15 +123,19 @@ if (isset($_POST['signup-btn'])) {
         handleError("Invalid contact number.");
     }
 
+    // Set default values for bio and display name
+    $user_bio = "Hello, I am " . $username; // Default bio
+    $user_display_name = $username; // Default display name
+
     // Generate a default password and hash it
     $default_password = generateRandomPassword();
     $hashed_password = password_hash($default_password, PASSWORD_DEFAULT);
 
     // Prepare SQL statement to insert user data into the database
-    $sql = "INSERT INTO user (username, password, first_login, email, contactNumber, firstName, lastName, user_bio, user_display_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO user (username, password, first_login, email, profilePicture,  contactNumber, firstName, lastName, user_bio, user_display_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($con, $sql);
     // Bind parameters and execute the statement
-    mysqli_stmt_bind_param($stmt, "ssissssss", $username, $hashed_password, $first_login, $email, $contactNumber, $firstName, $lastName, $user_bio, $user_display_name);
+    mysqli_stmt_bind_param($stmt, "ssissssss", $username, $hashed_password, $first_login, $email, $profilePicture, $contactNumber, $firstName, $lastName, $user_bio, $user_display_name);
     $success = mysqli_stmt_execute($stmt);
 
     if ($success) {

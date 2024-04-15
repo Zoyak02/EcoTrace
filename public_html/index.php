@@ -24,7 +24,7 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" crossorigin="anonymous">
 
 
-    <link rel="stylesheet" href="css/style6.css">
+    <link rel="stylesheet" href="css/style7.css">
 
     <script type="module" src="scripts/search-result.js" defer></script>
     <script src="scripts/lazy-load.js" defer></script>
@@ -33,7 +33,7 @@ session_start();
     <script type="module" src="scripts/post-more-options-handler.js" defer></script>
     <script type="module" src="scripts/post-likes-modal-handler.js" defer></script>
     <script type="module" src="scripts/post-interactions-handler.js" defer></script>
-    <script type="module" src="scripts/follow-handler.js" defer></script>
+    <script type="module" src="scripts/follow-handlers.js" defer></script>
 </head>
 
 <body class="h-100 w-100 m-0 p-0">
@@ -45,88 +45,72 @@ session_start();
     <?php require_once('post_display.php');?>
       <?php include('partials/header.php'); ?>
 
-        <?php
-        if(isset($_GET['badgeImageUrl'])) {
-            // If present, include the post_modal.php file
-            include('partials/post_modal.php');
-            // Output JavaScript code to trigger the modal when the page loads
-            echo "<script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    console.log('DOMContentLoaded event fired.');
+      <?php
 
-                    const showModal = (mode, postId = null) => {
-                        const modal = new bootstrap.Modal(document.getElementById('post-modal'));
-                        modal.show();
-                    };
+            if (isset($_GET['badgeImageUrl'])) {
+                // If the session variable indicating that the modal has been displayed is not set, display the modal
+                if (!isset($_SESSION['modalDisplayed'])) {
+                    // Include the post_modal.php file
+                    include('partials/post_modal.php');
+                    // Output JavaScript code to trigger the modal when the page loads
+                    echo "<script>
+                            document.addEventListener('DOMContentLoaded', () => {
+                                console.log('DOMContentLoaded event fired.');
 
-                    const headerPostModalTrigger = document.getElementById('post-modal-trigger');
-                    if(headerPostModalTrigger) {
-                        console.log('Click event triggered on header post modal trigger.');
-            
-                        showModal('create');
-                        document.body.classList.add('modal-open');
+                                const showModal = (mode, postId = null) => {
+                                    const modal = new bootstrap.Modal(document.getElementById('post-modal'));
+                                    modal.show();
+                                };
 
-                        headerPostModalTrigger.click();
+                                const headerPostModalTrigger = document.getElementById('post-modal-trigger');
+                                if (headerPostModalTrigger) {
+                                    console.log('Click event triggered on header post modal trigger.');
 
-                        const badgeImageUrl = '../{$_GET['badgeImageUrl']}';
-                        const postModalImage = document.getElementById('post-modal-image');
-                        const postModalImagePicker = document.getElementById('post-modal-image-picker');
+                                    showModal('create');
+                                    document.body.classList.add('modal-open');
 
-                        postModalImage.src = badgeImageUrl;
-                
-                        // Hide the file input and display the image
-                        postModalImage.classList.remove('d-none');
-                        postModalImagePicker.classList.add('d-none');
+                                    headerPostModalTrigger.click();
 
-                        // Extract the badge name from the URL
-                        const badgeName = badgeImageUrl.split('/').pop().replace(/\.[^/.]+$/, '');
+                                    const badgeImageUrl = '../{$_GET['badgeImageUrl']}';
+                                    const postModalImage = document.getElementById('post-modal-image');
+                                    const postModalImagePicker = document.getElementById('post-modal-image-picker');
 
-              
-                        const defaultCaption = 'Check out my awesome badge! 🌱 Let\'s make a positive impact together by reducing our carbon footprint! #GoGreen #EcoFriendly';
-                        const postModalCaption = document.getElementById('post-modal-caption');
-                        
-                        // Set the default value of the textarea
-                        postModalCaption.value = defaultCaption;
 
-                        
-                        function uploadFileToServer(file) {
-                            const formData = new FormData();
-                            formData.append('post_modal_image_picker', file);
+                                    postModalImage.src = badgeImageUrl;
 
-                            // Send the FormData object to the server using AJAX
-                            fetch('../core/upload_badge.php', {
-                                method: 'POST',
-                                body: formData
-                            })
-                            .then(response => {
-                                // Handle the server response
-                                console.log('File upload response:', response);
-                            })
-                            .catch(error => {
-                                console.error('Error uploading file:', error);
-                            });
-                        }
+                                    // Hide the file input and display the image
+                                    postModalImage.classList.remove('d-none');
+                                    postModalImagePicker.classList.add('d-none');
 
-                        // Trigger file upload and handle image upload on server-side
-                        fetch(badgeImageUrl)
-                            .then(response => response.blob())
-                            .then(blob => {
-                                const file = new File([blob], 'badge_image.png', { type: 'image/png' });
-                                uploadFileToServer(file);
-                            })
-                            .catch(error => {
-                                console.error('Error fetching badge image:', error);
+                                    // Extract the badge name from the URL
+                                    const badgeName = badgeImageUrl.split('/').pop().replace(/\.[^/.]+$/, '');
+
+
+                                    const defaultCaption = 'Check out my awesome badge! 🌱 Let\'s make a positive impact together by reducing our carbon footprint! #GoGreen #EcoFriendly';
+                                    const postModalCaption = document.getElementById('post-modal-caption');
+
+                                    // Set the default value of the textarea
+                                    postModalCaption.value = defaultCaption;
+
+
+                                    const submitButton = document.getElementById('post-modal-submit-button');
+                                    submitButton.addEventListener('click', () => {
+                                        // Redirecting to the index page after submit button is clicked
+                                        window.location.href = 'index.php';
+                                    });
+                                } else {
+                                    console.log('Header post modal trigger element not found.');
+                                }
                             });
 
-                         
-                    }
-                    else {
-                        console.log('Header post modal trigger element not found.'); 
-                    }
-                });
-                </script>";
-        }
-        ?>
+                            </script>";
+                    
+                    // Set the session variable to indicate that the modal has been displayed
+                    $_SESSION['modalDisplayed'] = true;
+                }
+            }
+            ?>
+
     
         <?php include('partials/sidebar.php'); ?>
         <main class="page-home d-flex flex-column h-100 bg-light align-items-center justify-content-start">
@@ -144,3 +128,4 @@ session_start();
     </div>
 </body>
 </html>
+
