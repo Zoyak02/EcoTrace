@@ -41,7 +41,7 @@ ini_set('display_errors', 1);
       <!-- CSS FILES START -->
       <link href="css/custom3.css" rel="stylesheet">
       <link href="css/login.css" rel="stylesheet">
-      <link href="css/notificationBell.css" rel="stylesheet">
+      <link href="css/notificationBells.css" rel="stylesheet">
       <link href="css/color.css" rel="stylesheet">
       <link href="css/responsive.css" rel="stylesheet">
       <link href="css/owl.carousel.min.css" rel="stylesheet">
@@ -168,13 +168,6 @@ ini_set('display_errors', 1);
 		line-height: 28px;
 		margin: 0 0 30px;
 	}
-    .navPic{
-        margin: 20px;
-        border:4px solid #ADDFA4;
-        border-radius: 500%;
-        -webkit-border-radius: 500px;
-        -moz-border-radius: 500px;
-        }
 
             .h2-dashboard-txt a {
                 background: #66bb6a;

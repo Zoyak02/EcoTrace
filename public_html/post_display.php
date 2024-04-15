@@ -100,8 +100,7 @@ a {
   display: block;
 }
 
-
-    </style>
+</style>
 
 <?php
 require_once("../core/db_functions.php");
@@ -223,7 +222,7 @@ function display_posts($pdo, $posts)
             </div>
             ";
 
-        echo "<div class='post d-flex w-100  bg-white p-4 border mb-4' data-post-id='{$post_id}' data-poster-id='{$poster_id}'>
+            echo "<div class='post d-flex w-100  bg-white p-4 border mb-4' data-post-id='{$post_id}' data-poster-id='{$poster_id}'>
                 <div class='w-100 d-flex flex-column align-items-start gap-3'>
                     <div class='px-2 post-top d-flex align-items-center w-100 justify-content-between'>
                         <a href='{$user_profile_link}' class='text-decoration-none'>
@@ -300,7 +299,7 @@ function display_posts($pdo, $posts)
                                     {$likes_text}
                                 </a>
 
-                                <a type='button' type='button' class='like-text p-1 m-0 fw-semibold cursor-pointer text-decoration-none text-dark'>
+                                <a type='button' type='button' class='comment-text p-1 m-0 fw-semibold cursor-pointer text-decoration-none text-dark'>
                                     {$comments_count} comments
                                     </a>
                             </div>
@@ -363,7 +362,6 @@ function display_posts($pdo, $posts)
                   </div>
                 </form>
               </div>
-            </div>
           </div>
         </div>";
     }

@@ -59,7 +59,7 @@ function weeklyLogUpToDate($con) {
       <!-- CSS FILES START -->
       <link href="css/custom3.css" rel="stylesheet">
       <link href="css/login.css" rel="stylesheet">
-      <link href="css/notificationBell.css" rel="stylesheet">
+      <link href="css/notificationBells.css" rel="stylesheet">
       <link href="css/color.css" rel="stylesheet">
       <link href="css/responsive.css" rel="stylesheet">
       <link href="css/owl.carousel.min.css" rel="stylesheet">

@@ -298,4 +298,3 @@ function weeklyLogUpToDate($con) {
 
 </body>
 </html>
-

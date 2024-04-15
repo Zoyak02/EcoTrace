@@ -244,10 +244,7 @@ function weeklyLogUpToDate($con) {
             margin-right: .5rem!important;
         }
 
-        .profile-picture {
-            background-color: #28a745; /* Green color */
-         }
-
+   
    </style>
 
 </head>
@@ -278,7 +275,7 @@ function weeklyLogUpToDate($con) {
                         <div class="card">
                            <div class="card-body">
                               <div class="d-flex flex-column align-items-center text-center">
-                              <img src="<?php echo $profilePicture ?>" alt="Profile Picture" class="rounded-circle" width="150">
+                              <img src="<?php echo $profilePicture ?>" class="rounded-circle" width="150">
                                  <div class="mt-3 font-weight-bold">
                                     <h5 class="mb-5 mt-2"><?php echo $firstName." ".$lastName; ?></h5>
                                  </div>

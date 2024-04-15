@@ -42,7 +42,7 @@ if (isset($_GET['success'])) {
     <!-- CSS FILES START -->
     <link href="css/custom3.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
-    <link href="css/notificationBell.css" rel="stylesheet">
+    <link href="css/notificationBells.css" rel="stylesheet">
     <link href="css/color.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/owl.carousel.min.css" rel="stylesheet">
@@ -337,44 +337,6 @@ else if(isset($_GET['success']))
 
 
                   <!-- JAVASCRIPT -->
-
-                  <script>
-                     // Function to show/hide questions based on user's transportation method
-                     function showHideQuestions() {
-                        var transportation = "<?php echo $user_transportation; ?>";
-                        var diet = "<?php echo $user_diet; ?>";
-
-                        // Hide all question sections first
-                        document.getElementById('car_owner_questions').style.display = 'none';
-                        document.getElementById('public_transportation_questions').style.display = 'none';
-                        document.getElementById('active_commuter_questions').style.display = 'none';
-
-                        document.getElementById('meat_lover_questions').style.display = 'none';
-                        document.getElementById('vegetarian_questions').style.display = 'none';
-                        document.getElementById('mixed_diet_questions').style.display = 'none';
-
-                        // Show relevant question section based on user's transportation method
-                        if (transportation === 'car_owner') {
-                              document.getElementById('car_owner_questions').style.display = 'block';
-                        } else if (transportation === 'public_transportation') {
-                              document.getElementById('public_transportation_questions').style.display = 'block';
-                        } else if (transportation === 'active_commuter') {
-                              document.getElementById('active_commuter_questions').style.display = 'block';
-                        }
-
-                        // Show relevant question section based on user's diet
-                        if (diet === 'meat_lover') {
-                              document.getElementById('meat_lover_questions').style.display = 'block';
-                        } else if (diet === 'vegetarian') {
-                              document.getElementById('vegetarian_questions').style.display = 'block';
-                        } else if (diet === 'mixed_diet') {
-                              document.getElementById('mixed_diet_questions').style.display = 'block';
-                        }
-                     }
-
-                     // Call the function initially to set the initial state of the form
-                     showHideQuestions();
-                  </script> 
                   <script>
                                     
                     var currentStep = 1;
@@ -576,54 +538,63 @@ else if(isset($_GET['success']))
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <script>
-    $(document).ready(function () {
-        $('#activity-log-form').find('.step').slice(1).hide();
+   $(document).ready(function () {
+    // Initial setup: hide all steps except the first one
+    $('#activity-log-form').find('.step').slice(1).hide();
+    var currentStep = 1;
 
-        $(".next-step").click(function () {
-            var currentStepFields = $(".step-" + currentStep + " input[required]");
-            var isValid = true;
+    $(".next-step").click(function () {
+        var currentStepFields = $(".step-" + currentStep + " input[required]");
+        var isValid = true;
 
-            // Check if all required fields in the current step are filled out
-            currentStepFields.each(function() {
-                if (!$(this).val()) {
-                    isValid = false;
-                    return false; // Exit the loop early if a required field is empty
-                }
-            });
-
-            if (isValid) {
-                console.log("Next button clicked");
-                if (currentStep < 3) {
-                    $(".step-" + currentStep).addClass("animate__fadeOutLeft");
-                    currentStep++;
-                    setTimeout(function () {
-                        $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
-                        $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
-                        updateProgressBar();
-                    }, 500);
-                }
-            } else {
-                //alert("Please fill out all required fields before proceeding.");
-                // Prevent the form from advancing to the next step
-                return false;
+        // Check if all required fields in the current step are filled out
+        currentStepFields.each(function() {
+            if (!$(this).val()) {
+                isValid = false;
+                return false; // Exit the loop early if a required field is empty
             }
         });
 
-        $(".prev-step").click(function () {
-            console.log("previous button clicked");
-            if (currentStep > 1) {
-                $(".step-" + currentStep).addClass("animate__fadeOutRight");
-                currentStep--;
-                setTimeout(function () {
-                    $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
-                    $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
-                    updateProgressBar();
-                }, 500);
-            }
-        });
-
-        updateProgressBar();
+        if (isValid) {
+            // Proceed to the next step
+            $(".step-" + currentStep).addClass("animate__fadeOutLeft");
+            currentStep = currentStep % 3 + 1; // Loop back to 1 after reaching 3
+            setTimeout(function () {
+                $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
+                $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
+                updateProgressBar();
+            }, 500);
+        } else {
+            // Prevent the form from advancing to the next step
+            return false;
+        }
     });
+
+    $(".prev-step").click(function () {
+    // Fade out the current step to the right
+    $(".step-" + currentStep).addClass("animate__fadeOutRight");
+
+    // Calculate the previous step number
+    currentStep = (currentStep - 1) 
+
+    // Fade in the new step from the left after a delay
+    setTimeout(function () {
+        $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
+        $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft"); // Fade in from the left
+        updateProgressBar();
+    }, 500);
+});
+    // Function to update progress bar
+    function updateProgressBar() {
+        var progressPercentage = ((currentStep - 1) / 2) * 100;
+        $(".progress-bar").css("width", progressPercentage + "%");
+        $(".progress-bar").css("background-color", "#66bb6a");
+    }
+
+    updateProgressBar(); // Initial progress bar update
+});
+
+
 
     </script>
 
