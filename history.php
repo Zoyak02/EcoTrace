@@ -460,6 +460,8 @@ ini_set('display_errors', 1);
         <?php endif; ?>
 
     <script>
+
+
     // Get the carbon footprint data from PHP
     var transportationData = <?php echo $carbonFootprintData['transport']; ?>;
     var foodData = <?php echo $carbonFootprintData['food']; ?>;
@@ -605,7 +607,7 @@ ini_set('display_errors', 1);
 
 </script>
 
-<script>
+<!-- <script>
 // JavaScript to handle user interaction and update data based on selected month
 document.getElementById('showActivityBtn').addEventListener('click', function() {
     // Get the selected month value
@@ -631,6 +633,10 @@ document.getElementById('showActivityBtn').addEventListener('click', function() 
                 document.getElementById('totalOverall').innerText = responseData.totalOverall;
 
                 // Update charts with the received data
+                console.log("Updating line chart with labels:", responseData.weeklyLabels);
+                console.log("Updating line chart with data:", responseData.totalFootprintData);
+                console.log("Updating donut chart with data:", responseData.carbonFootprintData);
+
                 updateLineChart(responseData.weeklyLabels, responseData.totalFootprintData);
                 updateDonutChart(responseData.carbonFootprintData);
             } else {
@@ -644,8 +650,11 @@ document.getElementById('showActivityBtn').addEventListener('click', function() 
     xhr.open('GET', 'fetch_history.php?month=' + selectedMonth, true);
     xhr.send();
 });
+</script>
 
-// Function to update the line chart with new data
+
+<script>
+//Function to update the line chart with new data
 function updateLineChart(labels, data) {
     console.log("Updating line chart with data:", labels, data); // Log updated data
     lineChart.data.labels = labels;
@@ -653,14 +662,14 @@ function updateLineChart(labels, data) {
     lineChart.update();
 }
 
-// Function to update the donut chart with new data
+//Function to update the donut chart with new data
 function updateDonutChart(data) {
     console.log("Updating donut chart with data:", data); // Log updated data
     donutChart.data.datasets[0].data = [data.transport, data.food, data.energy];
     donutChart.update();
 }
 
-</script>
+</script> -->
 
 
 </body>
