@@ -830,8 +830,29 @@ img#badgeImage {
                                 },
                         },
                         scales: {
-
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Week',
+                                    color:'#013220',
+                                    font: {
+                                        size: 14,
+                                        weight: 'bold'
+                            
+                                    }
+                                }
+                            },
+                            
                                 y: {
+                                    title: {
+                                        display: true,
+                                        text: 'Total Carbon Footprint',
+                                        color: '#013220',
+                                        font: {
+                                            size: 14,
+                                            weight: 'bold'
+                                        }
+                                    },
                                     beginAtZero: true,
                                     stepSize: 10,
                                     suggestedMin: 0,
